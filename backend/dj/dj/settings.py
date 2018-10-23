@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # enable cors header
+    # enable cors header - install with pip if you don't have it
     'corsheaders',
-    # enable rest framework
+    # enable rest framework - install with pip if you don't have it
     'rest_framework',
     # enable main
     'main',
@@ -79,6 +79,9 @@ WSGI_APPLICATION = 'dj.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
+# db engine is now postgresql, for it to work on your machine
+# set up a postgres server and db according to following config
 
 DATABASES = {
     'default': {
