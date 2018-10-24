@@ -7,5 +7,5 @@ These packages now include:
 * markdown
 * django-filter
 * django-cors-headers
-# External package for frontend is already included
-Still make sure you know how to use them correctly
+# External package for frontend is NOT included
+install them with npm install <packagename> --save in the correct directory, in which you can see package.json
