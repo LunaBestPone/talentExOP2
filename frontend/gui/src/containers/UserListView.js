@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import User from '../components/User';
 
+import { List } from 'antd';
+
 class UserList extends React.Component{
 
   state = {
@@ -20,7 +22,15 @@ class UserList extends React.Component{
 
   render() {
     return (
-      <User data = {this.state.users} />
+      <List
+        grid={{ gutter: 16, column: 4 }}
+        dataSource={this.state.users}
+        renderItem={item => (
+          <List.Item>
+            <User user_name = {item.user_name} email = {item.email} isDetail = {false} />
+          </List.Item>
+        )}
+      />
     )
   }
 }
