@@ -9,3 +9,13 @@ These packages now include:
 * django-cors-headers
 # External package for frontend is already included
 Still make sure you know how to use them correctly
+
+# Installations needed:
+Front end:
+in the command line, go to the gui directory
+npm install
+npm install axios
+npm install --save react-router-dom
+npm install antd --save
+
+I think this is all for npm in frontend
