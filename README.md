@@ -20,7 +20,8 @@ npm install --save react-router-dom
 npm install antd --save
 
 I think this is all for npm in frontend
-=======
+
+
 # External package for frontend is NOT included
 install them with npm install <packagename> --save in the correct directory, in which you can see package.json
 >>>>>>> 739542d9f6196d53ace458dd5d44e19bb09c1631
