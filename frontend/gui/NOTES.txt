@@ -1,0 +1,10 @@
+** IN PACKAGE.JSON **
+
+following data could be found under "scripts"
+"dev": "react-scripts start",
+"start": "react-scripts start", 
+** When running locally use "start"
+   Running on Heroku Server change start to "dev"
+** Heroku starts with react-scripts would fail to understand react-route
+   When changed to dev, it would automatically figure out start scripts
+   This could be changed in future by setting up the server-side (node.js)

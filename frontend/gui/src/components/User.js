@@ -2,7 +2,8 @@ import React from 'react';
 import { Card } from 'antd';
 
 const User = (props) => {
-  if (props.isDetail) {
+
+  // if (props.isDetail) {
     return (
       <Card title={props.user_name}>
         <div className = 'email'>
@@ -20,16 +21,16 @@ const User = (props) => {
       </Card>
     );
   }
-  else {
-    const user_name = props.user_name;
-    return (
-      <Card title={<a href={'/' + user_name}>{props.user_name}</a>}>
-        <div className = 'email'>
-          Email: {props.email}
-        </div>
-      </Card>
-    );
-  }
-}
+//   else {
+//     const user_name = props.user_name;
+//     return (
+//       <Card  title={<a href={'/' + user_name}>{props.user_name}</a>}>
+//         <div className = 'email'>
+//           Email: {props.email}
+//         </div>
+//       </Card>
+//     );
+//   }
+// }
 
 export default User;

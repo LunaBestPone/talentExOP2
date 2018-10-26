@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import { Card } from 'antd';
 import User from '../components/User';
 
 class UserDetail extends React.Component{
@@ -21,13 +21,20 @@ class UserDetail extends React.Component{
 
   render() {
     return (
-      <User
-        user_name = {this.state.user.user_name}
-        email = {this.state.user.email}
-        age = {this.state.user.age}
-        user_rating = {this.state.user.user_rating}
-        learning_credit = {this.state.user.learning_credit}
-        isDetail = {true} />
+      <Card title={this.state.user.user_name}>
+        <div className = 'email'>
+          Email: {this.state.user.email}
+        </div>
+        <div className = 'age'>
+          Age: {this.state.user.age}
+        </div>
+        <div className = 'user_rating'>
+          User Rating: {this.state.user.user_rating}
+        </div>
+        <div className = 'learning_credit'>
+          Learning Credit: {this.state.user.learning_credit}
+        </div>
+      </Card>
     )
   }
 }

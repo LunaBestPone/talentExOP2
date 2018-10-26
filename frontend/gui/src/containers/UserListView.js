@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import User from '../components/User';
-
+import UserSimple from '../containers/UserSimplerView';
 import { List } from 'antd';
 
 class UserList extends React.Component{
@@ -22,15 +22,19 @@ class UserList extends React.Component{
 
   render() {
     return (
+      <div>
+      <div>
       <List
         grid={{ gutter: 16, column: 4 }}
         dataSource={this.state.users}
         renderItem={item => (
           <List.Item>
-            <User user_name = {item.user_name} email = {item.email} isDetail = {false} />
+            <UserSimple user_name = {item.user_name} email = {item.email} />
           </List.Item>
         )}
       />
+      </div>
+      <div>Hi</div></div>
     )
   }
 }
