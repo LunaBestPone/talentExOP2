@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Link } from  'react-router-dom';
 
-import UserList from './containers/UserListView';
 import UserDetail from './containers/UserDetailView';
 import Register from './containers/Register';
 import Signup from './containers/Signup';
