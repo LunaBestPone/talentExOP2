@@ -18,7 +18,6 @@ const CustomLayout = (pros) => {
           <Menu.Item key="1"><Link to="/login/">Log in</Link></Menu.Item>
           <Menu.Item key="2"><Link to="/signup/">Sign up</Link></Menu.Item>
           <Menu.Item key="3"><Link to="/about/">About us</Link></Menu.Item>
-          <Menu.Item key="4"><Link to='/register/'>Register</Link></Menu.Item>
         </Menu>
       </Header>
       <Content style={{ padding: '0 50px' }}>
