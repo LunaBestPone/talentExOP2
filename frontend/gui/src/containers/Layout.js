@@ -15,7 +15,17 @@ const CustomLayout = (pros) => {
           defaultSelectedKeys={['2']}
           style={{ lineHeight: '64px', float: 'right' }}
         >
-          <Menu.Item key="1"><Link to="/login/">Log in</Link></Menu.Item>
+
+        {
+          pros.isAuthenticated ?
+          <Menu.Item key="1">
+            Logout
+          </Menu.Item>
+          <Menu.Item key="1">
+            <Link to="/login/">Log in</Link>
+          </Menu.Item>
+        }
+
           <Menu.Item key="2"><Link to="/signup/">Sign up</Link></Menu.Item>
           <Menu.Item key="3"><Link to="/about/">About us</Link></Menu.Item>
         </Menu>

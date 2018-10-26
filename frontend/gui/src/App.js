@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import BaseRouter from './routes';
 import {BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
+import * as actions from './store/actions/auth';
 
 import CustomLayout from './containers/Layout';
 import Login from './Login';
@@ -16,11 +18,15 @@ class App extends Component {
   //   loggedIn: false
   // }
 
+  componentDidMount() {
+    this.props.onTryAutoSignup();
+  }
+
   render() {
     return (
       <Fragment>
         <Router>
-          <CustomLayout>
+          <CustomLayout {...this.pros}>
             <BaseRouter />
           </CustomLayout>
         </Router>
@@ -30,7 +36,7 @@ class App extends Component {
               <h1 className="App-title">Talent Exchange and Meetup</h1>
             </header>
           <div className="filters">
-            
+
             <div className="selected">
               <p>Selected</p>
             </div>
@@ -50,14 +56,14 @@ class App extends Component {
             <Link to={{pathname: "/sign"}} className="link">Sign Up</Link>
             <Link to={{pathname: "/login"}} className="link">Log In</Link>
           </div>
-          
+
           <Route path = "/home" exact render = {
             () => {
               // TODO: Visualize My workshop lists if logged in, else just most recent workshop lists
               return (
                 <Home />
               )
-            } 
+            }
           }/>
           <Route path = "/help" exact render = {
             () => {
@@ -65,7 +71,7 @@ class App extends Component {
               return (
                 <Help />
               )
-            } 
+            }
           }/>
           <Route path = "/sign" exact render = {
             () => {
@@ -73,7 +79,7 @@ class App extends Component {
               return (
                 <Sign />
               )
-            } 
+            }
           }/>
           <Route path = "/login" exact render = {
             () => {
@@ -81,13 +87,24 @@ class App extends Component {
               return(
                 <Login />
               )
-            } 
+            }
           }/>
           </div>
         </Router> */}
       </Fragment>
     );
   }
+  mapStateToProps = state => {
+    return {
+      isAuthenticated: state.token !== null;
+    }
+  }
+
+  const mapDispatchToProps = dispatch => {
+    return {
+      onTryAutoSignup: () => dispatch(action.authCheckState())
+    }
+  }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
