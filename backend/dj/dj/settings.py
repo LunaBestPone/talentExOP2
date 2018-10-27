@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     # enable main
     'main',
     # enable rest auth
-    'rest_framework.token',
+    'rest_framework.authtoken',
     'rest_auth',
 ]
 
