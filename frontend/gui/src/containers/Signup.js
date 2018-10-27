@@ -54,7 +54,7 @@ class RegistrationForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        
+
         <FormItem>
             {getFieldDecorator('userName', {
                 rules: [{ required: true, message: 'Please input your username!' }],
@@ -62,7 +62,7 @@ class RegistrationForm extends React.Component {
                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
             )}
         </FormItem>
-        
+
         <FormItem>
           {getFieldDecorator('email', {
             rules: [{
@@ -103,13 +103,13 @@ class RegistrationForm extends React.Component {
         <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>
             Signup
         </Button>
-        
-        <NavLink 
-            style={{marginRight: '10px'}} 
-            to='/login/'> login
+
+        <NavLink
+            style={{marginRight: '10px'}}
+            to='/login/'> Login
         </NavLink>
-        <NavLink 
-            style={{marginRight: '10px'}} 
+        <NavLink
+            style={{marginRight: '10px'}}
             to='/home/'> Cancel
         </NavLink>
         </FormItem>
@@ -130,7 +130,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (username, email, password1, password2) => dispatch(actions.authSignup(username, email, password1, password2)) 
+        onAuth: (username, email, password1, password2) => dispatch(actions.authSignup(username, email, password1, password2))
     }
 }
 
