@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Fragment>
         <Router>
-          <CustomLayout {...this.pros}>
+          <CustomLayout {...this.props}>
             <BaseRouter />
           </CustomLayout>
         </Router>
