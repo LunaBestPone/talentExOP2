@@ -41,15 +41,15 @@ INSTALLED_APPS = [
     'corsheaders',
     # enable rest framework - install with pip if you don't have it
     'rest_framework',
+    'rest_framework.authtoken',
     # enable main
     'main',
     # enable rest auth
-    'rest_framework.authtoken',
     'rest_auth',
+    'rest_auth.registration',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'rest_auth.registration',
     'allauth.socialaccount',
 ]
 
@@ -129,7 +129,8 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny'
     ]
 }
 
@@ -153,3 +154,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTIFICATION_METHOD = 'username'
+ACCOUNT_EMAIL_REQUIRED = False
