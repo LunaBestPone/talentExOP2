@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 ]
 
+AUTH_USER_MODEL = 'main.User'
 SITE_ID = 1
 
 MIDDLEWARE = [
