@@ -46,7 +46,14 @@ INSTALLED_APPS = [
     # enable rest auth
     'rest_framework.authtoken',
     'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
