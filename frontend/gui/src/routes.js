@@ -8,7 +8,7 @@ import Login from './containers/Login';
 
 const BaseRouter = () => (
   <div>
-    <Route exact path='/:user_name/' component={UserDetail} />
+    <Route exact path='/user/:user_name/' component={UserDetail} />
     <Route exact path='/login/' component={Login} />
     <Route exact path='/register/' component={Register} />
     <Route exact strict path='/signup/' component={Signup} />
