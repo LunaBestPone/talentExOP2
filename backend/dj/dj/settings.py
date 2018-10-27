@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'rest_framework',
     # enable main
     'main',
+    # enable rest auth
+    'rest_framework.token',
+    'rest_auth',
 ]
 
 MIDDLEWARE = [
