@@ -20,18 +20,19 @@ class CustomLayout extends React.Component {
           >
             {
             this.props.isAuthenticated ?
-            <Menu.Item key="1" onClick ={this.props.logout}>Logout</Menu.Item>
+            <Menu.Item key="1" onClick ={this.props.logout}>Hi! </Menu.Item>
             :
             <Menu.Item key="1"><Link to="/login/">Log in</Link></Menu.Item>
             }
 
             <Menu.Item key="2"><Link to="/signup/">Sign up</Link></Menu.Item>
-            <Menu.Item key="3"><Link to="/about/">About us</Link></Menu.Item>
+            <Menu.Item key="3"><Link to="/">Workshop</Link></Menu.Item>
+            <Menu.Item key="4"><Link to="/about/">About us</Link></Menu.Item>
           </Menu>
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item><Link to='/home'>Home(ConstView)</Link></Breadcrumb.Item>
+            <Breadcrumb.Item><Link to='/home'>Workshop View</Link></Breadcrumb.Item>
           </Breadcrumb>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
             {this.props.children}
