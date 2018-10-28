@@ -21,7 +21,7 @@ class Workshop(models.Model):
     start_date_time = models.DateTimeField(default = timezone.now)
     end_date_time = models.DateTimeField(default = timezone.now)
 
-class Enrollment(models.Model)
+class Enrollment(models.Model):
     ws_id = models.ForeignKey(Workshop, on_delete = models.DELETE)
     enrolled_user = models.ForeignKey(User, on_delete = models.DELETE)
     enroll_date_time = models.DateTimeField(default = timezone.now)
