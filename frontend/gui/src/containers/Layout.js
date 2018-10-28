@@ -7,6 +7,18 @@ import { Link, withRouter } from 'react-router-dom';
 const { Header, Content, Footer } = Layout;
 
 class CustomLayout extends React.Component {
+  state = {
+    page_name: "Home"
+  }
+  updatePage(pageName){
+    this.setState({
+      page_name: pageName
+    })
+  }
+  HandleLogoutAndUpdatePage(pageName){
+    //  this.props.logout,
+    this.updatePage(pageName)
+  }
   render() {
     return (
       <Layout className="layout">
@@ -20,19 +32,19 @@ class CustomLayout extends React.Component {
           >
             {
             this.props.isAuthenticated ?
-            <Menu.Item key="1" onClick ={this.props.logout}>Hi! </Menu.Item>
+            <Menu.Item key="1" onClick = {this.props.logout} >Logout</Menu.Item>
             :
-            <Menu.Item key="1"><Link to="/login/">Log in</Link></Menu.Item>
+            <Menu.Item key="1" onClick = {() => this.updatePage("Log In")}><Link to="/login/">Log in</Link></Menu.Item>
             }
 
-            <Menu.Item key="2"><Link to="/signup/">Sign up</Link></Menu.Item>
-            <Menu.Item key="3"><Link to="/">Workshop</Link></Menu.Item>
-            <Menu.Item key="4"><Link to="/about/">About us</Link></Menu.Item>
+            <Menu.Item key="2" onClick = {() => this.updatePage("Sign Up")}><Link to="/signup/">Sign up</Link></Menu.Item>
+            <Menu.Item key="3" onClick = {() => this.updatePage("Workshop List")}><Link to="/">Workshop</Link></Menu.Item>
+            <Menu.Item key="4" onClick = {() => this.updatePage("About Us")}><Link to="/about/">About us</Link></Menu.Item>
           </Menu>
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item><Link to='/home'>Workshop View</Link></Breadcrumb.Item>
+            <Breadcrumb.Item><Link to='/home'>{this.state.page_name}</Link></Breadcrumb.Item>
           </Breadcrumb>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
             {this.props.children}
