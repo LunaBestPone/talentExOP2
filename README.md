@@ -9,10 +9,10 @@ These packages now include:
 * django-filter
 * django-cors-headers
 
-***Extra packages now needed for user authentification, please install!
+***Extra packages now needed for user authentification, please install!***
 * django-allauth
 * django-rest-auth
-* other packages might be needed for the future, but that's all for now***
+* other packages might be needed for the future, but that's all for now
 
 
 # NPM packages you need to install yourself
