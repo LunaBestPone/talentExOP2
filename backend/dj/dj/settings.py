@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+AUTH_USER_MODEL = main.User
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
