@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-import django.utils import timezone
+from django.utils import timezone
 
 class User(AbstractUser):
     age = models.IntegerField(null=True)
