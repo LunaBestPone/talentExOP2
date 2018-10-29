@@ -28,7 +28,7 @@ class WorkshopDetail extends React.Component{
   render() {
     return (
       <List
-        grid={{ gutter: 16, column: 4 }}
+        grid={{ gutter: 16, column: 1 }}
           dataSource={this.state.workshops}
           renderItem={item => (
             <List.Item>
