@@ -2,7 +2,7 @@ import React from 'react';
 import { Card } from 'antd';
 
 const Workshop = (props) => {
-  if (props.isDetail) {
+  if (props.is_detailed) {
     return (
       <Card title={props.ws_name}>
         <div className = 'ws_id'>
@@ -35,9 +35,9 @@ const Workshop = (props) => {
       </Card>
     )
   } else {
-    let ws_name = props.ws_name;
+    let ws_id = props.ws_id;
     return (
-    <Card title={<a href={'/' + ws_name}>{props.ws_name}</a>}>
+    <Card title={<a href={'/workshop/detail/' + ws_id}>{props.ws_name}</a>}>
       <div className = 'description'>
         Description: {props.description}
       </div>
