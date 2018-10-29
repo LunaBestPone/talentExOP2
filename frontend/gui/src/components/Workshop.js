@@ -35,8 +35,9 @@ const Workshop = (props) => {
       </Card>
     )
   } else {
+    let ws_name = props.ws_name;
     return (
-    <Card title={props.ws_name}>
+    <Card title={<a href={'/' + ws_name}>props.ws_name}</a>}>
       <div className = 'description'>
         Description: {props.description}
       </div>
