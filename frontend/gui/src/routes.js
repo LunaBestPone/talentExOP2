@@ -6,7 +6,7 @@ import UserDetail from './containers/UserDetailView';
 import Create from './containers/Create';
 import Signup from './containers/Signup';
 import Login from './containers/Login';
-import WorkshopListView from './containers/WorkshopListView'
+import WorkshopDetail from './containers/WorkshopListView'
 
 const BaseRouter = () => (
   <div>
@@ -14,7 +14,7 @@ const BaseRouter = () => (
     TODO: <Route exact path='/' component={WorkshopList} />
     */}
     <Route exact path='/user/:user_name/' component={UserDetail} />
-    <Route exact path='/' component={WorkshopListView} />
+    <Route exact path='/workshop/' component={WorkshopDetail} />
     <Route exact path='/login/' component={Login} />
     <Route exact path='/createws/' component={Create} />
     <Route exact strict path='/signup/' component={Signup} />

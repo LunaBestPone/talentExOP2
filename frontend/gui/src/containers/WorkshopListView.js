@@ -8,35 +8,47 @@ import axios from 'axios';
 
 import Workshop from '../components/Workshop';
 
-class UserDetail extends React.Component{
+import { List } from 'antd';
+
+class WorkshopDetail extends React.Component{
 
   state = {
-    workshop: {}
+    workshops: {}
   }
-// axios url parameter is broken somehow
+
   componentDidMount() {
-    axios.get('http://127.0.0.1:8000/api/workshop')
+    let workshop_name = this.props.match.params.ws_name;
+    axios.get('http://127.0.0.1:8000/api/workshop/')
       .then(res => {
         this.setState({
-            workshop: res.data
+            workshops: res.data
         });
       })
   }
   render() {
     return (
-      <Workshop
-        ws_id = {this.state.ws.ws_id}
-        ws_name = {this.state.ws.ws_name}
-        host_user = {this.state.ws.host_user}
-        min_cap = {this.state.ws.min_cap}
-        max_cap = {this.state.ws.max_cap}
-        is_active = {this.state.ws.is_active}
-        description = {this.state.ws.description}
-        start_date = {this.state.ws.start_date}
-        end_date = {this.state.ws.end_date}
-        is_detailed = {false} />
+      <List
+        grid={{ gutter: 16, column: 4 }}
+          dataSource={this.state.workshops}
+          renderItem={item => (
+            <List.Item>
+              <Workshop
+                ws_id = {item.ws_id}
+                ws_name = {item.ws_name}
+                host_user = {item.host_user}
+                min_cap = {item.min_cap}
+                max_cap = {item.max_cap}
+                is_active = {item.is_active}
+                description = {item.description}
+                start_date = {item.start_date}
+                end_date = {item.end_date}
+                is_detailed = {false} />
+            </List.Item>
+          )}
+        />
+      
     )
   }
 }
 
-export default Workshop;
+export default WorkshopDetail;

@@ -8,7 +8,8 @@ const { Header, Content, Footer } = Layout;
 
 class CustomLayout extends React.Component {
   state = {
-    page_name: "Home"
+    page_name: "Home",
+    userName: 'default'
   }
   updatePage(pageName){
     this.setState({
@@ -19,6 +20,11 @@ class CustomLayout extends React.Component {
     //  this.props.logout,
     this.updatePage(pageName)
   }
+  // UpdateUserName(user){
+  //   this.setState({
+  //     userName: user
+  //   })
+  // }
   render() {
     return (
       <Layout className="layout">
@@ -38,7 +44,7 @@ class CustomLayout extends React.Component {
             }
 
             <Menu.Item key="2" onClick = {() => this.updatePage("Sign Up")}><Link to="/signup/">Sign up</Link></Menu.Item>
-            <Menu.Item key="3" onClick = {() => this.updatePage("Workshop List")}><Link to="/">Workshop</Link></Menu.Item>
+            <Menu.Item key="3" onClick = {() => this.updatePage("Workshop List")}><Link to="/workshop/">Workshop</Link></Menu.Item>
             <Menu.Item key="4" onClick = {() => this.updatePage("About Us")}><Link to="/about/">About us</Link></Menu.Item>
           </Menu>
         </Header>
