@@ -8,6 +8,9 @@ These packages now include:
 * markdown
 * django-filter
 * django-cors-headers
+* django-allauth
+* django-rest-auth
+
 # NPM packages you need to install yourself
 Make sure you are in frontend/gui/ directory (```ls``` then you'll see ```package.json```)
 Then run following:
