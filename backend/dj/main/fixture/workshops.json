@@ -1,0 +1,17 @@
+[
+    {
+      "model": "main.Workshop",
+      "fields": {
+        "ws_id": 1,
+        "ws_name": "Testing",
+        "min_cap": 2,
+        "max_cap": 1024,
+        "is_active": true,
+        "description": "This is a testing workshop",
+        "start_date_time" : "2018-05-30 10:13:00",
+        "end_date_time" : "2018-10-30 10:13:00",
+        "host_user_id" : 1
+      }
+    }
+]
+
