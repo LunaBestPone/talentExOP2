@@ -10,6 +10,7 @@ These packages now include:
 * django-cors-headers
 * django-allauth
 * django-rest-auth
+* psycopg2
 
 # NPM packages you need to install yourself
 Make sure you are in frontend/gui/ directory (```ls``` then you'll see ```package.json```)
