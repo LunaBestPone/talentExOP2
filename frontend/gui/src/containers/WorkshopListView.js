@@ -40,8 +40,8 @@ class WorkshopDetail extends React.Component{
                 max_cap = {item.max_cap}
                 is_active = {item.is_active}
                 description = {item.description}
-                start_date = {item.start_date}
-                end_date = {item.end_date}
+                start_date_time = {item.start_date_time}
+                end_date_time = {item.end_date_time}
                 is_detailed = {false} />
             </List.Item>
           )}
