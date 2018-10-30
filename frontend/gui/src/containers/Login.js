@@ -4,6 +4,7 @@ import { Form, Icon, Input, Button, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../store/actions/auth';
+import * as actionTypes from '../store/actions/actionTypes';
 
 const FormItem = Form.Item;
 
@@ -12,7 +13,7 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onAuth(values.userName, values.password);
+        this.props.onAuth(values.userName, values.password);  
       }
     });
     this.props.history.push('/workshop/');
@@ -22,7 +23,7 @@ class NormalLoginForm extends React.Component {
     let errorMessage = null;
     if (this.props.error) {
       errorMessage = (
-        <p>{this.props.error.message}</p>
+        <p>The provided username and password did not match</p>
       );
     }
     const { getFieldDecorator } = this.props.form;
@@ -52,7 +53,6 @@ class NormalLoginForm extends React.Component {
 
             <FormItem>
               <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>Login</Button>
-              Or
               <NavLink style={{marginRight: '10px'}} to='/signup/'> Sign Up
               </NavLink>
             </FormItem>

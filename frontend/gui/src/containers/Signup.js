@@ -110,7 +110,7 @@ class RegistrationForm extends React.Component {
         </NavLink>
         <NavLink
             style={{marginRight: '10px'}}
-            to='/home/'> Cancel
+            to='/workshop/'> Cancel
         </NavLink>
         </FormItem>
 
