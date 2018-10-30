@@ -15,7 +15,7 @@ const BaseRouter = () => (
     {/*
     TODO: <Route exact path='/' component={WorkshopList} />
     */}
-    <Route exact path='/user/:user_name/' component={UserDetail} />
+    <Route exact path='/user/:user_pk/' component={UserDetail} />
     <Route exact path='/workshop/' component={WorkshopList} />
     <Route exact path='/workshop/detail/:ws_id/' component={WorkshopDetail} />
     <Route exact path='/login/' component={Login} />
