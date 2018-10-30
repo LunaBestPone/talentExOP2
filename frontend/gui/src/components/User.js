@@ -5,7 +5,7 @@ const User = (props) => {
   return (
     <Card title={props.user_name}>
       <div className = 'email'>
-        Email: {props.email}
+        <b>Email</b>: {props.email}
       </div>
       <div className = 'age'>
         Age: {props.age}

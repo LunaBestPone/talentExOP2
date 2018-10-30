@@ -27,26 +27,29 @@ class WorkshopDetail extends React.Component{
   }
   render() {
     return (
-      <List
-        grid={{ gutter: 16, column: 1 }}
-          dataSource={this.state.workshops}
-          renderItem={item => (
-            <List.Item>
-              <Workshop
-                ws_id = {item.ws_id}
-                ws_name = {item.ws_name}
-                host_user = {item.host_user}
-                min_cap = {item.min_cap}
-                max_cap = {item.max_cap}
-                is_active = {item.is_active}
-                description = {item.description}
-                start_date_time = {item.start_date_time}
-                end_date_time = {item.end_date_time}
-                is_detailed = {false} />
-            </List.Item>
-          )}
-        />
-      
+      <div>
+        <h1>Workshop Lists</h1>
+        <List
+          style={{width:'40%', right: '-30%'}}
+          grid={{ gutter: 16, column: 1 }}
+            dataSource={this.state.workshops}
+            renderItem={item => (
+              <List.Item>
+                <Workshop
+                  ws_id = {item.ws_id}
+                  ws_name = {item.ws_name}
+                  host_user = {item.host_user}
+                  min_cap = {item.min_cap}
+                  max_cap = {item.max_cap}
+                  is_active = {item.is_active}
+                  description = {item.description}
+                  start_date_time = {item.start_date_time}
+                  end_date_time = {item.end_date_time}
+                  is_detailed = {false} />
+              </List.Item>
+            )}
+          />
+      </div>
     )
   }
 }
