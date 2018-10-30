@@ -8,6 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class WorkshopSerializer(serializers.ModelSerializer):
+    start_date_time = serializers.DateTimeField(read_only=True, format="%Y-%m-%d at %H:%M")
+    end_date_time = serializers.DateTimeField(read_only=True, format="%Y-%m-%d at %H:%M")
     class Meta:
         model = Workshop
         fields = '__all__'
