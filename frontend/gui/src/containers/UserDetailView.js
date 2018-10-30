@@ -10,8 +10,8 @@ class UserDetail extends React.Component{
   }
 // axios url parameter is broken somehow
   componentDidMount() {
-    const user_name = this.props.match.params.user_name;
-    axios.get('http://127.0.0.1:8000/api/' + user_name)
+    const user_pk = this.props.match.params.user_pk;
+    axios.get('http://127.0.0.1:8000/api/user/' + user_pk)
       .then(res => {
         this.setState({
             user: res.data
@@ -22,7 +22,7 @@ class UserDetail extends React.Component{
   render() {
     return (
       <User
-        user_name = {this.state.user.user_name}
+        user_name = {this.state.user.username}
         email = {this.state.user.email}
         age = {this.state.user.age}
         user_rating = {this.state.user.user_rating}
