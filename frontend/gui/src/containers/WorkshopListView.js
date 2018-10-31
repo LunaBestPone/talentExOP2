@@ -10,7 +10,7 @@ import Workshop from '../components/Workshop';
 
 import { List } from 'antd';
 
-class WorkshopDetail extends React.Component{
+class WorkshopListView extends React.Component{
 
   state = {
     workshops: {}
@@ -54,4 +54,4 @@ class WorkshopDetail extends React.Component{
   }
 }
 
-export default WorkshopDetail;
+export default WorkshopListView;
