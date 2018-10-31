@@ -8,13 +8,41 @@ import axios from 'axios';
 
 // import Workshop from '../components/Workshop';
 
-import { Card } from 'antd';
+import { Card, Icon } from 'antd';
+
+const closeStyle = {
+  position: 'fixed',
+  top: 160,
+  right: 95
+}
 
 class WorkshopDetail extends React.Component{
 
   state = {
-    workshops: {}
+    workshops: {},
+    registered: false,
+    wishlist: false
   }
+
+  onWishlistClick = (e) => {
+    if(this.state.wishlist == false){
+      this.setState({
+        wishlist: true
+      })
+      window.alert("This workshop is added to your wishlist!")
+    }
+  }
+
+  onRegisterClick = (e) => {
+    if(this.state.registered == false){
+      this.setState({
+        registered: true
+      })
+      window.alert("This workshop is added to your schedule!")
+    }
+  }
+
+
 
   componentDidMount() {
     let workshop_id = this.props.match.params.ws_id;
@@ -54,9 +82,24 @@ class WorkshopDetail extends React.Component{
         </div>
         <div className = 'end_date_time'>
           End Date: {this.state.workshops.end_date_time}
+        </div><br></br>
+        <div style = {{float: 'left'}}>
+          <button onClick={(e) => {this.onWishlistClick(e)}}>
+            Add to wishlist
+          </button>
+        </div>
+        <div style = {{float: 'right'}}>
+          <button onClick={(e) => {this.onRegisterClick(e)}}>
+            Register
+          </button>
+        </div>
+        <div style = {closeStyle}>
+          <a href={'/workshop/'}>
+            <Icon type="close" theme="outlined" />
+          </a>
         </div>
       </Card>
-      
+
     )
   }
 }
