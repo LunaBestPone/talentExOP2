@@ -5,16 +5,38 @@
 
 import React from 'react';
 import axios from 'axios';
+import { Card, Icon } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 import Workshop from '../components/Workshop';
 
 import { List } from 'antd';
+
+
+const stylebutton = {
+  position: 'fixed',
+  top: 160,
+  right: 100
+}
 
 class WorkshopListView extends React.Component{
 
   state = {
     workshops: {}
   }
+
+
+
+  onRegisterClick = (e) => {
+    if(this.state.registered == false){
+      this.setState({
+        registered: true
+      })
+      window.alert("This workshop is added to your schedule!")
+    }
+  }
+
+
 
   componentDidMount() {
     let workshop_name = this.props.match.params.ws_name;
@@ -29,6 +51,14 @@ class WorkshopListView extends React.Component{
     return (
       <div>
         <h1>Workshop Lists</h1>
+        <div style = {stylebutton}>
+        <NavLink to="/createws/">
+          <button onClick={(e) => {this.onRegisterClick(e)}}>
+            <Icon type="plus" theme="outlined" />
+               Create Workshop
+          </button>
+        </NavLink>
+        </div>
         <List
           style={{width:'40%', right: '-30%'}}
           grid={{ gutter: 16, column: 1 }}
@@ -46,6 +76,7 @@ class WorkshopListView extends React.Component{
                   start_date_time = {item.start_date_time}
                   end_date_time = {item.end_date_time}
                   is_detailed = {false} />
+
               </List.Item>
             )}
           />
