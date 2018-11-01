@@ -20,6 +20,7 @@ class WorkshopDetail extends React.Component{
 
   state = {
     workshops: {},
+    host:{},
     registered: false,
     wishlist: false
   }
@@ -42,17 +43,23 @@ class WorkshopDetail extends React.Component{
     }
   }
 
-
-
   componentDidMount() {
     let workshop_id = this.props.match.params.ws_id;
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
       .then(res => {
         this.setState({
-            workshops: res.data
-        });
+            workshops: res.data}, function(){
+              let user_id = this.state.workshops.host_user;
+              axios.get('http://127.0.0.1:8000/api/user/' + user_id)
+                .then(res => {
+                  this.setState({
+                      host: res.data
+                  });
+                })
+              })
       })
   }
+
   render() {
     return (
         <Card title={this.state.workshops.ws_name}>
@@ -63,7 +70,7 @@ class WorkshopDetail extends React.Component{
           Workshop Name: {this.state.workshops.ws_name}
         </div>
         <div className = 'host_user'>
-          Host: {this.state.workshops.host_user}
+          Host: {this.state.host.username}
         </div>
         <div className = 'min_cap'>
           Minimum Capacity: {this.state.workshops.min_cap}
