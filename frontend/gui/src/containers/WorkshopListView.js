@@ -22,7 +22,7 @@ const stylebutton = {
 class WorkshopListView extends React.Component{
 
   state = {
-    workshops: []
+    workshops: {}
   }
 
 
