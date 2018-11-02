@@ -47,17 +47,19 @@ class Registration extends React.Component {
             {getFieldDecorator('Workshopname', {
                 rules: [{ required: true, message: 'Please input your Workship Name!' }],
             })(
-                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Workshop Name" />
+              <Input type="text" />
             )}
         </FormItem>
 
-        <FormItem>
+        <FormItem
+        {...formItemLayout}
+        label="Subject: ">
           {getFieldDecorator('subject', {
             rules: [{
               required: true, message: 'Please select the subjects you like to teach!',
             }],
           })(
-              <Select style = {{ width: 500}}>
+              <Select style = {{ width: 300}}>
                   <Option value= "math.calc">Calculus I</Option>
                   <Option value= "math.linAlg">Linear Algebra</Option>
                   <Option value= "language">Language</Option>
@@ -65,24 +67,28 @@ class Registration extends React.Component {
           )}
         </FormItem>
 
-        <FormItem>
+        <FormItem
+        {...formItemLayout}
+        label="Date: ">
           {getFieldDecorator('date', {
             rules: [{
               required: true, message: 'Please select the date!',
             }],
           })(
-            <Input type="date" placeholder="Date" />
+            <Input style = {{ width: 300}} type="date" placeholder="Date" />
           )}
         </FormItem>
 
-        <FormItem>
+        <FormItem
+        {...formItemLayout}
+        label="Start Time: ">
           {getFieldDecorator('starttime', {
             rules: [{
               required: true, message: 'Please select the time of day!',
             }],
           })(
 
-          <Select style = {{ width: 500}}>
+          <Select style = {{ width: 300}}>
               <Option value="1a">1am</Option>
               <Option value="2a">2am</Option>
               <Option value="3a">3am</Option>
@@ -111,14 +117,16 @@ class Registration extends React.Component {
           )}
         </FormItem>
 
-        <FormItem>
+        <FormItem
+        {...formItemLayout}
+        label="End Time: ">
           {getFieldDecorator('endtime', {
             rules: [{
               required: true, message: 'Please select the time of day!',
             }],
           })(
 
-          <Select style = {{ width: 500}} > 
+          <Select style = {{ width: 300}} > 
               <Option value="1a">1am</Option>
               <Option value="2a">2am</Option>
               <Option value="3a">3am</Option>
@@ -147,33 +155,39 @@ class Registration extends React.Component {
           )}
         </FormItem>
 
-        <FormItem>
+        <FormItem
+        {...formItemLayout}
+        label="Description: ">
           {getFieldDecorator('description', {
             rules: [{
               required: false, message: 'Add a description for the Workshop',
             }],
           })(
-            <Input type="text" placeholder="Desctiption" />
+            <Input type="text" />
           )}
         </FormItem>
 
-        <FormItem>
+        <FormItem
+        {...formItemLayout}
+        label="Minimum Attendees: ">
           {getFieldDecorator('minAttendees', {
             rules: [{
               required: false, message: 'Please select the minimum amount of attendees!',
             }],
           })(
-            <Input type="number" placeholder="Minimum Attendees" />
+            <Input type="number"/>
           )}
         </FormItem>
 
-        <FormItem>
+        <FormItem
+        {...formItemLayout}
+        label="Maximum Attendees: ">
           {getFieldDecorator('maxAttendees', {
             rules: [{
               required: false, message: 'Please select the maximum amount of attendees!',
             }],
           })(
-            <Input type="number" placeholder="Maximum Attendees" />
+            <Input type="number"/>
           )}
         </FormItem>
 
