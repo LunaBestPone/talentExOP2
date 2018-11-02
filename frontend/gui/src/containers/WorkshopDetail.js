@@ -22,7 +22,8 @@ class WorkshopDetail extends React.Component{
     workshops: {},
     host:{},
     registered: false,
-    wishlist: false
+    wishlist: false,
+    user_id: 1
   }
 
   onWishlistClick = (e) => {
@@ -36,9 +37,19 @@ class WorkshopDetail extends React.Component{
 
   onRegisterClick = (e) => {
     if(this.state.registered == false){
+      const enrollment = {
+        ws_id: this.state.workshops.ws_id,
+        user_id: this.state.user_id,
+        enroll_date_time: "Friday 11-30-2018 at 10:13 AM"
+      }
       this.setState({
         registered: true
       })
+      axios.post('http://127.0.0.1:8000/api/enrollment/create', enrollment)
+        .then(res => {
+        console.log(res);
+        console.log(res.data);
+        })
       window.alert("This workshop is added to your schedule!")
     }
   }
