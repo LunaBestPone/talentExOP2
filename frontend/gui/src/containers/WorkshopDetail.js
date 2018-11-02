@@ -19,92 +19,82 @@ const closeStyle = {
 class WorkshopDetail extends React.Component{
 
   state = {
-    workshops: {},
+    workshop: {},
     host:{},
-    registered: false,
-    wishlist: false,
-    user_id: 1
+//    wishlist: false,
   }
 
-  onWishlistClick = (e) => {
-    if(this.state.wishlist == false){
-      this.setState({
-        wishlist: true
-      })
-      window.alert("This workshop is added to your wishlist!");
-    }
-  }
+  // onWishlistClick = (e) => {
+  //   if(this.state.wishlist == false){
+  //     this.setState({
+  //       wishlist: true
+  //     })
+  //     window.alert("This workshop is added to your wishlist!");
+  //   }
+  // }
 
   onRegisterClick = (e) => {
-    if(this.state.registered == false){
       var d = new Date();
       this.setState({
         registered: true
       });
       axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
         enroll_date_time: d.toISOString(),
-        ws_id: this.state.workshops.ws_id,
+        ws_id: this.state.workshop.ws_id,
         enrolled_user: this.state.user_id
       })
         .then(res => {
         console.log(res.data);
-      }).catch(err => console.log(err));
-//      window.alert("This workshop is added to your schedule!");
-    }
+        window.alert("This workshop is added to your schedule!");
+      }).catch(err => {
+        console.log(err);
+        window.alert("Oops something went wrong~ Make sure you are logged in. And you can't register for the same workshop twice.");
+      });
   }
 
   componentDidMount() {
     let workshop_id = this.props.match.params.ws_id;
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
       .then(res => {
-        this.setState({
-            workshops: res.data}, function(){
-              let user_id = this.state.workshops.host_user;
-              axios.get('http://127.0.0.1:8000/api/user/' + user_id)
-                .then(res => {
-                  this.setState({
-                      host: res.data
-                  });
-                })
-              })
+        this.setState({workshop: res.data});
+        const user_id = res.data.host_user;
+        axios.get('http://127.0.0.1:8000/api/user/' + user_id)
+          .then(resFuser => this.setState({host: resFuser.data}))
+          .catch(err => console.log(err));
       })
+      .catch(err => console.log(err));
   }
-
   render() {
     return (
-        <Card title={this.state.workshops.ws_name}>
-        <div className = 'ws_id'>
-          Workshop ID: {this.state.workshops.ws_id}
-        </div>
-        <div className = 'ws_name'>
-          Workshop Name: {this.state.workshops.ws_name}
-        </div>
+        <Card title={this.state.workshop.ws_name}>
         <div className = 'host_user'>
           Host: {this.state.host.username}
         </div>
         <div className = 'min_cap'>
-          Minimum Capacity: {this.state.workshops.min_cap}
+          Minimum Capacity: {this.state.workshop.min_cap}
         </div>
         <div className = 'max_cap'>
-          Maximum Capacity: {this.state.workshops.max_cap}
+          Maximum Capacity: {this.state.workshop.max_cap}
         </div>
         <div className = 'is_active'>
-          Active?: {this.state.workshops.is_active}
+          Active?: {this.state.workshop.is_active ? 'Yes' : 'No'}
         </div>
         <div className = 'description'>
-          Description: {this.state.workshops.description}
+          Description: {this.state.workshop.description}
         </div>
         <div className = 'start_date_time'>
-          Start Date: {this.state.workshops.start_date_time}
+          Start Date: {this.state.workshop.start_date_time}
         </div>
         <div className = 'end_date_time'>
-          End Date: {this.state.workshops.end_date_time}
+          End Date: {this.state.workshop.end_date_time}
         </div><br></br>
-        <div style = {{float: 'left'}}>
+        {/*
+         <div style = {{float: 'left'}}>
           <button onClick={(e) => {this.onWishlistClick(e)}}>
-            Add to wishlist
-          </button>
+             Add to wishlist
+           </button>
         </div>
+        */}
         <div style = {{float: 'right'}}>
           <button onClick={(e) => {this.onRegisterClick(e)}}>
             Register
@@ -116,7 +106,6 @@ class WorkshopDetail extends React.Component{
           </a>
         </div>
       </Card>
-
     )
   }
 }
