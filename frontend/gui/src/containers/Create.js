@@ -14,16 +14,13 @@ class Registration extends React.Component {
         this.props.form.validateFields((err, values) => {
         console.log('Received values of form: ', values);
       });
-      axios.post('http://127.0.0.1:8000/workshop', {
+      axios.create('http://127.0.0.1:8000/workshop/create', {
           ws_name: "fd",
-          ws_id: 7,
           min_cap: 6,
           max_cap: 7,
           is_active: true,
-          description: 'd',
-          host_user: 3,
-          start_date_time: "Friday 11-30-2018 at 10:13 AM",
-          end_date_time: "Friday 11-31-2018 at 10:13 AM"
+          description: '123',
+          host_user: '123123',
       }).then(res => {
         console.log(res);
         console.log(res.data);
@@ -32,8 +29,15 @@ class Registration extends React.Component {
     render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
-      labelCol: { span: 3 },
+      labelCol: { span: 4 },
       wrapperCol: { span: 12 },
+    };
+
+    const tailFormItemLayout = {
+      wrapperCol: {
+          span: 4,
+          offset: 4,
+      },
     };
 
     return (
@@ -191,10 +195,18 @@ class Registration extends React.Component {
           )}
         </FormItem>
 
-        <FormItem>
+        <FormItem
+        {...tailFormItemLayout}
+        // {right: '-9.5%'}
+        >
         <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>
             Submit
         </Button>
+        
+        <NavLink
+            style={{marginRight: '10px'}}
+            to='/workshop/'> Cancel
+        </NavLink>
         </FormItem>
 
       </Form>
