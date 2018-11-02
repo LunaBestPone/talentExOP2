@@ -31,26 +31,25 @@ class WorkshopDetail extends React.Component{
       this.setState({
         wishlist: true
       })
-      window.alert("This workshop is added to your wishlist!")
+      window.alert("This workshop is added to your wishlist!");
     }
   }
 
   onRegisterClick = (e) => {
     if(this.state.registered == false){
-      const enrollment = {
-        ws_id: this.state.workshops.ws_id,
-        user_id: this.state.user_id,
-        enroll_date_time: "Friday 11-30-2018 at 10:13 AM"
-      }
+      var d = new Date();
       this.setState({
         registered: true
+      });
+      axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
+        enroll_date_time: d.toISOString(),
+        ws_id: this.state.workshops.ws_id,
+        enrolled_user: this.state.user_id
       })
-      axios.post('http://127.0.0.1:8000/api/enrollment/create', {enrollment})
         .then(res => {
-        console.log(res);
         console.log(res.data);
-        })
-      window.alert("This workshop is added to your schedule!")
+      }).catch(err => console.log(err));
+//      window.alert("This workshop is added to your schedule!");
     }
   }
 
