@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Icon, Button, Select, Dropdown } from 'antd';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../store/actions/auth';
 
@@ -8,36 +9,41 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 
 class Registration extends React.Component {
+
     handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-            console.log('Received values of form: ', values);
-            }
-        });
+        this.props.form.validateFields((err, values) => {
+        console.log('Received values of form: ', values);
+      });
+      axios.post('http://127.0.0.1:8000/workshop', {
+          ws_name: "fd",
+          ws_id: 7,
+          min_cap: 6,
+          max_cap: 7,
+          is_active: true,
+          description: 'd',
+          host_user: 3,
+          start_date_time: "Friday 11-30-2018 at 10:13 AM",
+          end_date_time: "Friday 11-31-2018 at 10:13 AM"
+      }).then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
     }
     render() {
-        const { getFieldDecorator } = this.props.form;
-        const subjectSelector = getFieldDecorator('subject', {
-          initialValue: "Select Subjects",
-        })(
-            <Select style = {{ width: 500}}>
-                <Option value= "math.calc">CalculusI</Option>
-                <Option value= "math.linAlg">Linear Algebra</Option>
-            </Select>
-        );
-        const timeSelector = getFieldDecorator('starttime', {
-          initialValue: "Select start time"
-        })
-        const timeSelector2 = getFieldDecorator('endtime', {
-          initialValue: "Select end time"
-        })
+    const { getFieldDecorator } = this.props.form;
+    const formItemLayout = {
+      labelCol: { span: 3 },
+      wrapperCol: { span: 12 },
+    };
 
     return (
         // onSubmit={this.handleSubmit}
       <Form onSubmit={this.handleSubmit}>
 
-        <FormItem>
+        <FormItem 
+          {...formItemLayout}
+          label="Workshop Name: " 
+        >
             {getFieldDecorator('Workshopname', {
                 rules: [{ required: true, message: 'Please input your Workship Name!' }],
             })(
@@ -48,16 +54,14 @@ class Registration extends React.Component {
         <FormItem>
           {getFieldDecorator('subject', {
             rules: [{
-              type: 'Select Subjects',
-            }, {
               required: true, message: 'Please select the subjects you like to teach!',
             }],
           })(
-            <Select style = {{ width: 500}}>
-                <Option value= "math.calc">Calculus I</Option>
-                <Option value= "math.linAlg">Linear Algebra</Option>
-                <Option value= "language">Language</Option>
-            </Select>
+              <Select style = {{ width: 500}}>
+                  <Option value= "math.calc">Calculus I</Option>
+                  <Option value= "math.linAlg">Linear Algebra</Option>
+                  <Option value= "language">Language</Option>
+              </Select>
           )}
         </FormItem>
 
@@ -74,73 +78,71 @@ class Registration extends React.Component {
         <FormItem>
           {getFieldDecorator('starttime', {
             rules: [{
-              type: 'Time of Day',
               required: true, message: 'Please select the time of day!',
             }],
           })(
 
           <Select style = {{ width: 500}}>
-              <Option value= "Time">12am</Option>
-              <Option value= "Time">11am</Option>
-              <Option value= "Time">10am</Option>
-              <Option value= "Time">9am</Option>
-              <Option value= "Time">8am</Option>
-              <Option value= "Time">7am</Option>
-              <Option value= "Time">6am</Option>
-              <Option value= "Time">5am</Option>
-              <Option value= "Time">4am</Option>
-              <Option value= "Time">3am</Option>
-              <Option value= "Time">2am</Option>
-              <Option value= "Time">1am</Option>
-              <Option value= "Time">12pm</Option>
-              <Option value= "Time">11pm</Option>
-              <Option value= "Time">10pm</Option>
-              <Option value= "Time">9pm</Option>
-              <Option value= "Time">8pm</Option>
-              <Option value= "Time">7pm</Option>
-              <Option value= "Time">6pm</Option>
-              <Option value= "Time">5pm</Option>
-              <Option value= "Time">4pm</Option>
-              <Option value= "Time">3pm</Option>
-              <Option value= "Time">2pm</Option>
-              <Option value= "Time">1pm</Option>
-          </Select>
+              <Option value="1a">1am</Option>
+              <Option value="2a">2am</Option>
+              <Option value="3a">3am</Option>
+              <Option value="4a">4am</Option>
+              <Option value="5a">5am</Option>
+              <Option value="6a">6am</Option>
+              <Option value="7a">7am</Option>
+              <Option value="8a">8am</Option>
+              <Option value="9a">9am</Option>
+              <Option value="10a">10am</Option>
+              <Option value="11a">11am</Option>
+              <Option value="12p">12pm</Option>
+              <Option value="1p">1pm</Option>
+              <Option value="2p">2pm</Option>
+              <Option value="3p">3pm</Option>
+              <Option value="4p">4pm</Option>
+              <Option value="5p">5pm</Option>
+              <Option value="6p">6pm</Option>
+              <Option value="7p">7pm</Option>
+              <Option value="8p">8pm</Option>
+              <Option value="9p">9pm</Option>
+              <Option value="10p">10pm</Option>
+              <Option value="11p">11pm</Option>
+              <Option value="12a">12pm</Option>
+            </Select>
           )}
         </FormItem>
 
         <FormItem>
           {getFieldDecorator('endtime', {
             rules: [{
-              type: 'Time of Day',
               required: true, message: 'Please select the time of day!',
             }],
           })(
 
-          <Select style = {{ width: 500}}>
-              <Option value= "Time">12am</Option>
-              <Option value= "Time">11am</Option>
-              <Option value= "Time">10am</Option>
-              <Option value= "Time">9am</Option>
-              <Option value= "Time">8am</Option>
-              <Option value= "Time">7am</Option>
-              <Option value= "Time">6am</Option>
-              <Option value= "Time">5am</Option>
-              <Option value= "Time">4am</Option>
-              <Option value= "Time">3am</Option>
-              <Option value= "Time">2am</Option>
-              <Option value= "Time">1am</Option>
-              <Option value= "Time">12pm</Option>
-              <Option value= "Time">11pm</Option>
-              <Option value= "Time">10pm</Option>
-              <Option value= "Time">9pm</Option>
-              <Option value= "Time">8pm</Option>
-              <Option value= "Time">7pm</Option>
-              <Option value= "Time">6pm</Option>
-              <Option value= "Time">5pm</Option>
-              <Option value= "Time">4pm</Option>
-              <Option value= "Time">3pm</Option>
-              <Option value= "Time">2pm</Option>
-              <Option value= "Time">1pm</Option>
+          <Select style = {{ width: 500}} > 
+              <Option value="1a">1am</Option>
+              <Option value="2a">2am</Option>
+              <Option value="3a">3am</Option>
+              <Option value="4a">4am</Option>
+              <Option value="5a">5am</Option>
+              <Option value="6a">6am</Option>
+              <Option value="7a">7am</Option>
+              <Option value="8a">8am</Option>
+              <Option value="9a">9am</Option>
+              <Option value="10a">10am</Option>
+              <Option value="11a">11am</Option>
+              <Option value="12p">12pm</Option>
+              <Option value="1p">1pm</Option>
+              <Option value="2p">2pm</Option>
+              <Option value="3p">3pm</Option>
+              <Option value="4p">4pm</Option>
+              <Option value="5p">5pm</Option>
+              <Option value="6p">6pm</Option>
+              <Option value="7p">7pm</Option>
+              <Option value="8p">8pm</Option>
+              <Option value="9p">9pm</Option>
+              <Option value="10p">10pm</Option>
+              <Option value="11p">11pm</Option>
+              <Option value="12a">12pm</Option>
           </Select>
           )}
         </FormItem>
