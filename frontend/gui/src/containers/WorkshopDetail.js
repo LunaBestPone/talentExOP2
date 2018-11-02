@@ -45,7 +45,7 @@ class WorkshopDetail extends React.Component{
       this.setState({
         registered: true
       })
-      axios.post('http://127.0.0.1:8000/api/enrollment/create', enrollment)
+      axios.post('http://127.0.0.1:8000/api/enrollment/create', {enrollment})
         .then(res => {
         console.log(res);
         console.log(res.data);
