@@ -51,14 +51,16 @@ class WorkshopListView extends React.Component{
     return (
       <div>
         <h1>Workshop Lists</h1>
-        <div style = {stylebutton}>
-        <NavLink to="/createws/">
-          <button onClick={(e) => {this.onRegisterClick(e)}}>
-            <Icon type="plus" theme="outlined" />
-               Create Workshop
-          </button>
-        </NavLink>
-        </div>
+        {this.isAuthenticated &&
+          <div style = {stylebutton}>
+          <NavLink to="/createws/">
+            <button onClick={(e) => {this.onRegisterClick(e)}}>
+              <Icon type="plus" theme="outlined" />
+                 Create Workshop
+            </button>
+          </NavLink>
+          </div>
+        }
         <List
           style={{width:'40%', right: '-30%'}}
           grid={{ gutter: 16, column: 1 }}

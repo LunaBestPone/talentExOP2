@@ -95,11 +95,14 @@ class WorkshopDetail extends React.Component{
            </button>
         </div>
         */}
-        <div style = {{float: 'right'}}>
-          <button onClick={(e) => {this.onRegisterClick(e)}}>
-            Register
-          </button>
-        </div>
+        {this.props.isAuthenticated &&
+          <div style = {{float: 'right'}}>
+            <button onClick={(e) => {this.onRegisterClick(e)}}>
+              Register
+            </button>
+          </div>
+        }
+
         <div style = {closeStyle}>
           <a href={'/workshop/'}>
             <Icon type="close" theme="outlined" />
