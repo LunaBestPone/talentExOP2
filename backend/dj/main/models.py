@@ -11,7 +11,7 @@ class User(AbstractUser):
         return self.username
 
 class Workshop(models.Model):
-    ws_id = models.AutoField(default = 1, primary_key = True)
+    ws_id = models.AutoField(primary_key = True)
     ws_name = models.CharField(max_length = 200)
     host_user = models.ForeignKey(User, on_delete = models.PROTECT)
     min_cap = models.IntegerField(null = True)
