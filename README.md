@@ -27,6 +27,12 @@ If you don't have postgresql installed, install it. brew if osx, download the in
 
 Basically you need a operating cluster, get the server running and create the database and user as indicated in the ```settings.py``` file.
 
+To setp up for WIN10 Users:
+1.Install latest version for WIN-64 system, do NOT need to add extensions in StackBuilder (a APP come with POSTGRESQL).
+2.Run PGADMIN4 in start up menu, a server page should pop out in 10 seconds. This will also run the local server.
+3.Create an empty database namded "talentExOP2db".
+4.You should be good to go!
+
 After setting up the db, get in ```backend/dj```, run
 ```
 python manage.py migrate
