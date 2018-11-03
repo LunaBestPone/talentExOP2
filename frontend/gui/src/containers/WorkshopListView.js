@@ -9,6 +9,7 @@ import { Card, Icon } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import Workshop from '../components/Workshop';
+import Create from '../containers/Create'
 
 import { List } from 'antd';
 
@@ -51,7 +52,8 @@ class WorkshopListView extends React.Component{
     return (
       <div>
         <h1>Workshop Lists</h1>
-        {this.isAuthenticated &&
+        {
+          // this.isAuthenticated &&
           <div style = {stylebutton}>
           <NavLink to="/createws/">
             <button onClick={(e) => {this.onRegisterClick(e)}}>

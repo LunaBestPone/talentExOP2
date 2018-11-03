@@ -9,22 +9,38 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 
 class Registration extends React.Component {
-
-    handleSubmit = (e) => {
-        this.props.form.validateFields((err, values) => {
-        console.log('Received values of form: ', values);
+    
+    handleSubjectChange = (value) => {
+      console.log(value);
+      this.props.form.setFieldsValue({
+        subject: value
       });
-      axios.create('http://127.0.0.1:8000/workshop/create', {
-          ws_name: "fd",
-          min_cap: 6,
-          max_cap: 7,
+    }
+    handleSubmit = (e) => {
+      const wsname = e.target.elements.ws_title.value;
+      const description = e.target.elements.description.value;
+      // const date = e.target.elements.date.value;
+      // const subject_name = this.state.subject;
+
+      return axios
+        .post('http://127.0.0.1:8000/api/workshop/create/', {
+          // ws_name: wsname,
+          // min_cap: 1,
+          // max_cap: 2,
+          // is_active: true,
+          // description: description,
+          host_user: null,
+          ws_name: "",
+          min_cap: 1,
+          max_cap: 2,
           is_active: true,
-          description: '123',
-          host_user: '123123',
+          description: "d",
       }).then(res => {
         console.log(res);
         console.log(res.data);
-      })
+      }).catch(err => {
+        console.log(err)
+    })
     }
     render() {
     const { getFieldDecorator } = this.props.form;
@@ -51,7 +67,7 @@ class Registration extends React.Component {
             {getFieldDecorator('Workshopname', {
                 rules: [{ required: true, message: 'Please input your Workship Name!' }],
             })(
-              <Input type="text" />
+              <Input name="ws_title" type="text" />
             )}
         </FormItem>
 
@@ -64,9 +80,9 @@ class Registration extends React.Component {
             }],
           })(
               <Select style = {{ width: 300}}>
-                  <Option value= "math.calc">Calculus I</Option>
-                  <Option value= "math.linAlg">Linear Algebra</Option>
-                  <Option value= "language">Language</Option>
+                  <Option value= "Calculus I">Calculus I</Option>
+                  <Option value= "Linear Algebra">Linear Algebra</Option>
+                  <Option value= "Language">Language</Option>
               </Select>
           )}
         </FormItem>
@@ -79,7 +95,7 @@ class Registration extends React.Component {
               required: true, message: 'Please select the date!',
             }],
           })(
-            <Input style = {{ width: 300}} type="date" placeholder="Date" />
+            <Input name= "date" style = {{ width: 300}} type="date" placeholder="Date" />
           )}
         </FormItem>
 
@@ -92,7 +108,7 @@ class Registration extends React.Component {
             }],
           })(
 
-          <Select style = {{ width: 300}}>
+          <Select name="startTime" style = {{ width: 300}}>
               <Option value="1a">1am</Option>
               <Option value="2a">2am</Option>
               <Option value="3a">3am</Option>
@@ -167,7 +183,7 @@ class Registration extends React.Component {
               required: false, message: 'Add a description for the Workshop',
             }],
           })(
-            <Input type="text" />
+            <Input name='description'type="text" />
           )}
         </FormItem>
 
