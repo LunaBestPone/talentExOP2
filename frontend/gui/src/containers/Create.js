@@ -9,7 +9,6 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 
 class Registration extends React.Component {
-    
     handleSubjectChange = (value) => {
       console.log(value);
       this.props.form.setFieldsValue({
@@ -19,9 +18,12 @@ class Registration extends React.Component {
     handleSubmit = (e) => {
       const wsname = e.target.elements.ws_title.value;
       const description = e.target.elements.description.value;
+      const date = e.target.elements.date.value;
+      const min_cap = e.target.elements.min.value;
+      const max_cap = e.target.elements.max.value;
       // const date = e.target.elements.date.value;
       // const subject_name = this.state.subject;
-
+      this.props.history.push('/workshop/');
       return axios
         .post('http://127.0.0.1:8000/api/workshop/create/', {
           // ws_name: wsname,
@@ -31,8 +33,8 @@ class Registration extends React.Component {
           // description: description,
           host_user: 2,
           ws_name: wsname,
-          min_cap: 1,
-          max_cap: 2,
+          min_cap: min_cap,
+          max_cap: max_cap,
           is_active: true,
           description: description,
       }).then(res => {
@@ -40,7 +42,8 @@ class Registration extends React.Component {
         console.log(res.data);
       }).catch(err => {
         console.log(err)
-    })
+      })
+      
     }
     render() {
     const { getFieldDecorator } = this.props.form;
@@ -108,7 +111,7 @@ class Registration extends React.Component {
             }],
           })(
 
-          <Select name="startTime" style = {{ width: 300}}>
+          <Select name="startTime" style = {{ width: 300}} >
               <Option value="1a">1am</Option>
               <Option value="2a">2am</Option>
               <Option value="3a">3am</Option>
@@ -195,7 +198,7 @@ class Registration extends React.Component {
               required: false, message: 'Please select the minimum amount of attendees!',
             }],
           })(
-            <Input type="number"/>
+            <Input type="number" name='min'/>
           )}
         </FormItem>
 
@@ -207,7 +210,7 @@ class Registration extends React.Component {
               required: false, message: 'Please select the maximum amount of attendees!',
             }],
           })(
-            <Input type="number"/>
+            <Input type="number" name='max'/>
           )}
         </FormItem>
 
