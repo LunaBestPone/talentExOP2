@@ -34,21 +34,30 @@ class WorkshopDetail extends React.Component{
   // }
 
   onRegisterClick = (e) => {
-      var d = new Date();
-      this.setState({
-        registered: true
-      });
-      axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
-        enroll_date_time: d.toISOString(),
-        ws_id: this.state.workshop.ws_id,
-        enrolled_user: this.state.user_id
+    console.log(localStorage.getItem('username'));
+    axios.get('http://127.0.0.1:8000/api/rest-auth/user/' + localStorage.getItem('username'))
+      .then(res => {
+        const loggedinuserid = res.data.pk;
+        var d = new Date();
+        this.setState({
+          registered: true
+        });
+        axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
+          enroll_date_time: d.toISOString(),
+          ws_id: this.state.workshop.ws_id,
+          enrolled_user: loggedinuserid
+        })
+          .then(res => {
+          console.log(res.data);
+          window.alert("This workshop is added to your schedule!");
+        }).catch(err => {
+          console.log(err);
+          window.alert("Oops something went wrong~ You can't register for the same workshop twice.");
+        });
       })
-        .then(res => {
-        console.log(res.data);
-        window.alert("This workshop is added to your schedule!");
-      }).catch(err => {
+      .catch(err => {
         console.log(err);
-        window.alert("Oops something went wrong~ Make sure you are logged in. And you can't register for the same workshop twice.");
+        window.alert("Opps something went wrong~ Make sure you are logged in.");
       });
   }
 

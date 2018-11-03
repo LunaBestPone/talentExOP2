@@ -1,5 +1,7 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
+//to get user name
+var temp1 = null;
 
 export const authStart = () => {
     return {
@@ -24,6 +26,7 @@ export const authFail = error => {
 export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('expirationDate');
+    localStorage.removeItem('username');
     return {
         type: actionTypes.AUTH_LOGOUT
     };
@@ -40,18 +43,22 @@ export const checkAuthTimeout = expirationTime => {
 export const authLogin = (username, password) => {
     return dispatch => {
         dispatch(authStart());
+        temp1 = username;
         axios.post('http://127.0.0.1:8000/rest-auth/login/', {
             username: username,
             password: password
         })
         .then(res => {
+            console.log('authlogin'+username);
             const token = res.data.key;
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);
+            localStorage.setItem('username', temp1);
             localStorage.setItem('expirationDate', expirationDate);
             dispatch(authSuccess(token));
             dispatch(checkAuthTimeout(3600));
-        })
+          }
+        )
         .catch(err => {
             dispatch(authFail(err))
         })
@@ -61,6 +68,7 @@ export const authLogin = (username, password) => {
 export const authSignup = (username, email, password1, password2) => {
     return dispatch => {
         dispatch(authStart());
+        temp1 = username;
         axios.post('http://127.0.0.1:8000/rest-auth/registration/', {
             username: username,
             email: email,
@@ -71,10 +79,12 @@ export const authSignup = (username, email, password1, password2) => {
             const token = res.data.key;
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);
+            localStorage.setItem('username', temp1);
             localStorage.setItem('expirationDate', expirationDate);
             dispatch(authSuccess(token));
             dispatch(checkAuthTimeout(3600));
-        })
+          }
+        )
         .catch(err => {
             dispatch(authFail(err))
         })
