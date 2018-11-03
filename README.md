@@ -1,5 +1,5 @@
-# A functioning option 2 with Login/Sign up
-The base index '/' now is blank, insert your component with BaseRouter
+# A functional iteration 1 code base
+Though with some minor known bugs which will be fixed in iteration 2
 # Do not expect "clone then run"
 Some external package for django is needed, install them with pip
 
@@ -8,32 +8,23 @@ These packages now include:
 * markdown
 * django-filter
 * django-cors-headers
-
-***Extra packages now needed for user authentification, please install!***
 * django-allauth
 * django-rest-auth
 * other packages might be needed for the future, but that's all for now
-
 
 # NPM packages you need to install yourself
 Make sure you are in frontend/gui/ directory (```ls``` then you'll see ```package.json```)
 Then run following:
 ```
 npm install
-npm install axios
-npm install --save react-redux
-npm install --save react-router-dom
-npm install antd --save
 ```
-***In fact, pacakge.json is an index for all the packages you need, ```npm install``` will automatically take care of all packages you need by looking into that***
-
-***We do have extra packages installed for Login/Sign up funtionality, but there's no need to specify what they are now***
-
 
 # Now one more thing...
 open ```backend/dj/dj/settings.py``` and check ```DATABASE``` section for configs you need to set up a database on your local environment, we will use postgresql here.
 
-If you don't have postgresql installed, install it. brew if osx, download the installer if windows. How one set up the DB cluster and local server of postgresql is quite different on different operating system, you'll have to figure it out yourself (Google is your best friend when encountering any problem in the project, as team members as well).
+If you don't have postgresql installed, install it. brew if osx, download the installer if windows. How one set up the DB cluster and local server of postgresql is quite different on different operating system, you'll have to figure it out yourself (Google is your best friend when encountering any problem in the project, team members as well).
+
+Basically you need a operating cluster, get the server running and create the database and user as indicated in the ```settings.py``` file.
 
 After setting up the db, get in ```backend/dj```, run
 ```
@@ -41,10 +32,11 @@ python manage.py migrate
 ```
 to update the database
 
-***AND MOST IMPORTANTLY: Since we resigned User model in a way that the older database you've set up wouldn't handle the new one, drop the previous database and start a new one just as the last time (just think about changing to a clean data container)***
-
 # Yay, you're all set
-***fixture loading now is not required***
+***fixture loading now is still required***
+to load fixture into the database for demo or testing purposes, run ```python manage.py loaddata main/fixture/<any json files you found in the folder>```
+
+This will also set up a super user with name ```default``` and password ```506talentexchange```
 
 fire up backend sever with
 ```
@@ -56,4 +48,4 @@ npm start
 ```
 to get frontend running.
 
-Happy hacking.
+Happy hacking / exploring.
