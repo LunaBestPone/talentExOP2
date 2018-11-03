@@ -29,12 +29,12 @@ class Registration extends React.Component {
           // max_cap: 2,
           // is_active: true,
           // description: description,
-          host_user: null,
-          ws_name: "",
+          host_user: 2,
+          ws_name: wsname,
           min_cap: 1,
           max_cap: 2,
           is_active: true,
-          description: "d",
+          description: description,
       }).then(res => {
         console.log(res);
         console.log(res.data);
