@@ -45,7 +45,8 @@ class WorkshopDetail extends React.Component{
         axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
           enroll_date_time: d.toISOString(),
           ws_id: this.state.workshop.ws_id,
-          enrolled_user: loggedinuserid
+          enrolled_user: 1,
+          
         })
           .then(res => {
           console.log(res.data);

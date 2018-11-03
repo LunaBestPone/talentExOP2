@@ -19,6 +19,7 @@ class Registration extends React.Component {
       const wsname = e.target.elements.ws_title.value;
       const description = e.target.elements.description.value;
       const date = e.target.elements.date.value;
+      // const startDate = 
       const min_cap = e.target.elements.min.value;
       const max_cap = e.target.elements.max.value;
       // const date = e.target.elements.date.value;
