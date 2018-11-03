@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Card } from 'antd';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
 import { Link, withRouter } from 'react-router-dom';
@@ -33,9 +33,10 @@ class CustomLayout extends React.Component {
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={['2']}
+            defaultSelectedKeys={['0']}
             style={{ lineHeight: '64px', float: 'right' }}
           >
+            <Menu.Item key="0" onClick = {() => this.updatePage("Home")}><Link to="/"></Link></Menu.Item>
             {
             this.props.isAuthenticated ?
             <Menu.Item key="1" onClick = {this.props.logout} >Logout</Menu.Item>
@@ -48,9 +49,12 @@ class CustomLayout extends React.Component {
             <Menu.Item key="4" onClick = {() => this.updatePage("About Us")}><Link to="/about/">About us</Link></Menu.Item>
           </Menu>
         </Header>
+        
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item><Link to='/home'>{this.state.page_name}</Link></Breadcrumb.Item>
+            <Breadcrumb.Item><Link to='/home'>{this.state.page_name}
+            
+            </Link></Breadcrumb.Item>
           </Breadcrumb>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
             {this.props.children}
