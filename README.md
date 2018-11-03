@@ -19,6 +19,7 @@ Then run following:
 npm install
 ```
 
+
 # Now one more thing...
 open ```backend/dj/dj/settings.py``` and check ```DATABASE``` section for configs you need to set up a database on your local environment, we will use postgresql here.
 
