@@ -18,6 +18,7 @@ Then run following:
 ```
 npm install
 npm install axios
+npm install --save react-redux
 npm install --save react-router-dom
 npm install antd --save
 ```
