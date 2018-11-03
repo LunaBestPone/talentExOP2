@@ -36,17 +36,16 @@ class CustomLayout extends React.Component {
             defaultSelectedKeys={['0']}
             style={{ lineHeight: '64px', float: 'right' }}
           >
-            <Menu.Item key="0" onClick = {() => this.updatePage("Home")}><Link to="/"></Link></Menu.Item>
+            <Menu.Item key="1" onClick = {() => this.updatePage("Home")}><Link to="/">Home</Link></Menu.Item>
             {
             this.props.isAuthenticated ?
-            <Menu.Item key="1" onClick = {this.props.logout} >Logout</Menu.Item>
+            <Menu.Item key="2" onClick = {this.props.logout} >Logout</Menu.Item>
             :
-            <Menu.Item key="1" onClick = {() => this.updatePage("Log In")}><Link to="/login/">Log in</Link></Menu.Item>
+            <Menu.Item key="2" onClick = {() => this.updatePage("Log In")}><Link to="/login/">Log in</Link></Menu.Item>
             }
-
-            <Menu.Item key="2" onClick = {() => this.updatePage("Sign Up")}><Link to="/signup/">Sign up</Link></Menu.Item>
-            <Menu.Item key="3" onClick = {() => this.updatePage("Workshop List")}><Link to="/workshop/">Workshop</Link></Menu.Item>
-            <Menu.Item key="4" onClick = {() => this.updatePage("About Us")}><Link to="/about/">About us</Link></Menu.Item>
+            <Menu.Item key="3" onClick = {() => this.updatePage("Sign Up")}><Link to="/signup/">Sign up</Link></Menu.Item>
+            <Menu.Item key="4" onClick = {() => this.updatePage("Workshop List")}><Link to="/workshop/">Workshop</Link></Menu.Item>
+            <Menu.Item key="5" onClick = {() => this.updatePage("About Us")}><Link to="/about/">About us</Link></Menu.Item>
           </Menu>
         </Header>
         
