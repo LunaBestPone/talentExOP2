@@ -1,3 +1,5 @@
+This branch is for new development
+
 # A functional iteration 1 code base
 Though with some minor known bugs which will be fixed in iteration 2
 # Do not expect "clone then run"
