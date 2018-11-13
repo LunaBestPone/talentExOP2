@@ -14,6 +14,7 @@ These packages now include:
 
 considering using react goole map react API right now.
 *react-google-location
+*react-google-map
 
 # NPM packages you need to install yourself
 Make sure you are in frontend/gui/ directory (```ls``` then you'll see ```package.json```)
