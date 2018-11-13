@@ -13,8 +13,16 @@ These packages now include:
 * other packages might be needed for the future, but that's all for now
 
 considering using react goole map react API right now.
+
 *react-google-location
+
 *react-google-map
+
+*point-geometry
+
+*eventemitter3
+
+Google Map API key = AIzaSyBut1PTcKfPOO_dEAKXZf9YsSMHqauyTtI
 
 # NPM packages you need to install yourself
 Make sure you are in frontend/gui/ directory (```ls``` then you'll see ```package.json```)
