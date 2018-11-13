@@ -14,7 +14,6 @@ These packages now include:
 
 considering using react goole map react API right now.
 
-*react-google-location
 
 *react-google-map
 
