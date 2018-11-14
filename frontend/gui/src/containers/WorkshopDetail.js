@@ -73,7 +73,7 @@ class WorkshopDetail extends React.Component{
     return (
         <Card title={this.state.workshop.ws_name}>
         <div className = 'host_user'>
-          Host: {this.state.host.username}
+          Host: {this.state.workshop.host_user}
         </div>
         <div className = 'min_cap'>
           Minimum Capacity: {this.state.workshop.min_cap}
