@@ -1,7 +1,14 @@
 from rest_framework import serializers
 from datetime import datetime
 
+from rest_framework.authtoken.models import Token
+
 from main.models import User, Workshop, Enrollment
+
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Token
+        fields = ('key', 'user')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

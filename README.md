@@ -1,3 +1,5 @@
+This branch is for new development
+
 # A functional iteration 1 code base
 Though with some minor known bugs which will be fixed in iteration 2
 # Do not expect "clone then run"
@@ -26,6 +28,12 @@ open ```backend/dj/dj/settings.py``` and check ```DATABASE``` section for config
 If you don't have postgresql installed, install it. brew if osx, download the installer if windows. How one set up the DB cluster and local server of postgresql is quite different on different operating system, you'll have to figure it out yourself (Google is your best friend when encountering any problem in the project, team members as well).
 
 Basically you need a operating cluster, get the server running and create the database and user as indicated in the ```settings.py``` file.
+
+To setp up for WIN10 Users:
+1.Install latest version for WIN-64 system, do NOT need to add extensions in StackBuilder (a APP come with POSTGRESQL).
+2.Run PGADMIN4 in start up menu, a server page should pop out in 10 seconds. This will also run the local server.
+3.Create an empty database namded "talentExOP2db".
+4.You should be good to go!
 
 After setting up the db, get in ```backend/dj```, run
 ```
