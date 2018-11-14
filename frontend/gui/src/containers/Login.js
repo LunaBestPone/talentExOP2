@@ -4,7 +4,6 @@ import { Form, Icon, Input, Button, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../store/actions/auth';
-import * as actionTypes from '../store/actions/actionTypes';
 
 const FormItem = Form.Item;
 
@@ -13,7 +12,7 @@ class NormalLoginForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.onAuth(values.userName, values.password);  
+        this.props.onAuth(values.userName, values.password);
       }
     });
     this.props.history.push('/workshop/');

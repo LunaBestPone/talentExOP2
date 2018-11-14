@@ -5,11 +5,10 @@
 
 import React from 'react';
 import axios from 'axios';
-import { Card, Icon } from 'antd';
+import { Icon } from 'antd';
 import { NavLink } from 'react-router-dom';
 
 import Workshop from '../components/Workshop';
-import Create from '../containers/Create'
 
 import { List } from 'antd';
 
@@ -27,20 +26,7 @@ class WorkshopListView extends React.Component{
   }
 
 
-
-  onRegisterClick = (e) => {
-    if(this.state.registered == false){
-      this.setState({
-        registered: true
-      })
-      window.alert("This workshop is added to your schedule!")
-    }
-  }
-
-
-
   componentDidMount() {
-    let workshop_name = this.props.match.params.ws_name;
     axios.get('http://127.0.0.1:8000/api/workshop/')
       .then(res => {
         this.setState({
@@ -48,18 +34,19 @@ class WorkshopListView extends React.Component{
         });
       })
   }
+  
   render() {
     return (
       <div>
         <h1>Workshop Lists</h1>
 
         <div style = {stylebutton}>
-        <NavLink to="/createws/">
-          <button onClick={(e) => {this.onRegisterClick(e)}}>
-            <Icon type="plus" theme="outlined" />
-               Create Workshop
-          </button>
-        </NavLink>
+          <NavLink to="/createws/">
+            <button>
+              <Icon type="plus" theme="outlined" />
+                 Create Workshop
+            </button>
+          </NavLink>
         </div>
         <List
           style={{width:'40%', right: '-30%'}}

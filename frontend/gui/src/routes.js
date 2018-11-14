@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route } from  'react-router-dom';
-import { Card } from 'antd';
 
-// TODO: import WorkshopList from './containers/WorkshopListView';
 import UserDetail from './containers/UserDetailView';
 import Create from './containers/Create';
 import Signup from './containers/Signup';

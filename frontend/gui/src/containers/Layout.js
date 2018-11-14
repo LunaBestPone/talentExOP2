@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Menu, Breadcrumb, Card } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
 import { Link, withRouter } from 'react-router-dom';
@@ -48,11 +48,11 @@ class CustomLayout extends React.Component {
             <Menu.Item key="5" onClick = {() => this.updatePage("About Us")}><Link to="/about/">About us</Link></Menu.Item>
           </Menu>
         </Header>
-        
+
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item><Link to='/home'>{this.state.page_name}
-            
+
             </Link></Breadcrumb.Item>
           </Breadcrumb>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
