@@ -56,6 +56,11 @@ INSTALLED_APPS = [
 SITE_ID = 1
 AUTH_USER_MODEL = 'main.User'
 
+# define token serializer
+REST_AUTH_SERIALIZER = {
+        'LOGIN_SERIALIZER': 'main.TokenSerializer',
+}
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
