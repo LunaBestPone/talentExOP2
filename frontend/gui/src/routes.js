@@ -13,10 +13,6 @@ import Home from './containers/Home';
 
 const BaseRouter = () => (
   <div>
-    {/*
-    TODO: <Route exact path='/' component={WorkshopList} />
-    */}
-    
     <Route exact path='/' component={Home} />
     <Route exact path='/user/:user_pk/' component={UserDetail} />
     <Route exact path='/workshop/' component={WorkshopList} />
