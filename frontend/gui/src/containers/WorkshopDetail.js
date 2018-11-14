@@ -62,10 +62,12 @@ class WorkshopDetail extends React.Component{
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
       .then(res => {
         this.setState({workshop: res.data});
+        /*
         const user_id = res.data.host_user;
         axios.get('http://127.0.0.1:8000/api/user/' + user_id)
           .then(resFuser => this.setState({host: resFuser.data}))
           .catch(err => console.log(err));
+          */
       })
       .catch(err => console.log(err));
   }
