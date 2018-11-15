@@ -8,6 +8,8 @@ import * as actions from '../store/actions/auth';
 const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component {
+
+  state = {error: false};
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -15,20 +17,34 @@ class NormalLoginForm extends React.Component {
         this.props.onAuth(values.userName, values.password);
       }
     });
-    this.props.history.push('/workshop/');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextProps !== this.props || nextState !== this.state);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.error !== prevProps.error) {
+      debugger;
+      if (this.props.error !== null) {
+        this.setState({error: true});
+      }
+      else {
+        this.props.history.push("/workshop/");
+        this.setState({error: false});
+      }
+    }
   }
 
   render() {
-    let errorMessage = null;
-    if (this.props.error) {
-      errorMessage = (
-        <p>The provided username and password did not match</p>
-      );
-    }
     const { getFieldDecorator } = this.props.form;
+    let EM = null;
+    if (this.state.error) {
+      EM = this.props.error.request.responseText;
+      window.alert(EM);
+    }
     return (
       <div>
-        {errorMessage}
         {
           this.props.loading ?
           <Spin />
@@ -36,7 +52,7 @@ class NormalLoginForm extends React.Component {
           <Form onSubmit={this.handleSubmit} className="login-form" style={{width: '30%', border: 'solid 1px rgba(0,0,0,.20)', borderRadius: '5px', padding: "15px"}}>
             <FormItem>
               {getFieldDecorator('userName', {
-                rules: [{ required: true, message: 'Please input your username!' }],
+                rules: [{ required: true, message: 'Please input your username!' }, {min: 6, message: 'Username must have a length greater than 6 characters!'}],
               })(
                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
               )}
@@ -44,7 +60,7 @@ class NormalLoginForm extends React.Component {
 
             <FormItem>
               {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please input your Password!' }],
+                rules: [{ required: true, message: 'Please input your Password!' }, {min: 8, message: 'Password must have a length greater than 8 characters!'}],
               })(
                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
               )}
@@ -52,8 +68,6 @@ class NormalLoginForm extends React.Component {
 
             <FormItem>
               <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>Login</Button>
-              <NavLink style={{marginRight: '10px'}} to='/signup/'> Sign Up
-              </NavLink>
             </FormItem>
           </Form>
         }
@@ -66,6 +80,7 @@ const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 
 const mapStateToProps = (state) => {
   return {
+    token:state.token,
     loading:state.loading,
     error: state.error
   }
