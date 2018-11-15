@@ -21,6 +21,9 @@ considering using react goole map react API right now.
 
 *eventemitter3
 
+this is for marker
+*styled-components
+
 Google Map API key = AIzaSyBut1PTcKfPOO_dEAKXZf9YsSMHqauyTtI
 
 # NPM packages you need to install yourself
