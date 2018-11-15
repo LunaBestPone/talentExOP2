@@ -6,12 +6,10 @@
 import React from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import {  Icon, Button, Row, Col, Collapse } from 'antd';
+import { List, Icon, Button, Row, Col, Collapse } from 'antd';
 
 import Workshop from '../components/Workshop';
 import Sort from '../containers/Sort';
-
-import { List } from 'antd';
 
 const Panel = Collapse.Panel;
 const stylebutton = {
