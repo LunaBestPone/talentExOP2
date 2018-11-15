@@ -20,7 +20,8 @@ class WorkshopDetail extends React.Component{
 
   state = {
     workshop: {},
-    host:{},
+    user:{}, //this is the user visiting the website
+
 //    wishlist: false,
   }
 
@@ -38,23 +39,39 @@ class WorkshopDetail extends React.Component{
 //    axios.get('http://127.0.0.1:8000/api/rest-auth/user/' + localStorage.getItem('username'))
 //      .then(res => {
 //        const loggedinuserid = res.data.pk;
-    var d = new Date();
-    this.setState({
-      registered: true
-    });
-    axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
-      enroll_date_time: d.toISOString(),
-      ws_id: this.state.workshop.ws_id,
-      enrolled_user: 1,
+    if (this.state.user.learning_credit > 1){
+      var d = new Date();
+      this.setState({
+        registered: true
+      });
+      axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
+        enroll_date_time: d.toISOString(),
+        ws_id: this.state.workshop.ws_id,
+        enrolled_user: 1,
 
-    })
-      .then(res => {
-      console.log(res.data);
-      window.alert("This workshop is added to your schedule!");
-    }).catch(err => {
-      console.log(err);
-      window.alert("Oops something went wrong~ You can't register for the same workshop twice. And makesure you are logged in~");
-    });
+      })
+        .then(res => {
+          console.log(res.data);
+          var url = 'http://127.0.0.1:8000/api/user/' + 1 + '/updatelc'
+          console.log(url)
+          var newLearningCredits = this.state.user.learning_credit - 1
+          axios.patch(url, {
+            learning_credit: newLearningCredits
+          })
+            .then(res => {
+              console.log(res.data);
+              }).catch(err => {
+                  console.log(err)
+                  })
+          window.alert("This workshop is added to your schedule!");
+      }).catch(err => {
+        console.log(err);
+        window.alert("Oops something went wrong~ You can't register for the same workshop twice. And makesure you are logged in~");
+      });
+    }
+    else{
+      window.alert("Oops,you don't have enough learning credits.Host more workshops to earn more!");
+    }
   }
 
   componentDidMount() {
@@ -70,6 +87,14 @@ class WorkshopDetail extends React.Component{
           */
       })
       .catch(err => console.log(err));
+
+    //Need to have this retrived from this.props
+    let user_id = 1;
+    axios.get('http://127.0.0.1:8000/api/user/' + user_id)
+      .then(res => {
+        this.setState({user: res.data});
+      })
+      .catch(err => console.log(err))
   }
   render() {
     return (
