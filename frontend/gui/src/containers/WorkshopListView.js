@@ -14,13 +14,13 @@ import Sort from '../containers/Sort';
 const Panel = Collapse.Panel;
 const stylebutton = {
   position: 'fixed',
-  left: '62.5%',
 }
 
 class WorkshopListView extends React.Component{
 
   state = {
-    workshops: []
+    workshops: [],
+    subjects: ["Any"]
   }
 
 
@@ -28,11 +28,20 @@ class WorkshopListView extends React.Component{
     axios.get('http://127.0.0.1:8000/api/workshop/')
       .then(res => {
         this.setState({
-            workshops: res.data
+            workshops: res.data,
         });
+        console.log(this.state.workshops.length);
+        for(var i = 0; i < this.state.workshops.length; i++){
+          let sub = this.state.workshops[i].category;
+          if(!this.state.subjects.includes(sub)){
+            this.setState({
+              subjects: this.state.subjects.concat(sub)
+            })
+          }
+        }
       })
+      
   }
-  
   render() {
     return (
       <div>
@@ -42,7 +51,7 @@ class WorkshopListView extends React.Component{
           {/* This is for sorting UI */}
           <Collapse accordion>
             <Panel header="Sort/Filter" key="1">
-              <Sort/>
+              <Sort subjects={this.state.subjects}/>
             </Panel>
           </Collapse>
           </Col>
@@ -51,8 +60,7 @@ class WorkshopListView extends React.Component{
               grid={{ gutter: 16, column: 1 }}
               dataSource={this.state.workshops}
               renderItem={item => (
-                //style={{float : "right"}}
-                <List.Item >
+                <List.Item>
                   <Workshop
                     ws_id = {item.ws_id}
                     ws_name = {item.ws_name}
@@ -65,12 +73,11 @@ class WorkshopListView extends React.Component{
                     start_date_time = {item.start_date_time}
                     end_date_time = {item.end_date_time}
                     is_detailed = {false} />
-
                 </List.Item>
               )}
             />
           </Col>
-          <Col span={7} offset={2} style={stylebutton}> 
+          <Col span={7} offset={15} style={stylebutton}> 
           {/* <div style = > */}
             <NavLink to="/createws/">
               <Button>
