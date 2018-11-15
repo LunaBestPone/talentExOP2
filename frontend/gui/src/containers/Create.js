@@ -12,6 +12,7 @@ class Registration extends React.Component {
       //start and end time
       st: "",
       et: "", 
+      subject: "",
     }
     handleSubjectChange = (value) => {
       console.log(value);
@@ -22,6 +23,11 @@ class Registration extends React.Component {
     handleTime = (value) => {
       this.setState({
         st: value
+      })
+    }
+    handleSubject = (value) => {
+      this.setState({
+        subject: value
       })
     }
     handleSubmit = (e) => {
@@ -35,7 +41,7 @@ class Registration extends React.Component {
       // const startDate = dayString + " " + (date.getMonth() + 1) + "-" + (date.getDate() + 1) + "-" + (date.getYear() + 1900) + " at " + this.state.st;
       // var startDate = document.createElement("INPUT");
       // startDate.setAttribute("type", "datetime");
-      var startDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  "T" + this.state.st + ":00:00-05:00";
+      var startDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  " " + this.state.st + ":00.000000+00";
 
       const min_cap = e.target.elements.min.value;
       const max_cap = e.target.elements.max.value;
@@ -49,14 +55,16 @@ class Registration extends React.Component {
           // max_cap: 2,
           // is_active: true,
           // description: description,
-          host_user: 1,
+          host_user: 2,
           ws_name: wsname,
           min_cap: min_cap,
           max_cap: max_cap,
           is_active: true,
           description: description,
-          start_date_time: null,
-          end_date_time: null,
+          start_date_time: startDate,
+          // end_date_time: startDate,
+          category: this.state.subject,
+          // location: null,
       }).then(res => {
         console.log(res);
         console.log(res.data);
@@ -102,14 +110,19 @@ class Registration extends React.Component {
               required: true, message: 'Please select the subjects you like to teach!',
             }],
           })(
-              <Select style = {{ width: 300}}>
+              <Select 
+                showSearch 
+                style = {{ width: 300}} 
+                onChange={this.handleSubject}
+                optionFilterProp="children"
+                placeholder="Please search the subject"
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
                   <Option value= "Calculus I">Calculus I</Option>
                   <Option value= "Linear Algebra">Linear Algebra</Option>
                   <Option value= "Language">Language</Option>
               </Select>
           )}
         </FormItem>
-
         <FormItem
         {...formItemLayout}
         label="Date: ">
