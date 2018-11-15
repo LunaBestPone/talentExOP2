@@ -14,6 +14,9 @@ const Workshop = (props) => {
         <div className = 'host_user'>
           <b>Host:</b> {props.host_user}
         </div>
+        <div className = 'category'>
+          <b>Subject</b>: {props.category}
+        </div>
         <div className = 'min_cap'>
           <b>Minimum Capacity:</b> {props.min_cap}
         </div>
@@ -40,6 +43,9 @@ const Workshop = (props) => {
     <Card title={<a href={'/workshop/detail/' + ws_id}>{props.ws_name}</a>}>
       <div className = 'description'>
         <b>Description:</b>  {props.description}
+      </div>
+      <div className = 'category'>
+        <b>Subject</b>: {props.category}
       </div>
       <div className = 'start_date_time'>
         <b>Start Date:</b> {props.start_date_time}

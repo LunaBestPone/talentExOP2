@@ -57,6 +57,7 @@ class WorkshopListView extends React.Component{
                     ws_id = {item.ws_id}
                     ws_name = {item.ws_name}
                     host_user = {item.host_user}
+                    category = {item.category}
                     min_cap = {item.min_cap}
                     max_cap = {item.max_cap}
                     is_active = {item.is_active}

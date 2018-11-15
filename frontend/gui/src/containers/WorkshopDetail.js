@@ -102,6 +102,9 @@ class WorkshopDetail extends React.Component{
         <div className = 'host_user'>
           Host: {this.state.workshop.host_user}
         </div>
+        <div className = 'category'>
+          Subject: {this.state.workshop.category}
+        </div>
         <div className = 'min_cap'>
           Minimum Capacity: {this.state.workshop.min_cap}
         </div>
