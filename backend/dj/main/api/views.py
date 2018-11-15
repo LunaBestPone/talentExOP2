@@ -1,5 +1,4 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
-
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
 from main.models import User, Workshop, Enrollment
 from .serializer import UserSerializer, WorkshopSerializer, EnrollmentSerializer
 
@@ -9,6 +8,10 @@ class UserListView(ListAPIView):
 
 
 class UserDetailView(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class LearningCreditsUpdateView(UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
