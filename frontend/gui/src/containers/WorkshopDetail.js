@@ -5,10 +5,11 @@
 
 import React from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 // import Workshop from '../components/Workshop';
 
-import { Card, Icon } from 'antd';
+import { Button, Card, Icon } from 'antd';
 
 const closeStyle = {
   position: 'fixed',
@@ -98,7 +99,9 @@ class WorkshopDetail extends React.Component{
   }
   render() {
     return (
-        <Card title={this.state.workshop.ws_name}>
+        <Card 
+        title={this.state.workshop.ws_name}
+        >
         <div className = 'host_user'>
           Host: {this.state.workshop.host_user}
         </div>
@@ -131,14 +134,15 @@ class WorkshopDetail extends React.Component{
         </div>
         */}
         <div style = {{float: 'right'}}>
-          <button onClick={(e) => {this.onRegisterClick(e)}}>
+          <NavLink
+            style={{padding: '5px'}}
+            to='/workshop/'> 
+            Cancel
+          </NavLink>
+          <Button onClick={(e) => {this.onRegisterClick(e)}}>
             Register
-          </button>
-        </div>
-        <div style = {closeStyle}>
-          <a href={'/workshop/'}>
-            <Icon type="close" theme="outlined" />
-          </a>
+          </Button>
+          
         </div>
       </Card>
     )
