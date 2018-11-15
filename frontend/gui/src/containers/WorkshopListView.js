@@ -5,18 +5,18 @@
 
 import React from 'react';
 import axios from 'axios';
-import { Icon } from 'antd';
 import { NavLink } from 'react-router-dom';
+import {  Icon, Button, Row, Col, Collapse } from 'antd';
 
 import Workshop from '../components/Workshop';
+import Sort from '../containers/Sort';
 
 import { List } from 'antd';
 
-
+const Panel = Collapse.Panel;
 const stylebutton = {
   position: 'fixed',
-  top: 160,
-  right: 100
+  left: '62.5%',
 }
 
 class WorkshopListView extends React.Component{
@@ -39,36 +39,50 @@ class WorkshopListView extends React.Component{
     return (
       <div>
         <h1>Workshop Lists</h1>
+        <Row gutter={16}>
+          <Col span={7}>
+          {/* This is for sorting UI */}
+          <Collapse accordion>
+            <Panel header="Sort/Filter" key="1">
+              <Sort/>
+            </Panel>
+          </Collapse>
+          </Col>
+          <Col span={7} offset={1}>
+          <List
+              grid={{ gutter: 16, column: 1 }}
+              dataSource={this.state.workshops}
+              renderItem={item => (
+                //style={{float : "right"}}
+                <List.Item >
+                  <Workshop
+                    ws_id = {item.ws_id}
+                    ws_name = {item.ws_name}
+                    host_user = {item.host_user}
+                    min_cap = {item.min_cap}
+                    max_cap = {item.max_cap}
+                    is_active = {item.is_active}
+                    description = {item.description}
+                    start_date_time = {item.start_date_time}
+                    end_date_time = {item.end_date_time}
+                    is_detailed = {false} />
 
-        <div style = {stylebutton}>
-          <NavLink to="/createws/">
-            <button>
-              <Icon type="plus" theme="outlined" />
-                 Create Workshop
-            </button>
-          </NavLink>
-        </div>
-        <List
-          style={{width:'40%', right: '-30%'}}
-          grid={{ gutter: 16, column: 1 }}
-            dataSource={this.state.workshops}
-            renderItem={item => (
-              <List.Item>
-                <Workshop
-                  ws_id = {item.ws_id}
-                  ws_name = {item.ws_name}
-                  host_user = {item.host_user}
-                  min_cap = {item.min_cap}
-                  max_cap = {item.max_cap}
-                  is_active = {item.is_active}
-                  description = {item.description}
-                  start_date_time = {item.start_date_time}
-                  end_date_time = {item.end_date_time}
-                  is_detailed = {false} />
-
-              </List.Item>
-            )}
-          />
+                </List.Item>
+              )}
+            />
+          </Col>
+          <Col span={7} offset={2} style={stylebutton}> 
+          {/* <div style = > */}
+            <NavLink to="/createws/">
+              <Button>
+                <Icon type="plus" theme="outlined" />
+                  Create Workshop
+              </Button>
+            </NavLink>
+          {/* </div> */}
+          
+          </Col>
+        </Row>
       </div>
     )
   }
