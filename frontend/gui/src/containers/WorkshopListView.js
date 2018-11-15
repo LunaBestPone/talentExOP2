@@ -17,12 +17,36 @@ const stylebutton = {
 }
 
 class WorkshopListView extends React.Component{
-
-  state = {
-    workshops: [],
-    subjects: ["Any"]
+  constructor(props){
+    super(props);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.state = {
+      workshops: [],
+      filterSub: "-1",
+      filteredws: [],
+      subjects: ["Any"]
+    }
   }
+  
 
+  handleFilterChange(value){
+    let val = "=" + value.replace(" ", "+");
+    if(val !== "=Any"){
+      this.setState({
+        filterSub: val
+      })
+    } else {
+      console.log("val: " + val);
+      this.setState({
+        filterSub: ""
+      })
+    }
+    // for(var i = 0; i < this.state.workshops.length; i++){
+    //   let sub = this.state.workshops[i].category;
+      
+    // }
+    // this.forceUpdate();
+  }
 
   componentDidMount() {
     axios.get('http://127.0.0.1:8000/api/workshop/')
@@ -30,7 +54,7 @@ class WorkshopListView extends React.Component{
         this.setState({
             workshops: res.data,
         });
-        console.log(this.state.workshops.length);
+        // console.log(this.state.workshops);
         for(var i = 0; i < this.state.workshops.length; i++){
           let sub = this.state.workshops[i].category;
           if(!this.state.subjects.includes(sub)){
@@ -39,9 +63,21 @@ class WorkshopListView extends React.Component{
             })
           }
         }
-      })
-      
+    })
   }
+
+
+  componentWillUpdate(nextProps, nextState) {
+    // console.log("value = " + nextState.filterSub);
+    axios.get('http://127.0.0.1:8000/api/workshop/?category' + nextState.filterSub)
+      .then(res => {
+        this.setState({
+            workshops: res.data,
+        });
+        // console.log("workshops"+nextState.workshops);
+    }) 
+  }
+
   render() {
     return (
       <div>
@@ -51,7 +87,7 @@ class WorkshopListView extends React.Component{
           {/* This is for sorting UI */}
           <Collapse accordion>
             <Panel header="Sort/Filter" key="1">
-              <Sort subjects={this.state.subjects}/>
+              <Sort subjects={this.state.subjects} changeSub = {(val) => this.handleFilterChange(val)}/>
             </Panel>
           </Collapse>
           </Col>
