@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route } from  'react-router-dom';
-import { Card } from 'antd';
 
-// TODO: import WorkshopList from './containers/WorkshopListView';
 import UserDetail from './containers/UserDetailView';
 import Create from './containers/Create';
 import Signup from './containers/Signup';
@@ -13,10 +11,6 @@ import Home from './containers/Home';
 
 const BaseRouter = () => (
   <div>
-    {/*
-    TODO: <Route exact path='/' component={WorkshopList} />
-    */}
-    
     <Route exact path='/' component={Home} />
     <Route exact path='/user/:user_pk/' component={UserDetail} />
     <Route exact path='/workshop/' component={WorkshopList} />

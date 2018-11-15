@@ -1,9 +1,8 @@
 import React from 'react';
-import { Form, Input, Icon, Button, Select, Dropdown } from 'antd';
+import { Form, Input, Button, Select } from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import * as actions from '../store/actions/auth';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -37,6 +36,7 @@ class Registration extends React.Component {
       // var startDate = document.createElement("INPUT");
       // startDate.setAttribute("type", "datetime");
       var startDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  "T" + this.state.st + ":00:00-05:00";
+
       const min_cap = e.target.elements.min.value;
       const max_cap = e.target.elements.max.value;
       // console.log(startDate);
@@ -49,7 +49,7 @@ class Registration extends React.Component {
           // max_cap: 2,
           // is_active: true,
           // description: description,
-          host_user: 2,
+          host_user: 1,
           ws_name: wsname,
           min_cap: min_cap,
           max_cap: max_cap,
@@ -63,7 +63,7 @@ class Registration extends React.Component {
       }).catch(err => {
         console.log(err)
       })
-      
+
     }
     render() {
     const { getFieldDecorator } = this.props.form;
@@ -83,9 +83,9 @@ class Registration extends React.Component {
         // onSubmit={this.handleSubmit}
       <Form onSubmit={this.handleSubmit}>
 
-        <FormItem 
+        <FormItem
           {...formItemLayout}
-          label="Workshop Name: " 
+          label="Workshop Name: "
         >
             {getFieldDecorator('Workshopname', {
                 rules: [{ required: true, message: 'Please input your Workship Name!' }],
@@ -169,7 +169,7 @@ class Registration extends React.Component {
             }],
           })(
 
-          <Select style = {{ width: 300}} > 
+          <Select style = {{ width: 300}} >
               <Option value="1a">1am</Option>
               <Option value="2a">2am</Option>
               <Option value="3a">3am</Option>
@@ -241,7 +241,7 @@ class Registration extends React.Component {
         <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>
             Submit
         </Button>
-        
+
         <NavLink
             style={{marginRight: '10px'}}
             to='/workshop/'> Cancel

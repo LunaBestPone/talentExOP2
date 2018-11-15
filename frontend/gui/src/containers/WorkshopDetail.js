@@ -62,10 +62,12 @@ class WorkshopDetail extends React.Component{
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
       .then(res => {
         this.setState({workshop: res.data});
+        /*
         const user_id = res.data.host_user;
         axios.get('http://127.0.0.1:8000/api/user/' + user_id)
           .then(resFuser => this.setState({host: resFuser.data}))
           .catch(err => console.log(err));
+          */
       })
       .catch(err => console.log(err));
   }
@@ -73,7 +75,7 @@ class WorkshopDetail extends React.Component{
     return (
         <Card title={this.state.workshop.ws_name}>
         <div className = 'host_user'>
-          Host: {this.state.host.username}
+          Host: {this.state.workshop.host_user}
         </div>
         <div className = 'min_cap'>
           Minimum Capacity: {this.state.workshop.min_cap}
