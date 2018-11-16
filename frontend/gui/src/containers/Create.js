@@ -53,12 +53,10 @@ class Registration extends React.Component {
           const year = date.getFullYear();
           const month = date.getMonth();
           const day = date.getDate() + 1;
-    
-          const startDate = new Date(year, month, day, this.state.st); //, this.state.st);
-          const endDate = new Date(year, month, day, this.state.et); //, this.state.st);
-
-          //window.alert(startDate);
-
+  
+          var startDate = new Date(year, month, day, this.state.st);
+          var endDate = new Date(year, month, day, this.state.et);
+          
           // Form we need "2018-05-30T10:13:00-05:00" -> needs to be converted in datetime field
           // const startDate = dayString + " " + (date.getMonth() + 1) + "-" + (date.getDate() + 1) + "-" + (date.getYear() + 1900) + " at " + this.state.st;
           // var startDate = document.createElement("INPUT");
@@ -76,8 +74,8 @@ class Registration extends React.Component {
               max_cap: max_cap,
               is_active: true,
               description: description,
-              //start_date_time: startDate,
-              //end_date_time: endDate,
+              start_date_time: startDate.toISOString(),
+              end_date_time: endDate.toISOString(),
               category: this.state.subject,
               // location: null,
           }).then(res => {
@@ -165,15 +163,15 @@ class Registration extends React.Component {
             })(
 
             <Select name="startTime" style = {{ width: 300}} onChange={this.handleSTime} >
-                <Option value="01">1am</Option>
-                <Option value="02">2am</Option>
-                <Option value="03">3am</Option>
-                <Option value="04">4am</Option>
-                <Option value="05">5am</Option>
-                <Option value="06">6am</Option>
-                <Option value="07">7am</Option>
-                <Option value="08">8am</Option>
-                <Option value="09">9am</Option>
+                <Option value="1">1am</Option>
+                <Option value="2">2am</Option>
+                <Option value="3">3am</Option>
+                <Option value="4">4am</Option>
+                <Option value="5">5am</Option>
+                <Option value="6">6am</Option>
+                <Option value="7">7am</Option>
+                <Option value="8">8am</Option>
+                <Option value="9">9am</Option>
                 <Option value="10">10am</Option>
                 <Option value="11">11am</Option>
                 <Option value="12">12pm</Option>
@@ -188,7 +186,7 @@ class Registration extends React.Component {
                 <Option value="21">9pm</Option>
                 <Option value="22">10pm</Option>
                 <Option value="23">11pm</Option>
-                <Option value="00">12am</Option>
+                <Option value="0">12am</Option>
               </Select>
             )}
           </FormItem>
@@ -203,30 +201,30 @@ class Registration extends React.Component {
             })(
 
             <Select name = "endTime" style = {{ width: 300}} onChange={this.handleETime}>
-                <Option value="1a">1am</Option>
-                <Option value="2a">2am</Option>
-                <Option value="3a">3am</Option>
-                <Option value="4a">4am</Option>
-                <Option value="5a">5am</Option>
-                <Option value="6a">6am</Option>
-                <Option value="7a">7am</Option>
-                <Option value="8a">8am</Option>
-                <Option value="9a">9am</Option>
-                <Option value="10a">10am</Option>
-                <Option value="11a">11am</Option>
-                <Option value="12p">12pm</Option>
-                <Option value="1p">1pm</Option>
-                <Option value="2p">2pm</Option>
-                <Option value="3p">3pm</Option>
-                <Option value="4p">4pm</Option>
-                <Option value="5p">5pm</Option>
-                <Option value="6p">6pm</Option>
-                <Option value="7p">7pm</Option>
-                <Option value="8p">8pm</Option>
-                <Option value="9p">9pm</Option>
-                <Option value="10p">10pm</Option>
-                <Option value="11p">11pm</Option>
-                <Option value="12a">12pm</Option>
+                <Option value="1">1am</Option>
+                <Option value="2">2am</Option>
+                <Option value="3">3am</Option>
+                <Option value="4">4am</Option>
+                <Option value="5">5am</Option>
+                <Option value="6">6am</Option>
+                <Option value="7">7am</Option>
+                <Option value="8">8am</Option>
+                <Option value="9">9am</Option>
+                <Option value="10">10am</Option>
+                <Option value="11">11am</Option>
+                <Option value="12">12pm</Option>
+                <Option value="13">1pm</Option>
+                <Option value="14">2pm</Option>
+                <Option value="15">3pm</Option>
+                <Option value="16">4pm</Option>
+                <Option value="17">5pm</Option>
+                <Option value="18">6pm</Option>
+                <Option value="19">7pm</Option>
+                <Option value="20">8pm</Option>
+                <Option value="21">9pm</Option>
+                <Option value="22">10pm</Option>
+                <Option value="23">11pm</Option>
+                <Option value="0">12pm</Option>
             </Select>
             )}
           </FormItem>
