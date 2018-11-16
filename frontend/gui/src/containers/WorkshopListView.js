@@ -11,6 +11,7 @@ import { List, Icon, Button, Row, Col, Collapse } from 'antd';
 
 import Workshop from '../components/Workshop';
 import Sort from '../containers/Sort';
+import WorkShopMap from '../containers/WorkShopMap';
 
 const Panel = Collapse.Panel;
 const stylebutton = {
@@ -23,6 +24,8 @@ class WorkshopListView extends React.Component{
     filterSub: "-1",
     subjects: ["Any"],
     locations: ["Any"],
+    mapview: false,
+
   }
 
   handleFilterChange = (value) => {
@@ -67,13 +70,14 @@ class WorkshopListView extends React.Component{
       })
     }
   }
-
+  viewMap(){
+    this.setState({mapview: !this.state.mapview});
+  }
   render() {
-    console.log("render");
     return (
       <div>
         <h1>Workshop Lists  </h1>
-        <p><NavLink to="/workshopmap/">Click for Map View</NavLink></p>
+        <h2><a href="/workshopmap/"> Workshop Map View </a></h2>
         <Row gutter={16}>
           <Col span={7}>
           {/* This is for sorting UI */}

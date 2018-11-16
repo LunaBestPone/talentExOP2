@@ -34,6 +34,7 @@ class WSForm extends React.Component {
           </FormItem>
           <FormItem
             {...formItemLayout}
+            categories={this.props.subjects}
             label="Category:">
             <TextInput
             name="category"
@@ -80,9 +81,8 @@ class WSForm extends React.Component {
             label="Start Time:">
             {this.props.workshop.end_time_display}
           </FormItem>
-          {/* </div>
-          </Col> */}
-          
+          <FormItem
+          {...formItemLayout}>
           <Input
             type="submit"
             style={{width: '100px', padding: '5px'}}
@@ -97,7 +97,7 @@ class WSForm extends React.Component {
             disabled={this.props.saving}
             className="btn btn-primary"
             onClick={this.props.cancelEdit}/>
-          {/* </Row> */}
+          </FormItem>
         </Form>
     );
   }

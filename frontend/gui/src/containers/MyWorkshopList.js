@@ -18,6 +18,16 @@ const stylebutton = {
 }
 
 class WorkshopListView extends React.Component{
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      workshop: {},
+      isRegistered: false,
+      user:{}
+    };
+  }
+
+
   state = {
     workshops: [],
     filterSub: "-1",
@@ -44,14 +54,14 @@ class WorkshopListView extends React.Component{
         this.setState({
             workshops: res.data,
         });
-        for(var i = 0; i < this.state.workshops.length; i++){
-          let sub = this.state.workshops[i].category;
-          if(!this.state.subjects.includes(sub) && sub !== null){
-            this.setState({
-              subjects: this.state.subjects.concat(sub)
-            })
-          }
-        }
+        //for(var i = 0; i < this.state.workshops.length; i++){
+        //  let sub = this.state.workshops[i].category;
+        //  if(!this.state.subjects.includes(sub) && sub !== null){
+        //    this.setState({
+        //      subjects: this.state.subjects.concat(sub)
+        //    })
+        //  }
+        //}
     })
   }
 
@@ -69,10 +79,17 @@ class WorkshopListView extends React.Component{
   }
 
   render() {
+    //event.preventDefault();
+
+    const isLoggedIn = this.props.isAuthenticated;
+    const isRegistered = this.state.isRegistered;
+    const user_id = this.props.user;
     console.log("render");
+
+    if(isLoggedIn ) {
     return (
       <div>
-        <h1>Workshop Lists  </h1>
+        <h1>My Workshops</h1>
         <p><NavLink to="/workshopmap/">Click for Map View</NavLink></p>
         <Row gutter={16}>
           <Col span={7}>
@@ -88,6 +105,7 @@ class WorkshopListView extends React.Component{
               grid={{ gutter: 16, column: 1 }}
               dataSource={this.state.workshops}
               renderItem={item => (
+                //if(isRegistered ) {
                 <List.Item>
                   <Workshop
                     ws_id = {item.ws_id}
@@ -102,6 +120,7 @@ class WorkshopListView extends React.Component{
                     end_time_display = {item.end_time_display}
                     is_detailed = {false} />
                 </List.Item>
+              //}
               )}
             />
           </Col>
@@ -121,8 +140,14 @@ class WorkshopListView extends React.Component{
         </Row>
       </div>
     )
+
+} else {
+    window.alert("Log in before viewing your workshops.");
   }
+
 }
+}
+
 
 const mapStateToProps = (state) => {
   return {
