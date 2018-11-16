@@ -91,8 +91,8 @@ class WorkshopDetail extends React.Component{
 //    axios.get('http://127.0.0.1:8000/api/rest-auth/user/' + localStorage.getItem('username'))
 //      .then(res => {
 //        const loggedinuserid = res.data.pk;
-    console.log(this.props.user_id)
-    if (this.state.user.learning_credit > 1){
+    console.log(this.props.user.learning_credit)
+    if (this.props.user.learning_credit > 1){
       var d = new Date();
       this.setState({
         isRegistered: true
@@ -107,7 +107,7 @@ class WorkshopDetail extends React.Component{
           console.log(res.data);
           var url = 'http://127.0.0.1:8000/api/user/' + 1 + '/updatelc'
           console.log(url)
-          var newLearningCredits = this.state.user.learning_credit - 1
+          var newLearningCredits = this.props.user.learning_credit - 1
           axios.patch(url, {
             learning_credit: newLearningCredits
           })
@@ -140,19 +140,18 @@ class WorkshopDetail extends React.Component{
           */
       })
       .catch(err => console.log(err));
-
-    //Need to have this retrived from this.props
-    let user_id = 1;
-    axios.get('http://127.0.0.1:8000/api/user/' + user_id)
-      .then(res => {
-        this.setState({user: res.data});
-      })
-      .catch(err => console.log(err))
   }
   render() {
     const isLoggedIn = this.props.isAuthenticated;
-    const isRegistered = this.state.isRegistered
+    const isRegistered = this.state.isRegistered;
+    const user = this.props.user;
+    var user_id = null
     let registerbutton;
+    let editbutton;
+
+    if(user !== null){
+      user_id = user.id
+    }
 
     if (this.state.isEditing) {
       return (
@@ -166,10 +165,16 @@ class WorkshopDetail extends React.Component{
       )
     }
 
+    //Display register button if the user is logged in
     if(isLoggedIn){
       registerbutton = <Button onClick={(e) => {this.onRegisterClick(e)}}>
         Register
       </Button>
+    }
+
+    //Display edit button if the user's id matches the workshop host id
+    if(user_id === this.state.workshop.host_user){
+      editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
     }
 
     return (
@@ -182,7 +187,7 @@ class WorkshopDetail extends React.Component{
             Cancel
           </NavLink>
           {registerbutton}
-          <Button onClick = {this.toggleEdit}>Edit</Button>
+          {editbutton}
         </div>
 
         <div className = 'host_user'>
@@ -225,7 +230,7 @@ class WorkshopDetail extends React.Component{
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.token !== null,
-    //user_id: state.user.user_id
+    user: state.user
   }
 }
 
