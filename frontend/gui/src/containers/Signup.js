@@ -60,6 +60,11 @@ class RegistrationForm extends React.Component {
     let EM = null;
     if (this.props.error !== null) {
       EM = this.props.error.request.responseText;
+      EM = this.props.error.request.responseText;
+      let colonIndex = EM.indexOf(":");
+      EM = EM.substring(colonIndex + 3, EM.length);
+      let endIndex = EM.indexOf("\"");
+      EM = EM.substring(0,endIndex);
     }
     return (
       <div>
