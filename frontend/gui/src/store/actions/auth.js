@@ -50,7 +50,6 @@ export const authLogin = (username, password) => {
             password: password
         })
         .then(res => {
-            debugger;
             console.log('authlogin'+res);
             const token = res.data.key;
             const user = res.data.user;
