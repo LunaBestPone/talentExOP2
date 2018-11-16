@@ -58,8 +58,8 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'main.User'
 
 # define token serializer
-REST_AUTH_SERIALIZER = {
-        'LOGIN_SERIALIZER': 'main.TokenSerializer',
+REST_AUTH_SERIALIZERS = {
+        'TOKEN_SERIALIZER': 'main.api.serializer.TokenSerializer',
 }
 
 MIDDLEWARE = [
