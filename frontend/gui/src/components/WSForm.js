@@ -87,7 +87,8 @@ class WSForm extends React.Component {
             value={this.props.workshop.end_date_time}
             onChange={this.props.onChange} />
           </FormItem>
-          
+          <FormItem
+          {...formItemLayout}>
           <Input
             type="submit"
             style={{width: '100px', padding: '5px'}}
@@ -102,6 +103,7 @@ class WSForm extends React.Component {
             disabled={this.props.saving}
             className="btn btn-primary"
             onClick={this.props.cancelEdit}/>
+          </FormItem>
         </Form>
     );
   }

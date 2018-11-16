@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import { Input } from 'antd';
 
-const TextInput = ({label, onChange, placeholder, value, categories}) => {
+const TextInput = ({name, label, onChange, placeholder, value, categories}) => {
   // TODO: In future we would need to provide dropdown menu for cat, not text
   //       Same for time as well
   if(label === "category"){
@@ -18,6 +18,7 @@ const TextInput = ({label, onChange, placeholder, value, categories}) => {
         <Input
           style = {{width: '50%'}}
           type="text"
+          name={name}
           className="form-control"
           placeholder={placeholder}
           value={value}
