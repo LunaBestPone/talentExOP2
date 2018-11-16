@@ -1,6 +1,7 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
 from main.models import User, Workshop, Enrollment
 from .serializer import UserSerializer, WorkshopSerializer, EnrollmentSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 class UserListView(ListAPIView):
     queryset = User.objects.all()
@@ -18,6 +19,8 @@ class LearningCreditsUpdateView(UpdateAPIView):
 class WorkshopListView(ListAPIView):
     queryset = Workshop.objects.all()
     serializer_class = WorkshopSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('category',)
 
 class WorkshopDetailView(RetrieveAPIView):
     queryset = Workshop.objects.all()

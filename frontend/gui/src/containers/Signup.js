@@ -9,6 +9,7 @@ const FormItem = Form.Item;
 class RegistrationForm extends React.Component {
   state = {
     confirmDirty: false,
+    error: false
   };
 
   handleSubmit = (e) => {
@@ -21,7 +22,6 @@ class RegistrationForm extends React.Component {
             values.password,
             values.confirm
         );
-        this.props.history.push('/');
       }
     });
   }
@@ -48,16 +48,36 @@ class RegistrationForm extends React.Component {
     callback();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (nextProps !== this.props || nextState !== this.state);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.error !== prevProps.error) {
+      if (this.props.error !== null) {
+        this.setState({error: true});
+      }
+      else {
+        this.props.history.push("/workshop/");
+        this.setState({error: false});
+      }
+    }
+  }
+
 
   render() {
     const { getFieldDecorator } = this.props.form;
-
+    let EM = null;
+    if (this.state.error) {
+      EM = this.props.error.request.responseText;
+      window.alert(EM);
+    }
     return (
       <Form onSubmit={this.handleSubmit}>
 
-        <FormItem style = {{ width: 300}}> 
+        <FormItem style = {{ width: 300}}>
             {getFieldDecorator('userName', {
-                rules: [{ required: true, message: 'Please input your username!' }],
+                rules: [{ required: true, message: 'Please input your username!' }, {min: 6, message: 'Username must have a length greater than 6 characters!'}],
             })(
                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
             )}
@@ -81,7 +101,7 @@ class RegistrationForm extends React.Component {
               required: true, message: 'Please input your password!',
             }, {
               validator: this.validateToNextPassword,
-            }],
+            }, {min: 8, message: 'Password must have a length greater than 8 characters!'}],
           })(
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
           )}
@@ -93,7 +113,7 @@ class RegistrationForm extends React.Component {
               required: true, message: 'Please confirm your password!',
             }, {
               validator: this.compareToFirstPassword,
-            }],
+            }, {min: 8, message: 'Password must have a length greater than 8 characters!'}],
           })(
             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onBlur={this.handleConfirmBlur} />
           )}
@@ -104,10 +124,6 @@ class RegistrationForm extends React.Component {
             Signup
         </Button>
 
-        <NavLink
-            style={{marginRight: '10px'}}
-            to='/login/'> Login
-        </NavLink>
         <NavLink
             style={{marginRight: '10px'}}
             to='/workshop/'> Cancel
@@ -123,6 +139,7 @@ const WrappedRegistrationForm = Form.create()(RegistrationForm);
 
 const mapStateToProps = (state) => {
     return {
+        token: state.token,
         loading: state.loading,
         error: state.error
     }
