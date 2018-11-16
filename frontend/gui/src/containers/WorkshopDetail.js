@@ -172,6 +172,7 @@ class WorkshopDetail extends React.Component{
     const user_id = this.props.user;
     let registerbutton;
     let editbutton;
+    let cancelregistrationbutton;
 
     if (this.state.isEditing) {
       return (
@@ -200,7 +201,7 @@ class WorkshopDetail extends React.Component{
     }
 
     //Display edit button if the user's id matches the workshop host id
-    if(user_id === this.state.workshop.host_user){
+    if(user_id == this.state.workshop.host_user){
       editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
     }
     return (
