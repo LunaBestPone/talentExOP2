@@ -74,18 +74,12 @@ class WSForm extends React.Component {
           <FormItem
             {...formItemLayout}
             label="Start Time:">
-            <TextInput
-            name="start_date_time"
-            value={this.props.workshop.start_date_time}
-            onChange={this.props.onChange} />
+            {this.props.workshop.start_time_display}
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label="End Time:">
-            <TextInput
-            name="end_date_time"
-            value={this.props.workshop.end_date_time}
-            onChange={this.props.onChange} />
+            label="Start Time:">
+            {this.props.workshop.end_time_display}
           </FormItem>
           <FormItem
           {...formItemLayout}>
