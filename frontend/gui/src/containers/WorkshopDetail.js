@@ -34,11 +34,13 @@ class WorkshopDetail extends React.Component{
     this.setState({isEditing: !this.state.isEditing})
   }
 
+  /*
   componentWillReceiveProps(nextProps) {
     if (this.props.workshop.ws_id != nextProps.workshop.ws_id) {
       this.setState({workshop: nextProps.workshop});
     }
   }
+*/
 
   updateWorkshopState(event) {
     const field = event.target.name;
