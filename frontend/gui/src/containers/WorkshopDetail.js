@@ -5,12 +5,12 @@
 
 import React from 'react';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink  } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // import Workshop from '../components/Workshop';
 
-import { Button, Card, Icon } from 'antd';
+import { Button, Card, Row, Col } from 'antd';
 import WSForm from '../components/WSForm';
 
 const closeStyle = {
@@ -188,14 +188,14 @@ class WorkshopDetail extends React.Component{
     }
 
     //Display register button if the user is logged in
-    if(isLoggedIn){
+    if(isLoggedIn && !isRegistered){
       registerbutton = <Button style={{padding: '5px'}} onClick={(e) => {this.onRegisterClick(e)}}>
         Register
       </Button>
     }
 
     if(isRegistered){
-      cancelregistrationbutton = <Button style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
+      cancelregistrationbutton = <Button  style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
         Cancel Registration
       </Button>
     }
@@ -205,9 +205,44 @@ class WorkshopDetail extends React.Component{
       editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
     }
     return (
-        <Card title={this.state.workshop.ws_name}>
-
-        <div style = {{float: 'right', position: 'relative'}}>
+        <Row gutter={14}>
+        <Col span={10} offset={6}>
+          <Card title={this.state.workshop.ws_name}>
+          <div className = 'host_user'>
+            Host: {this.state.workshop.host_username}
+          </div>
+          <div className = 'category'>
+            Subject: {this.state.workshop.category}
+          </div>
+          <div className = 'min_cap'>
+            Minimum Capacity: {this.state.workshop.min_cap}
+          </div>
+          <div className = 'max_cap'>
+            Maximum Capacity: {this.state.workshop.max_cap}
+          </div>
+          <div className = 'is_active'>
+            Active?: {this.state.workshop.is_active ? 'Yes' : 'No'}
+          </div>
+          <div className = 'description'>
+            Description: {this.state.workshop.description}
+          </div>
+          <div className = 'start_date_time'>
+            Start Date: {this.state.workshop.start_time_display}
+          </div>
+          <div className = 'end_date_time'>
+            End Date: {this.state.workshop.end_time_display}
+          </div><br></br>
+        
+        {/*
+         <div style = {{float: 'left'}}>
+          <button onClick={(e) => {this.onWishlistClick(e)}}>
+             Add to wishlist
+           </button>
+        </div>
+        */}
+      </Card>
+      
+      <div style = {{float: 'right', padding: '5px'}} >
           <NavLink
             style={{padding: '5px'}}
             to='/workshop/'>
@@ -217,38 +252,8 @@ class WorkshopDetail extends React.Component{
           {editbutton}
           {cancelregistrationbutton}
         </div>
-        <div className = 'host_user'>
-          Host: {this.state.workshop.host_username}
-        </div>
-        <div className = 'category'>
-          Subject: {this.state.workshop.category}
-        </div>
-        <div className = 'min_cap'>
-          Minimum Capacity: {this.state.workshop.min_cap}
-        </div>
-        <div className = 'max_cap'>
-          Maximum Capacity: {this.state.workshop.max_cap}
-        </div>
-        <div className = 'is_active'>
-          Active?: {this.state.workshop.is_active ? 'Yes' : 'No'}
-        </div>
-        <div className = 'description'>
-          Description: {this.state.workshop.description}
-        </div>
-        <div className = 'start_date_time'>
-          Start Date: {this.state.workshop.start_time_display}
-        </div>
-        <div className = 'end_date_time'>
-          End Date: {this.state.workshop.end_time_display}
-        </div><br></br>
-        {/*
-         <div style = {{float: 'left'}}>
-          <button onClick={(e) => {this.onWishlistClick(e)}}>
-             Add to wishlist
-           </button>
-        </div>
-        */}
-      </Card>
+      </Col>
+      </Row>
     )
   }
 }
