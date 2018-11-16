@@ -39,7 +39,7 @@ class WSForm extends React.Component {
             onChange={this.props.onChange} />
 
           <span>
-            <b>is active: </b> {this.props.workshop.is_active}
+            <b>is active: </b> {this.props.workshop.is_active.toString()}
           </span>
 
           <TextInput
@@ -48,17 +48,14 @@ class WSForm extends React.Component {
             value={this.props.workshop.description}
             onChange={this.props.onChange} />
 
-          <TextInput
-            name="start_date_time"
-            label="start time"
-            value={this.props.workshop.start_date_time}
-            onChange={this.props.onChange} />
+          <span>
+            <b>starts: </b> {this.props.workshop.start_time_display}
+          </span>
+          <br></br>
+          <span>
+            <b>ends: </b> {this.props.workshop.end_time_display}
+          </span>
 
-          <TextInput
-            name="end_date_time"
-            label="end time"
-            value={this.props.workshop.end_date_time}
-            onChange={this.props.onChange} />
           <br></br>
           <input
             type="submit"
