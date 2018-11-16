@@ -206,7 +206,7 @@ class WorkshopDetail extends React.Component{
     }
     return (
         <Row gutter={14}>
-        <Col span={10} offset={6}>
+        <Col span={10} offset={7}>
           <Card title={this.state.workshop.ws_name}>
           <div className = 'host_user'>
             Host: {this.state.workshop.host_username}
