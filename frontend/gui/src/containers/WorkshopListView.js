@@ -4,6 +4,7 @@
 // for Detail, please create a seperate component, aka WorkshopDetailView.js in similar manner.
 
 import React from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import { List, Icon, Button, Row, Col, Collapse } from 'antd';
@@ -22,7 +23,6 @@ class WorkshopListView extends React.Component{
     filterSub: "-1",
     subjects: ["Any"],
     locations: ["Any"],
-    first: true,
   }
 
   handleFilterChange = (value) => {
@@ -32,7 +32,6 @@ class WorkshopListView extends React.Component{
         filterSub: val
       })
     } else {
-      // console.log("val: " + val);
       this.setState({
         filterSub: ""
       })
@@ -45,11 +44,9 @@ class WorkshopListView extends React.Component{
         this.setState({
             workshops: res.data,
         });
-        // console.log(this.state.workshops);
-        console.log("didmount");
         for(var i = 0; i < this.state.workshops.length; i++){
           let sub = this.state.workshops[i].category;
-          if(!this.state.subjects.includes(sub)){
+          if(!this.state.subjects.includes(sub) && sub !== null){
             this.setState({
               subjects: this.state.subjects.concat(sub)
             })
@@ -57,34 +54,25 @@ class WorkshopListView extends React.Component{
         }
     })
   }
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log("shouldcompupdate");
-  //   let first = this.state.first;
-  //   if(first){
-  //     this.setState({
-  //       first: !first
-  //     })
-  //   }
-  //   return ((nextState !== this.state) || first);
-  // }
 
-  componentWillUpdate(nextProps, nextState) {
+  componentDidUpdate(prevProps, prevState) {
     // console.log("value = " + nextState.filterSub);
-    console.log("willupdate");
-    axios.get('http://127.0.0.1:8000/api/workshop/?category' + nextState.filterSub)
-      .then(res => {
-        this.setState({
-            workshops: res.data,
-        });
-        // console.log("workshops"+nextState.workshops);
-    }) 
+    if (prevState.filterSub !== this.state.filterSub) {
+      axios.get('http://127.0.0.1:8000/api/workshop/?category' + this.state.filterSub)
+        .then(res => {
+          this.setState({
+              workshops: res.data,
+          });
+          // console.log("workshops"+nextState.workshops);
+      })
+    }
   }
 
   render() {
     console.log("render");
     return (
       <div>
-        <h1>Workshop Lists  </h1> 
+        <h1>Workshop Lists  </h1>
         <p><NavLink to="/workshopmap/">Click for Map View</NavLink></p>
         <Row gutter={16}>
           <Col span={7}>
@@ -117,21 +105,31 @@ class WorkshopListView extends React.Component{
               )}
             />
           </Col>
-          <Col span={7} offset={15} style={stylebutton}> 
-          {/* <div style = > */}
-            <NavLink to="/createws/">
-              <Button>
-                <Icon type="plus" theme="outlined" />
-                  Create Workshop
-              </Button>
-            </NavLink>
-          {/* </div> */}
-          
-          </Col>
+          {
+            this.props.isAuthenticated ?
+            <Col span={7} offset={15} style={stylebutton}>
+              <NavLink to="/createws/">
+                <Button>
+                  <Icon type="plus" theme="outlined" />
+                    Create Workshop
+                </Button>
+              </NavLink>
+            </Col>
+            :
+            <Col span={7} offset={15} style={stylebutton} />
+          }
         </Row>
       </div>
     )
   }
 }
 
-export default WorkshopListView;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.token !== null,
+    user: state.user
+  }
+}
+
+
+export default connect(mapStateToProps)(WorkshopListView);
