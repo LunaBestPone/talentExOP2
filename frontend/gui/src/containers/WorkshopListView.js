@@ -17,35 +17,26 @@ const stylebutton = {
 }
 
 class WorkshopListView extends React.Component{
-  constructor(props){
-    super(props);
-    this.handleFilterChange = this.handleFilterChange.bind(this);
-    this.state = {
-      workshops: [],
-      filterSub: "-1",
-      filteredws: [],
-      subjects: ["Any"]
-    }
+  state = {
+    workshops: [],
+    filterSub: "-1",
+    subjects: ["Any"],
+    locations: ["Any"],
+    first: true,
   }
-  
 
-  handleFilterChange(value){
+  handleFilterChange = (value) => {
     let val = "=" + value.replace(" ", "+");
     if(val !== "=Any"){
       this.setState({
         filterSub: val
       })
     } else {
-      console.log("val: " + val);
+      // console.log("val: " + val);
       this.setState({
         filterSub: ""
       })
     }
-    // for(var i = 0; i < this.state.workshops.length; i++){
-    //   let sub = this.state.workshops[i].category;
-      
-    // }
-    // this.forceUpdate();
   }
 
   componentDidMount() {
@@ -55,6 +46,7 @@ class WorkshopListView extends React.Component{
             workshops: res.data,
         });
         // console.log(this.state.workshops);
+        console.log("didmount");
         for(var i = 0; i < this.state.workshops.length; i++){
           let sub = this.state.workshops[i].category;
           if(!this.state.subjects.includes(sub)){
@@ -65,10 +57,20 @@ class WorkshopListView extends React.Component{
         }
     })
   }
-
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("shouldcompupdate");
+  //   let first = this.state.first;
+  //   if(first){
+  //     this.setState({
+  //       first: !first
+  //     })
+  //   }
+  //   return ((nextState !== this.state) || first);
+  // }
 
   componentWillUpdate(nextProps, nextState) {
     // console.log("value = " + nextState.filterSub);
+    console.log("willupdate");
     axios.get('http://127.0.0.1:8000/api/workshop/?category' + nextState.filterSub)
       .then(res => {
         this.setState({
@@ -79,9 +81,10 @@ class WorkshopListView extends React.Component{
   }
 
   render() {
+    console.log("render");
     return (
       <div>
-        <h1>Workshop Lists</h1>
+        <h1>Workshop Lists <p><NavLink to="/workshopmap/">Click for Map View</NavLink></p> </h1> 
         <Row gutter={16}>
           <Col span={7}>
           {/* This is for sorting UI */}
