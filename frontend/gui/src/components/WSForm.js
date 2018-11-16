@@ -1,79 +1,109 @@
 import React, { PropTypes } from 'react';
 import TextInput from './TextInput';
+import { Row, Col, Form, Input} from 'antd';
+
+const FormItem = Form.Item;
 
 class WSForm extends React.Component {
   render() {
+    const formItemLayout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 12 },
+    };
+    let active = "";
+    this.props.workshop.is_active ? active = "True" : active = "False";
     return (
-      <div>
-        <form>
-          <span>
-            <b>workshop id:</b>{this.props.workshop.ws_id}
-          </span>
-
-          <TextInput
+        <Form>
+          <FormItem
+            {...formItemLayout}
+            label="Workshop ID:">
+            {this.props.workshop.ws_id}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Workshop Name:">
+            <TextInput
             name="ws_name"
-            label="name"
             value={this.props.workshop.ws_name}
             onChange={this.props.onChange} />
-
-          <span>
-            <b>host user:</b> {this.props.workshop.host_username}
-          </span>
-
-          <TextInput
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Host Name:">
+            {this.props.workshop.host_username}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Category:">
+            <TextInput
             name="category"
-            label="category"
             value={this.props.workshop.category}
             onChange={this.props.onChange} />
-
-          <TextInput
-            label="min attendees"
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Min Attendees:">
+            <TextInput
             name="min_cap"
             value={this.props.workshop.min_cap}
             onChange={this.props.onChange} />
-
-          <TextInput
-            label="max attendes"
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Max Attendees:">
+            <TextInput
             name="max_cap"
             value={this.props.workshop.max_cap}
             onChange={this.props.onChange} />
-
-          <span>
-            <b>is active: </b> {this.props.workshop.is_active}
-          </span>
-
-          <TextInput
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Active?:">
+            {active}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Description:">
+            <TextInput
             name="description"
-            label="description"
             value={this.props.workshop.description}
             onChange={this.props.onChange} />
-
-          <TextInput
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Start Time:">
+            <TextInput
             name="start_date_time"
-            label="start time"
             value={this.props.workshop.start_date_time}
             onChange={this.props.onChange} />
-
-          <TextInput
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="End Time:">
+            <TextInput
             name="end_date_time"
-            label="end time"
             value={this.props.workshop.end_date_time}
             onChange={this.props.onChange} />
-          <br></br>
-          <input
+          </FormItem>
+          {/* </div>
+          </Col> */}
+          
+          <Input
             type="submit"
+            style={{width: '100px', padding: '5px'}}
             disabled={this.props.saving}
             className="btn btn-primary"
             onClick={this.props.onSave} />
           {' '}
-          <input
+          <Input
             type="submit"
+            style={{width: '100px', padding: '5px'}}
             value="Cancel"
             disabled={this.props.saving}
             className="btn btn-primary"
             onClick={this.props.cancelEdit}/>
-        </form>
-      </div>
+          {/* </Row> */}
+        </Form>
     );
   }
 }

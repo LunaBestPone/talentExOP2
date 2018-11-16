@@ -177,7 +177,7 @@ class WorkshopDetail extends React.Component{
     if (this.state.isEditing) {
       return (
       <div style = {{width: '100%'}}>
-        <h1>edit workshop</h1>
+        <h1>Edit Workshop</h1>
         <WSForm
           workshop={this.state.workshop}
           onSave={this.saveWorkshop}

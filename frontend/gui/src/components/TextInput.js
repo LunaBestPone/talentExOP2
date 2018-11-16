@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react';
+import { Input } from 'antd';
 
 const TextInput = ({name, label, onChange, placeholder, value}) => {  
   return (
     <div className="form-group">
       <div className="field">
         <b>{label}{' '}</b>
-        <input
+        <Input
           style = {{width: '25%'}}
           type="text"
           name={name}
