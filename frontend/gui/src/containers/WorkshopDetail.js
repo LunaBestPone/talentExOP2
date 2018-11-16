@@ -189,13 +189,13 @@ class WorkshopDetail extends React.Component{
 
     //Display register button if the user is logged in
     if(isLoggedIn){
-      registerbutton = <Button onClick={(e) => {this.onRegisterClick(e)}}>
+      registerbutton = <Button style={{padding: '5px'}} onClick={(e) => {this.onRegisterClick(e)}}>
         Register
       </Button>
     }
 
     if(isRegistered){
-      cancelregistrationbutton = <Button onClick={(e) => {this.onCancelRegistrationClick(e)}}>
+      cancelregistrationbutton = <Button style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
         Cancel Registration
       </Button>
     }
@@ -207,7 +207,7 @@ class WorkshopDetail extends React.Component{
     return (
         <Card title={this.state.workshop.ws_name}>
 
-        <div style = {{float: 'right'}}>
+        <div style = {{float: 'right', position: 'relative'}}>
           <NavLink
             style={{padding: '5px'}}
             to='/workshop/'>
