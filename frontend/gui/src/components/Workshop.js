@@ -29,11 +29,11 @@ const Workshop = (props) => {
         <div className = 'description'>
           <b>Description:</b> {props.description}
         </div>
-        <div className = 'start_date_time'>
-          <b>Start Date:</b> {props.start_date_time}
+        <div className = 'start_time_display'>
+          <b>Start Date:</b> {props.start_time_display}
         </div>
-        <div className = 'end_date_time'>
-          <b>End Date:</b> {props.end_date_time}
+        <div className = 'end_time_display'>
+          <b>End Date:</b> {props.end_time_display}
         </div>
       </Card>
     )
@@ -47,11 +47,11 @@ const Workshop = (props) => {
       <div className = 'category'>
         <b>Subject</b>: {props.category}
       </div>
-      <div className = 'start_date_time'>
-        <b>Start Date:</b> {props.start_date_time}
+      <div className = 'start_time_display'>
+        <b>Start Date:</b> {props.start_time_display}
       </div>
-      <div className = 'end_date_time'>
-        <b>End Date:</b> {props.end_date_time}
+      <div className = 'end_time_display'>
+        <b>End Date:</b> {props.end_time_display}
       </div>
     </Card>
     )
