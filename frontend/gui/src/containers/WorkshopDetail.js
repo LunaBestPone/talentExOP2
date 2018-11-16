@@ -122,6 +122,31 @@ class WorkshopDetail extends React.Component{
     }
   }
 
+  onCancelRegistrationClickRegisterClick = (e) => {
+    // if(isRegistered){
+    //   var newLearningCredits = this.state.user.learning_credit + 1
+    //   var updateLearningCreditUrl = 'http://127.0.0.1:8000/api/user/' + this.state.user.user_id + '/updatelc'
+    //   axios.patch(updateLearningCreditUrl, {
+    //     learning_credit: newLearningCredits
+    //   })
+    //     .then(res => {
+    //       console.log(res.data);
+    //       }).catch(err => {
+    //           console.log(err)
+    //           })
+    //   var newUserId = -1
+    //   var updateEnrollmentUrl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.user.user_id + '/update/'
+    //   axios.patch(updateLearningCreditUrl, {
+    //     learning_credit: newLearningCredits
+    //   })
+    //     .then(res => {
+    //       console.log(res.data);
+    //       }).catch(err => {
+    //           console.log(err)
+    //           })
+    // }
+  }
+
   componentDidMount() {
     let workshop_id = this.props.match.params.ws_id;
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
@@ -168,6 +193,12 @@ class WorkshopDetail extends React.Component{
       </Button>
     }
 
+    if(isRegistered){
+      cancelregistrationbutton = <Button onClick={(e) => {this.onCancelRegistrationClick(e)}}>
+        Cancel Registration
+      </Button>
+    }
+
     //Display edit button if the user's id matches the workshop host id
     if(user_id === this.state.workshop.host_user){
       editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
@@ -183,8 +214,8 @@ class WorkshopDetail extends React.Component{
           </NavLink>
           {registerbutton}
           {editbutton}
+          {cancelregistrationbutton}
         </div>
-
         <div className = 'host_user'>
           Host: {this.state.workshop.host_username}
         </div>

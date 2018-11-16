@@ -31,7 +31,7 @@ class WorkshopCreateView(CreateAPIView):
 
 class WorkshopUpdateView(UpdateAPIView):
     queryset = Workshop.objects.all()
-    serializer_class = WorkshopSerializer    
+    serializer_class = WorkshopSerializer
 
 class EnrollmentListView(ListAPIView):
     queryset = Enrollment.objects.all()
@@ -42,5 +42,9 @@ class EnrollmentDetailView(RetrieveAPIView):
     serializer_class = EnrollmentSerializer
 
 class EnrollmentCreateView(CreateAPIView):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentSerializer
+
+class EnrollmentUpdateView(UpdateAPIView):
     queryset = Enrollment.objects.all()
     serializer_class = EnrollmentSerializer
