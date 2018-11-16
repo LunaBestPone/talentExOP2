@@ -3,7 +3,6 @@ import User from '../components/User';
 import axios from 'axios';
 import { Card, Col, Row } from 'antd';
 
-
 	const tabList = [{
 	  key: 'tab1',
 	  tab: 'Personal Information',
