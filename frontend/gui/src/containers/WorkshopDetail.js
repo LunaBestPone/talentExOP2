@@ -88,20 +88,15 @@ class WorkshopDetail extends React.Component{
   // }
 
   onRegisterClick = (e) => {
-    if (this.state.user.learning_credit > 1){
+    if (this.state.user.learning_credit > 1 && this.state.isRegistered === false){
       var d = new Date();
-      this.setState({
-        isRegistered: true
-      });
       axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
         enroll_date_time: d.toISOString(),
         ws_id: this.state.workshop.ws_id,
-        enrolled_user: this.state.user.user_id
+        enrolled_user: this.state.user.id
       })
         .then(res => {
-          console.log(res.data);
-          var url = 'http://127.0.0.1:8000/api/user/' + 1 + '/updatelc'
-          console.log(url)
+          var url = 'http://127.0.0.1:8000/api/user/' + this.state.user.id + '/updatelc'
           var newLearningCredits = this.state.user.learning_credit - 1
           axios.patch(url, {
             learning_credit: newLearningCredits
@@ -116,9 +111,12 @@ class WorkshopDetail extends React.Component{
         console.log(err);
         window.alert("Oops something went wrong~ You can't register for the same workshop twice. And makesure you are logged in~");
       });
+      this.setState({
+        isRegistered: true
+      });
     }
     else{
-      window.alert("Oops,you don't have enough learning credits.Host more workshops to earn more!");
+      window.alert("Oops,you don't have enough learning credits. Host more workshops to earn more!");
     }
   }
 
@@ -158,11 +156,13 @@ class WorkshopDetail extends React.Component{
           .then(resFuser => this.setState({host: resFuser.data}))
           .catch(err => console.log(err));
           */
-        axios.get('http://127.0.0.1:8000/api/user/' + this.props.user)
-          .then(res => {
-            this.setState({user: res.data});
-          })
-          .catch(err => console.log(err))
+        if(this.props.user != null){
+          axios.get('http://127.0.0.1:8000/api/user/' + this.props.user)
+            .then(res => {
+              this.setState({user: res.data});
+            })
+            .catch(err => console.log(err))
+        }
       })
       .catch(err => console.log(err));
   }
@@ -232,7 +232,7 @@ class WorkshopDetail extends React.Component{
           <div className = 'end_date_time'>
             End Date: {this.state.workshop.end_time_display}
           </div><br></br>
-        
+
         {/*
          <div style = {{float: 'left'}}>
           <button onClick={(e) => {this.onWishlistClick(e)}}>
@@ -241,7 +241,7 @@ class WorkshopDetail extends React.Component{
         </div>
         */}
       </Card>
-      
+
       <div style = {{float: 'right', padding: '5px'}} >
           <NavLink
             style={{padding: '5px'}}
