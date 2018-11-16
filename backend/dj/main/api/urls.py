@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import UserListView, UserDetailView, LearningCreditsUpdateView, WorkshopListView, WorkshopDetailView, WorkshopCreateView, WorkshopUpdateView, EnrollmentListView, EnrollmentDetailView, EnrollmentCreateView, EnrollmentUpdateView
+from .views import UserListView, UserDetailView, LearningCreditsUpdateView, WorkshopListView, WorkshopDetailView, WorkshopCreateView, WorkshopUpdateView, EnrollmentListView, EnrollmentDetailView, EnrollmentCreateView, EnrollmentUpdateView, EnrollmentDestroyView
 
 urlpatterns = [
     path('user/', UserListView.as_view()),
@@ -14,5 +14,6 @@ urlpatterns = [
     path('enrollment/detail/<pk>/', EnrollmentDetailView.as_view()),
     path('enrollment/create/', EnrollmentCreateView.as_view()),
     path('enrollment/detail/<pk>/update/', EnrollmentUpdateView.as_view()),
+    path('enrollment/detail/<pk>/delete/', EnrollmentDestroyView.as_view()),
 
 ]

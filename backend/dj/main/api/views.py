@@ -48,3 +48,7 @@ class EnrollmentCreateView(CreateAPIView):
 class EnrollmentUpdateView(UpdateAPIView):
     queryset = Enrollment.objects.all()
     serializer_class = EnrollmentSerializer
+
+class EnrollmentDestroyView(DestroyAPIView):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentSerializer
