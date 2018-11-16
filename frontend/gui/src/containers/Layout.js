@@ -46,6 +46,7 @@ class CustomLayout extends React.Component {
             <Menu.Item key="3" onClick = {() => this.updatePage("Sign Up")}><Link to="/signup/">Sign up</Link></Menu.Item>
             <Menu.Item key="4" onClick={() => this.updatePage("Workshop List")}><Link to="/workshop/">Workshop</Link></Menu.Item>
             <Menu.Item key="5" onClick = {() => this.updatePage("About Us")}><Link to="/about/">About us</Link></Menu.Item>
+            <Menu.Item key="6" onClick = {() => this.updatePage("profile")}><Link to="/profile/">profile</Link></Menu.Item>
           </Menu>
         </Header>
 

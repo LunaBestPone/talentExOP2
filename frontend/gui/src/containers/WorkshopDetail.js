@@ -6,6 +6,7 @@
 import React from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // import Workshop from '../components/Workshop';
 
@@ -34,23 +35,48 @@ class WorkshopDetail extends React.Component{
     this.setState({isEditing: !this.state.isEditing})
   }
 
+  /*
   componentWillReceiveProps(nextProps) {
     if (this.props.workshop.ws_id != nextProps.workshop.ws_id) {
       this.setState({workshop: nextProps.workshop});
     }
   }
+*/
 
   updateWorkshopState(event) {
     const field = event.target.name;
-    const workshop = this.state.cat;
+    const workshop = this.state.workshop;
     workshop[field] = event.target.value;
     return this.setState({workshop: workshop});
   }
-  
+
   saveWorkshop(event) {
     event.preventDefault();
+
+    //this.props.history.push('/workshop/');
+    /*
+    return axios
+      .patch('http://127.0.0.1:8000/api/workshop/update/1', {
+        host_user: this.state.workshop.host_user,
+        ws_name: this.state.workshop.ws_name,
+        min_cap: this.state.workshop.min_cap,
+        max_cap: this.state.workshop.max_cap,
+        is_active: true,
+        description: this.state.workshop.description,
+        start_date_time: this.state.workshop.start_date_time,
+        end_date_time: this.state.workshop.end_date_time,
+        category: this.state.workshop.category,
+        // location: null,
+      }).then(res => {
+        console.log(res);
+        console.log(res.data);
+      }).catch(err => {
+        console.log(err)
+      })
+      */
+
     //this.props.actions.updateWorkshop(this.state.workshop);
-    window.alert('TODO')
+    //window.alert('TODO')
     this.toggleEdit()
   }
 
@@ -75,6 +101,7 @@ class WorkshopDetail extends React.Component{
 //    axios.get('http://127.0.0.1:8000/api/rest-auth/user/' + localStorage.getItem('username'))
 //      .then(res => {
 //        const loggedinuserid = res.data.pk;
+    console.log(this.props.user_id)
     if (this.state.user.learning_credit > 1){
       var d = new Date();
       this.setState({
@@ -136,12 +163,12 @@ class WorkshopDetail extends React.Component{
 
     if (this.state.isEditing) {
       return (
-      <div style = {{width: '100%'}}> 
+      <div style = {{width: '100%'}}>
         <h1>edit workshop</h1>
-        <WSForm 
-          workshop={this.state.workshop} 
-          onSave={this.saveWorkshop} 
-          onChange={this.updateWorkshopState}/> 
+        <WSForm
+          workshop={this.state.workshop}
+          onSave={this.saveWorkshop}
+          onChange={this.updateWorkshopState}/>
       </div>
       )
     }
@@ -152,7 +179,7 @@ class WorkshopDetail extends React.Component{
         <div style = {{float: 'right'}}>
           <NavLink
             style={{padding: '5px'}}
-            to='/workshop/'> 
+            to='/workshop/'>
             Cancel
           </NavLink>
           <Button onClick={(e) => {this.onRegisterClick(e)}}>
@@ -162,7 +189,7 @@ class WorkshopDetail extends React.Component{
         </div>
 
         <div className = 'host_user'>
-          Host: {this.state.workshop.host_user}
+          Host: {this.state.workshop.host_username}
         </div>
         <div className = 'category'>
           Subject: {this.state.workshop.category}
@@ -197,4 +224,11 @@ class WorkshopDetail extends React.Component{
   }
 }
 
-export default WorkshopDetail;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.token !== null,
+    user_id: state.user.user_id
+  }
+}
+
+export default connect(mapStateToProps)(WorkshopDetail);

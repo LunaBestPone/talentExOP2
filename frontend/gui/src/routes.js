@@ -9,6 +9,7 @@ import WorkshopDetail from './containers/WorkshopDetail';
 import WorkshopList from './containers/WorkshopListView';
 import Home from './containers/Home';
 import WorkshopMap from './containers/WorkShopMap';
+import profile from './containers/profile';
 
 const BaseRouter = () => (
   <div>
@@ -20,6 +21,7 @@ const BaseRouter = () => (
     <Route exact path='/login/' component={Login} />
     <Route exact path='/createws/' component={Create} />
     <Route exact strict path='/signup/' component={Signup} />
+    <Route exact path='/profile/' component={profile}/>
   </div>
 );
 

@@ -69,6 +69,7 @@ class WorkShopMap extends React.Component {
     }
     render() {
         return (
+
             <div>
                 <Map google={this.props.google} 
                     zoom={14}

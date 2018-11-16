@@ -9,7 +9,6 @@ const FormItem = Form.Item;
 class RegistrationForm extends React.Component {
   state = {
     confirmDirty: false,
-    error: false
   };
 
   handleSubmit = (e) => {
@@ -52,85 +51,78 @@ class RegistrationForm extends React.Component {
     return (nextProps !== this.props || nextState !== this.state);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.error !== prevProps.error) {
-      if (this.props.error !== null) {
-        this.setState({error: true});
-      }
-      else {
-        this.props.history.push("/workshop/");
-        this.setState({error: false});
-      }
-    }
-  }
-
 
   render() {
+    if (this.props.token !== null) {
+      this.props.history.push("/workshop/");
+    }
     const { getFieldDecorator } = this.props.form;
     let EM = null;
-    if (this.state.error) {
+    if (this.props.error !== null) {
       EM = this.props.error.request.responseText;
-      window.alert(EM);
     }
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <div>
+        {EM}
+        <Form onSubmit={this.handleSubmit}>
 
-        <FormItem style = {{ width: 300}}>
-            {getFieldDecorator('userName', {
-                rules: [{ required: true, message: 'Please input your username!' }, {min: 6, message: 'Username must have a length greater than 6 characters!'}],
+          <FormItem style = {{ width: 300}}>
+              {getFieldDecorator('userName', {
+                  rules: [{ required: true, message: 'Please input your username!' }, {min: 6, message: 'Username must have a length greater than 6 characters!'}],
+              })(
+                  <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+              )}
+          </FormItem>
+
+          <FormItem style = {{ width: 300}}>
+            {getFieldDecorator('email', {
+              rules: [{
+                type: 'email', message: 'The input is not valid E-mail!',
+              }, {
+                required: true, message: 'Please input your E-mail!',
+              }],
             })(
-                <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+              <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
             )}
-        </FormItem>
+          </FormItem>
 
-        <FormItem style = {{ width: 300}}>
-          {getFieldDecorator('email', {
-            rules: [{
-              type: 'email', message: 'The input is not valid E-mail!',
-            }, {
-              required: true, message: 'Please input your E-mail!',
-            }],
-          })(
-            <Input prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
-          )}
-        </FormItem>
+          <FormItem style = {{ width: 300}}>
+            {getFieldDecorator('password', {
+              rules: [{
+                required: true, message: 'Please input your password!',
+              }, {
+                validator: this.validateToNextPassword,
+              }, {min: 8, message: 'Password must have a length greater than 8 characters!'}],
+            })(
+              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+            )}
+          </FormItem>
 
-        <FormItem style = {{ width: 300}}>
-          {getFieldDecorator('password', {
-            rules: [{
-              required: true, message: 'Please input your password!',
-            }, {
-              validator: this.validateToNextPassword,
-            }, {min: 8, message: 'Password must have a length greater than 8 characters!'}],
-          })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-          )}
-        </FormItem>
+          <FormItem style = {{ width: 300}}>
+            {getFieldDecorator('confirm', {
+              rules: [{
+                required: true, message: 'Please confirm your password!',
+              }, {
+                validator: this.compareToFirstPassword,
+              }, {min: 8, message: 'Password must have a length greater than 8 characters!'}],
+            })(
+              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onBlur={this.handleConfirmBlur} />
+            )}
+          </FormItem>
 
-        <FormItem style = {{ width: 300}}>
-          {getFieldDecorator('confirm', {
-            rules: [{
-              required: true, message: 'Please confirm your password!',
-            }, {
-              validator: this.compareToFirstPassword,
-            }, {min: 8, message: 'Password must have a length greater than 8 characters!'}],
-          })(
-            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" onBlur={this.handleConfirmBlur} />
-          )}
-        </FormItem>
+          <FormItem >
+          <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>
+              Signup
+          </Button>
 
-        <FormItem >
-        <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>
-            Signup
-        </Button>
+          <NavLink
+              style={{marginRight: '10px'}}
+              to='/workshop/'> Cancel
+          </NavLink>
+          </FormItem>
 
-        <NavLink
-            style={{marginRight: '10px'}}
-            to='/workshop/'> Cancel
-        </NavLink>
-        </FormItem>
-
-      </Form>
+        </Form>
+      </div>
     );
   }
 }

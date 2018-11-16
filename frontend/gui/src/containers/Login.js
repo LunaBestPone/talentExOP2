@@ -9,7 +9,6 @@ const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component {
 
-  state = {error: false};
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -23,28 +22,18 @@ class NormalLoginForm extends React.Component {
     return (nextProps !== this.props || nextState !== this.state);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.error !== prevProps.error) {
-      debugger;
-      if (this.props.error !== null) {
-        this.setState({error: true});
-      }
-      else {
-        this.props.history.push("/workshop/");
-        this.setState({error: false});
-      }
-    }
-  }
-
   render() {
+    if (this.props.token !== null) {
+      this.props.history.push("/workshop/");
+    }
     const { getFieldDecorator } = this.props.form;
     let EM = null;
-    if (this.state.error) {
+    if (this.props.error !== null) {
       EM = this.props.error.request.responseText;
-      window.alert(EM);
     }
     return (
       <div>
+        {EM}
         {
           this.props.loading ?
           <Spin />
