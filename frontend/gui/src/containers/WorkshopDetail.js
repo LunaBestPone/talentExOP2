@@ -25,6 +25,7 @@ class WorkshopDetail extends React.Component{
     this.state = {
       isEditing: false,
       workshop: {},
+      isRegistered: false
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateWorkshopState = this.updateWorkshopState.bind(this);
@@ -54,7 +55,7 @@ class WorkshopDetail extends React.Component{
     event.preventDefault();
 
     //this.props.history.push('/workshop/');
-    
+
     return axios.patch('http://127.0.0.1:8000/api/workshop/detail/' + this.state.workshop.ws_id  + '/update/', {
         ws_name: this.state.workshop.ws_name,
         min_cap: this.state.workshop.min_cap,
@@ -73,7 +74,7 @@ class WorkshopDetail extends React.Component{
         window.alert("didn't work")
         console.log(err)
       })
-      
+
   }
 
   // onWishlistClick = (e) => {
@@ -94,7 +95,7 @@ class WorkshopDetail extends React.Component{
     if (this.state.user.learning_credit > 1){
       var d = new Date();
       this.setState({
-        registered: true
+        isRegistered: true
       });
       axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
         enroll_date_time: d.toISOString(),
@@ -149,6 +150,9 @@ class WorkshopDetail extends React.Component{
       .catch(err => console.log(err))
   }
   render() {
+    const isLoggedIn = this.props.isAuthenticated;
+    const isRegistered = this.state.isRegistered
+    let registerbutton;
 
     if (this.state.isEditing) {
       return (
@@ -162,6 +166,12 @@ class WorkshopDetail extends React.Component{
       )
     }
 
+    if(isLoggedIn){
+      registerbutton = <Button onClick={(e) => {this.onRegisterClick(e)}}>
+        Register
+      </Button>
+    }
+
     return (
         <Card title={this.state.workshop.ws_name}>
 
@@ -171,9 +181,7 @@ class WorkshopDetail extends React.Component{
             to='/workshop/'>
             Cancel
           </NavLink>
-          <Button onClick={(e) => {this.onRegisterClick(e)}}>
-            Register
-          </Button>
+          {registerbutton}
           <Button onClick = {this.toggleEdit}>Edit</Button>
         </div>
 
@@ -213,15 +221,14 @@ class WorkshopDetail extends React.Component{
   }
 }
 
-/*
+
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.token !== null,
-    user_id: state.user.user_id
+    //user_id: state.user.user_id
   }
 }
-*/
 
 
-//export default connect(mapStateToProps)(WorkshopDetail);
-export default WorkshopDetail;
+export default connect(mapStateToProps)(WorkshopDetail);
+//export default WorkshopDetail;
