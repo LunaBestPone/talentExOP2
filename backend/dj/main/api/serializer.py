@@ -20,12 +20,11 @@ class WorkshopSerializer(serializers.ModelSerializer):
     start_date_time = serializers.DateTimeField(read_only=True, format="%A %m-%d-%Y at %I:%M %p")
     end_date_time = serializers.DateTimeField(read_only=True, format="%A %m-%d-%Y at %I:%M %p")
 
-    host_user = serializers.CharField(source='host_user.username', read_only=True)
+    host_username = serializers.CharField(source='host_user.username', read_only=True)
 
     class Meta:
         model = Workshop
         fields = '__all__'
-
 
 
 class EnrollmentSerializer(serializers.ModelSerializer):

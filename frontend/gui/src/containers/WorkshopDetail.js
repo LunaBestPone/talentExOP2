@@ -51,8 +51,31 @@ class WorkshopDetail extends React.Component{
   
   saveWorkshop(event) {
     event.preventDefault();
+
+    //this.props.history.push('/workshop/');
+    /*
+    return axios
+      .patch('http://127.0.0.1:8000/api/workshop/update/1', {
+        host_user: this.state.workshop.host_user,
+        ws_name: this.state.workshop.ws_name,
+        min_cap: this.state.workshop.min_cap,
+        max_cap: this.state.workshop.max_cap,
+        is_active: true,
+        description: this.state.workshop.description,
+        start_date_time: this.state.workshop.start_date_time,
+        end_date_time: this.state.workshop.end_date_time,
+        category: this.state.workshop.category,
+        // location: null,
+      }).then(res => {
+        console.log(res);
+        console.log(res.data);
+      }).catch(err => {
+        console.log(err)
+      })
+      */
+
     //this.props.actions.updateWorkshop(this.state.workshop);
-    window.alert('TODO')
+    //window.alert('TODO')
     this.toggleEdit()
   }
 
@@ -164,7 +187,7 @@ class WorkshopDetail extends React.Component{
         </div>
 
         <div className = 'host_user'>
-          Host: {this.state.workshop.host_user}
+          Host: {this.state.workshop.host_username}
         </div>
         <div className = 'category'>
           Subject: {this.state.workshop.category}
