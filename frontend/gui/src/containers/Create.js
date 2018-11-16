@@ -44,35 +44,40 @@ class Registration extends React.Component {
         if (!err) {
           const wsname = e.target.elements.ws_title.value;
           const description = e.target.elements.description.value;
-          var date = e.target.elements.date.value;
-          date = new Date(date);
-          // var day = date.getDay();
-          // var dayString = "";
+          const min_cap = e.target.elements.min.value;
+          const max_cap = e.target.elements.max.value;
+
+          const formDate = e.target.elements.date.value;
+          const date = new Date(formDate);
+
+          const year = date.getFullYear();
+          const month = date.getMonth();
+          const day = date.getDate() + 1;
+    
+          const startDate = new Date(year, month, day, this.state.st); //, this.state.st);
+          const endDate = new Date(year, month, day, this.state.et); //, this.state.st);
+
+          //window.alert(startDate);
+
           // Form we need "2018-05-30T10:13:00-05:00" -> needs to be converted in datetime field
           // const startDate = dayString + " " + (date.getMonth() + 1) + "-" + (date.getDate() + 1) + "-" + (date.getYear() + 1900) + " at " + this.state.st;
           // var startDate = document.createElement("INPUT");
           // startDate.setAttribute("type", "datetime");
-          var startDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  " " + this.state.st + ":00.000000+00";
-          var endDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  " " + this.state.et + ":00.000000+00";
-          const min_cap = e.target.elements.min.value;
-          const max_cap = e.target.elements.max.value;
-          // console.log(startDate);
+          //var startDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  " " + this.state.st + ":00.000000+00";
+          //var endDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  " " + this.state.et + ":00.000000+00";
+
+          
           // const subject_name = this.state.subject;
           axios
             .post('http://127.0.0.1:8000/api/workshop/create/', {
-              // ws_name: wsname,
-              // min_cap: 1,
-              // max_cap: 2,
-              // is_active: true,
-              // description: description,
               host_user: this.props.user,
               ws_name: wsname,
               min_cap: min_cap,
               max_cap: max_cap,
               is_active: true,
               description: description,
-              start_date_time: startDate,
-              // end_date_time: startDate,
+              //start_date_time: startDate,
+              //end_date_time: endDate,
               category: this.state.subject,
               // location: null,
           }).then(res => {
@@ -231,7 +236,7 @@ class Registration extends React.Component {
           label="Description: ">
             {getFieldDecorator('description', {
               rules: [{
-                required: false, message: 'Add a description for the Workshop',
+                required: true, message: 'Add a description for the Workshop',
               }],
             })(
               <Input name='description'type="text" />
@@ -243,7 +248,7 @@ class Registration extends React.Component {
           label="Minimum Attendees: ">
             {getFieldDecorator('minAttendees', {
               rules: [{
-                required: false, message: 'Please select the minimum amount of attendees!',
+                required: true, message: 'Please select the minimum amount of attendees!',
               }],
             })(
               <Input type="number" name='min'/>
@@ -255,7 +260,7 @@ class Registration extends React.Component {
           label="Maximum Attendees: ">
             {getFieldDecorator('maxAttendees', {
               rules: [{
-                required: false, message: 'Please select the maximum amount of attendees!',
+                required: true, message: 'Please select the maximum amount of attendees!',
               }],
             })(
               <Input type="number" name='max'/>
