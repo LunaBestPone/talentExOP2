@@ -73,7 +73,7 @@ class WorkShopMap extends React.Component {
             <div>
                 <Map google={this.props.google} 
                     zoom={14}
-                    style={{width: "90%"}}
+                    style={{width: "80%"}}
                     initialCenter={{
                         lat: 43.073051,
                         lng: -89.401230
@@ -94,5 +94,5 @@ class WorkShopMap extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: ('AIzaSyD7TTkay4sQGPFiSeGmJD7wJD-az5-sav8')
+    apiKey: ('AIzaSyDSDo23qnbXL_JeeM9LCIhYh2fUwNRTA_4')
   })(WorkShopMap);
