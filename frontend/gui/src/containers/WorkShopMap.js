@@ -112,7 +112,7 @@ class WorkShopMap extends React.Component {
                 <div style={{ height: '80vh', width: '100%' }}>
                     <GoogleMapReact
                         bootstrapURLKeys={{ key:'AIzaSyBut1PTcKfPOO_dEAKXZf9YsSMHqauyTtI'}}
-                        defaultCenter={{ lat: 59.95, lng: 30.33 }}
+                        defaultCenter={{ lat: 43.0766, lng: -89.4125 }}
                         defaultZoom = {11}
                     >
                     
