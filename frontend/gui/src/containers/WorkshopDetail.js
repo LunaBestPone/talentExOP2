@@ -25,7 +25,8 @@ class WorkshopDetail extends React.Component{
     this.state = {
       isEditing: false,
       workshop: {},
-      isRegistered: false
+      isRegistered: false,
+      user:{}
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateWorkshopState = this.updateWorkshopState.bind(this);
@@ -87,12 +88,7 @@ class WorkshopDetail extends React.Component{
   // }
 
   onRegisterClick = (e) => {
-//    console.log(localStorage.getItem('username'));
-//    axios.get('http://127.0.0.1:8000/api/rest-auth/user/' + localStorage.getItem('username'))
-//      .then(res => {
-//        const loggedinuserid = res.data.pk;
-    console.log(this.props.user.learning_credit)
-    if (this.props.user.learning_credit > 1){
+    if (this.state.user.learning_credit > 1){
       var d = new Date();
       this.setState({
         isRegistered: true
@@ -100,14 +96,13 @@ class WorkshopDetail extends React.Component{
       axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
         enroll_date_time: d.toISOString(),
         ws_id: this.state.workshop.ws_id,
-        enrolled_user: 1,
-
+        enrolled_user: this.state.user.user_id
       })
         .then(res => {
           console.log(res.data);
           var url = 'http://127.0.0.1:8000/api/user/' + 1 + '/updatelc'
           console.log(url)
-          var newLearningCredits = this.props.user.learning_credit - 1
+          var newLearningCredits = this.state.user.learning_credit - 1
           axios.patch(url, {
             learning_credit: newLearningCredits
           })
@@ -138,20 +133,20 @@ class WorkshopDetail extends React.Component{
           .then(resFuser => this.setState({host: resFuser.data}))
           .catch(err => console.log(err));
           */
+        axios.get('http://127.0.0.1:8000/api/user/' + this.props.user)
+          .then(res => {
+            this.setState({user: res.data});
+          })
+          .catch(err => console.log(err))
       })
       .catch(err => console.log(err));
   }
   render() {
     const isLoggedIn = this.props.isAuthenticated;
     const isRegistered = this.state.isRegistered;
-    const user = this.props.user;
-    var user_id = null
+    const user_id = this.props.user;
     let registerbutton;
     let editbutton;
-
-    if(user !== null){
-      user_id = user.id
-    }
 
     if (this.state.isEditing) {
       return (
@@ -177,7 +172,6 @@ class WorkshopDetail extends React.Component{
     if(user_id === this.state.workshop.host_user){
       editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
     }
-
     return (
         <Card title={this.state.workshop.ws_name}>
 
