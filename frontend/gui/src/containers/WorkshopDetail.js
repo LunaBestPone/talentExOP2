@@ -54,14 +54,11 @@ class WorkshopDetail extends React.Component{
     event.preventDefault();
 
     //this.props.history.push('/workshop/');
-    /*
-    return axios
-      .patch('http://127.0.0.1:8000/api/workshop/update/1', {
-        host_user: this.state.workshop.host_user,
+    
+    return axios.patch('http://127.0.0.1:8000/api/workshop/detail/' + this.state.workshop.ws_id  + '/update/', {
         ws_name: this.state.workshop.ws_name,
         min_cap: this.state.workshop.min_cap,
         max_cap: this.state.workshop.max_cap,
-        is_active: true,
         description: this.state.workshop.description,
         start_date_time: this.state.workshop.start_date_time,
         end_date_time: this.state.workshop.end_date_time,
@@ -70,22 +67,14 @@ class WorkshopDetail extends React.Component{
       }).then(res => {
         console.log(res);
         console.log(res.data);
+        window.alert("success")
+        this.toggleEdit()
       }).catch(err => {
+        window.alert("didn't work")
         console.log(err)
       })
-      */
-
-    //this.props.actions.updateWorkshop(this.state.workshop);
-    //window.alert('TODO')
-    this.toggleEdit()
+      
   }
-
- // state = {
- //   workshop: {},
- //   user:{}, //this is the user visiting the website
-
-//    wishlist: false,
-//  }
 
   // onWishlistClick = (e) => {
   //   if(this.state.wishlist == false){
@@ -224,11 +213,15 @@ class WorkshopDetail extends React.Component{
   }
 }
 
+/*
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.token !== null,
     user_id: state.user.user_id
   }
 }
+*/
 
-export default connect(mapStateToProps)(WorkshopDetail);
+
+//export default connect(mapStateToProps)(WorkshopDetail);
+export default WorkshopDetail;

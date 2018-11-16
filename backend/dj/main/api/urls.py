@@ -8,9 +8,10 @@ urlpatterns = [
     path('user/<pk>/updatelc', LearningCreditsUpdateView.as_view()),
     path('workshop/', WorkshopListView.as_view()),
     path('workshop/detail/<pk>/', WorkshopDetailView.as_view()),
+    path('workshop/detail/<pk>/update/', WorkshopUpdateView.as_view()),
     path('workshop/create/', WorkshopCreateView.as_view()),
     path('enrollment/', EnrollmentListView.as_view()),
     path('enrollment/detail/<pk>/', EnrollmentDetailView.as_view()),
     path('enrollment/create/', EnrollmentCreateView.as_view()),
-    path('workshop/update/<pk>/', WorkshopUpdateView.as_view()),
+
 ]
