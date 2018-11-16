@@ -50,14 +50,15 @@ export const authLogin = (username, password) => {
             password: password
         })
         .then(res => {
-            console.log('authlogin'+username);
+            debugger;
+            console.log('authlogin'+res);
             const token = res.data.key;
             const user = res.data.user;
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000);
             localStorage.setItem('token', token);
             localStorage.setItem('user', user);
             localStorage.setItem('expirationDate', expirationDate);
-            dispatch(authSuccess(token));
+            dispatch(authSuccess(token, user));
             dispatch(checkAuthTimeout(3600));
           }
         )
@@ -83,7 +84,7 @@ export const authSignup = (username, email, password1, password2) => {
             localStorage.setItem('user', user)
             localStorage.setItem('token', token);
             localStorage.setItem('expirationDate', expirationDate);
-            dispatch(authSuccess(token));
+            dispatch(authSuccess(token, user));
             dispatch(checkAuthTimeout(3600));
           }
         )
@@ -96,6 +97,7 @@ export const authSignup = (username, email, password1, password2) => {
 export const authCheckState = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
         if (token === undefined) {
             dispatch(logout());
         } else {
@@ -103,7 +105,7 @@ export const authCheckState = () => {
             if ( expirationDate <= new Date() ) {
                 dispatch(logout());
             } else {
-                dispatch(authSuccess(token));
+                dispatch(authSuccess(token, user));
                 dispatch(checkAuthTimeout( (expirationDate.getTime() - new Date().getTime()) / 1000) );
             }
         }
