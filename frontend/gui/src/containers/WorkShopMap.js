@@ -119,7 +119,11 @@ class WorkShopMap extends React.Component {
                         <Marker
                             lat={59.955413}
                             lng={30.337844}
-                            text={"Information about event Goes Here"}
+                            text={"Host :" + String(this.state.host.username) + "\n" +
+                                "Seat Left :" + String(this.state.workshop.max_cap - this.state.workshop.min_cap) + "\n" +
+                                "Start Date : " + String(this.state.workshop.start_date_time)
+
+                            }
                         >
                         </Marker>
                     </GoogleMapReact>
