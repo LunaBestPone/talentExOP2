@@ -68,6 +68,7 @@ class WSForm extends React.Component {
             name="description"
             value={this.props.workshop.description}
             onChange={this.props.onChange} />
+
           </FormItem>
           <FormItem
             {...formItemLayout}

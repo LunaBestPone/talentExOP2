@@ -37,14 +37,6 @@ class WorkshopDetail extends React.Component{
     this.setState({isEditing: !this.state.isEditing})
   }
 
-  /*
-  componentWillReceiveProps(nextProps) {
-    if (this.props.workshop.ws_id != nextProps.workshop.ws_id) {
-      this.setState({workshop: nextProps.workshop});
-    }
-  }
-*/
-
   updateWorkshopState(event) {
     const field = event.target.name;
     const workshop = this.state.workshop;
@@ -62,8 +54,8 @@ class WorkshopDetail extends React.Component{
         min_cap: this.state.workshop.min_cap,
         max_cap: this.state.workshop.max_cap,
         description: this.state.workshop.description,
-        start_date_time: this.state.workshop.start_date_time,
-        end_date_time: this.state.workshop.end_date_time,
+        //start_date_time: this.state.workshop.start_date_time,
+        //end_date_time: this.state.workshop.end_date_time,
         category: this.state.workshop.category,
         // location: null,
       }).then(res => {
