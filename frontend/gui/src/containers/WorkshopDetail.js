@@ -160,7 +160,8 @@ class WorkshopDetail extends React.Component{
         <WSForm
           workshop={this.state.workshop}
           onSave={this.saveWorkshop}
-          onChange={this.updateWorkshopState}/>
+          onChange={this.updateWorkshopState}
+          onCancel={this.toggleEdit}/>
       </div>
       )
     }
