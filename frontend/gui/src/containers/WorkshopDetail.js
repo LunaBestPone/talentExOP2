@@ -44,7 +44,7 @@ class WorkshopDetail extends React.Component{
 
   updateWorkshopState(event) {
     const field = event.target.name;
-    const workshop = this.state.cat;
+    const workshop = this.state.workshop;
     workshop[field] = event.target.value;
     return this.setState({workshop: workshop});
   }
