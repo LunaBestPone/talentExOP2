@@ -236,10 +236,10 @@ class WorkshopDetail extends React.Component{
           Description: {this.state.workshop.description}
         </div>
         <div className = 'start_date_time'>
-          Start Date: {this.state.workshop.start_date_time}
+          Start Date: {this.state.workshop.start_time_display}
         </div>
         <div className = 'end_date_time'>
-          End Date: {this.state.workshop.end_date_time}
+          End Date: {this.state.workshop.end_time_display}
         </div><br></br>
         {/*
          <div style = {{float: 'left'}}>

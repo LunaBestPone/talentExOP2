@@ -98,8 +98,8 @@ class WorkshopListView extends React.Component{
                     max_cap = {item.max_cap}
                     is_active = {item.is_active}
                     description = {item.description}
-                    start_date_time = {item.start_date_time}
-                    end_date_time = {item.end_date_time}
+                    start_time_display = {item.start_time_display}
+                    end_time_display = {item.end_time_display}
                     is_detailed = {false} />
                 </List.Item>
               )}
