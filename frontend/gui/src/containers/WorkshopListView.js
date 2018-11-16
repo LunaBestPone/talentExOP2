@@ -84,7 +84,8 @@ class WorkshopListView extends React.Component{
     console.log("render");
     return (
       <div>
-        <h1>Workshop Lists <p><NavLink to="/workshopmap/">Click for Map View</NavLink></p> </h1> 
+        <h1>Workshop Lists  </h1> 
+        <p><NavLink to="/workshopmap/">Click for Map View</NavLink></p>
         <Row gutter={16}>
           <Col span={7}>
           {/* This is for sorting UI */}
