@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 // import Workshop from '../components/Workshop';
 
 import { Button, Card, Icon } from 'antd';
+import WSForm from '../components/WSForm';
 
 const closeStyle = {
   position: 'fixed',
@@ -18,13 +19,49 @@ const closeStyle = {
 }
 
 class WorkshopDetail extends React.Component{
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      isEditing: false,
+      workshop: {},
+    };
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.updateWorkshopState = this.updateWorkshopState.bind(this);
+    this.saveWorkshop = this.saveWorkshop.bind(this);
+  }
 
-  state = {
-    workshop: {},
-    user:{}, //this is the user visiting the website
+  toggleEdit() {
+    this.setState({isEditing: !this.state.isEditing})
+  }
+
+  /*
+  componentWillReceiveProps(nextProps) {
+    if (this.props.workshop.ws_id != nextProps.workshop.ws_id) {
+      this.setState({workshop: nextProps.workshop});
+    }
+  }
+*/
+
+  updateWorkshopState(event) {
+    const field = event.target.name;
+    const workshop = this.state.workshop;
+    workshop[field] = event.target.value;
+    return this.setState({workshop: workshop});
+  }
+  
+  saveWorkshop(event) {
+    event.preventDefault();
+    //this.props.actions.updateWorkshop(this.state.workshop);
+    window.alert('TODO')
+    this.toggleEdit()
+  }
+
+ // state = {
+ //   workshop: {},
+ //   user:{}, //this is the user visiting the website
 
 //    wishlist: false,
-  }
+//  }
 
   // onWishlistClick = (e) => {
   //   if(this.state.wishlist == false){
@@ -98,10 +135,34 @@ class WorkshopDetail extends React.Component{
       .catch(err => console.log(err))
   }
   render() {
+
+    if (this.state.isEditing) {
+      return (
+      <div style = {{width: '100%'}}> 
+        <h1>edit workshop</h1>
+        <WSForm 
+          workshop={this.state.workshop} 
+          onSave={this.saveWorkshop} 
+          onChange={this.updateWorkshopState}/> 
+      </div>
+      )
+    }
+
     return (
-        <Card 
-        title={this.state.workshop.ws_name}
-        >
+        <Card title={this.state.workshop.ws_name}>
+
+        <div style = {{float: 'right'}}>
+          <NavLink
+            style={{padding: '5px'}}
+            to='/workshop/'> 
+            Cancel
+          </NavLink>
+          <Button onClick={(e) => {this.onRegisterClick(e)}}>
+            Register
+          </Button>
+          <Button onClick = {this.toggleEdit}>Edit</Button>
+        </div>
+
         <div className = 'host_user'>
           Host: {this.state.workshop.host_user}
         </div>
@@ -133,17 +194,6 @@ class WorkshopDetail extends React.Component{
            </button>
         </div>
         */}
-        <div style = {{float: 'right'}}>
-          <NavLink
-            style={{padding: '5px'}}
-            to='/workshop/'> 
-            Cancel
-          </NavLink>
-          <Button onClick={(e) => {this.onRegisterClick(e)}}>
-            Register
-          </Button>
-          
-        </div>
       </Card>
     )
   }
