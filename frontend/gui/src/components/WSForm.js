@@ -78,7 +78,7 @@ class WSForm extends React.Component {
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label="Start Time:">
+            label="End Time:">
             {this.props.workshop.end_time_display}
           </FormItem>
           <FormItem
