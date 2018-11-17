@@ -36,7 +36,8 @@ class WorkshopUpdateView(UpdateAPIView):
 class EnrollmentListView(ListAPIView):
     queryset = Enrollment.objects.all()
     serializer_class = EnrollmentSerializer
-
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('ws_id', 'enrolled_user',)
 class EnrollmentDetailView(RetrieveAPIView):
     queryset = Enrollment.objects.all()
     serializer_class = EnrollmentSerializer
