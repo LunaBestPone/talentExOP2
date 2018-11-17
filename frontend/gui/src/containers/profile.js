@@ -64,10 +64,10 @@ class profile extends React.Component {
     };
 
   }
-	state = {
-		key: 'tab1',
-		user: ''
-	}
+	// state = {
+	// 	key: 'tab1',
+	// 	user: ''
+	// }
 
 	componentDidMount() {
 		if (this.props.isAuthenticated) {
