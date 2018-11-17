@@ -26,6 +26,7 @@ class WorkshopDetail extends React.Component{
       isEditing: false,
       workshop: {},
       isRegistered: false,
+      enrollment: 0,
       user:{}
     };
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -96,13 +97,11 @@ class WorkshopDetail extends React.Component{
               }).catch(err => {
                   console.log(err)
                   })
+          this.setState({isRegistered: true});
           window.alert("This workshop is added to your schedule!");
       }).catch(err => {
         console.log(err);
         window.alert("Oops something went wrong~ You can't register for the same workshop twice. And makesure you are logged in~");
-      });
-      this.setState({
-        isRegistered: true
       });
     }
     else{
@@ -110,29 +109,32 @@ class WorkshopDetail extends React.Component{
     }
   }
 
-  onCancelRegistrationClickRegisterClick = (e) => {
-    // if(isRegistered){
-    //   var newLearningCredits = this.state.user.learning_credit + 1
-    //   var updateLearningCreditUrl = 'http://127.0.0.1:8000/api/user/' + this.state.user.user_id + '/updatelc'
-    //   axios.patch(updateLearningCreditUrl, {
-    //     learning_credit: newLearningCredits
-    //   })
-    //     .then(res => {
-    //       console.log(res.data);
-    //       }).catch(err => {
-    //           console.log(err)
-    //           })
-    //   var newUserId = -1
-    //   var updateEnrollmentUrl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.user.user_id + '/update/'
-    //   axios.patch(updateLearningCreditUrl, {
-    //     learning_credit: newLearningCredits
-    //   })
-    //     .then(res => {
-    //       console.log(res.data);
-    //       }).catch(err => {
-    //           console.log(err)
-    //           })
-    // }
+  onCancelRegistrationClick = (e) => {
+    const enrollmentUrl = 'http://127.0.0.1:8000/api/enrollment/?ws_id=' + this.state.workshop.ws_id + '&enrolled_user=' + this.state.user.id
+    axios.get(enrollmentUrl)
+      .then(res => {
+        this.setState({enrollment: res.data[1]});
+        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.enrollment.id + '/delete'
+        axios.delete(deleteurl, {id: this.state.enrollment.id})
+        .then(res => {
+          console.log(res.data);
+          }).catch(err => {
+              console.log(err)
+              })
+      })
+      .catch(err => console.log(err))
+
+    var url = 'http://127.0.0.1:8000/api/user/' + this.state.user.id + '/updatelc'
+    var newLearningCredits = this.state.user.learning_credit + 1
+    axios.patch(url, {
+      learning_credit: newLearningCredits
+    })
+      .then(res => {
+        console.log(res.data);
+        }).catch(err => {
+            console.log(err)
+            })
+    this.setState({isRegistered: false});
   }
 
   componentDidMount() {
@@ -156,6 +158,7 @@ class WorkshopDetail extends React.Component{
       })
       .catch(err => console.log(err));
   }
+
   render() {
     const isLoggedIn = this.props.isAuthenticated;
     const isRegistered = this.state.isRegistered;

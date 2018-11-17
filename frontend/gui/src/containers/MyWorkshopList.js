@@ -27,18 +27,25 @@ class MyWorkshopList extends React.Component{
   }
 
   componentDidMount() {
+    //workshops user is host of
     axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user)
       .then(res => {
         this.setState({
             workshops: res.data,
         });
-        
+
     })
+    //workshops user is enrolled in
+    axios.get('http://127.0.0.1:8000/api/user/?enrollment' + "=" + this.props.workshops)
+      .then(res => {
+        this.setState({
+          workshop: res.data,
+        })
+      })
   }
 
 
   render() {
-    //event.preventDefault();
 
     const isLoggedIn = this.props.isAuthenticated;
     const isRegistered = this.state.isRegistered;
@@ -80,6 +87,7 @@ class MyWorkshopList extends React.Component{
     )
 
 } else {
+    //event.preventDefault();
     window.alert("Log in before viewing your workshops.");
     this.props.history.push("/");
   }
