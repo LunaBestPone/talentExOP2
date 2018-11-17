@@ -1,7 +1,7 @@
 This branch is for new development
 
-# A functional iteration 1 code base
-Though with some minor known bugs which will be fixed in iteration 2
+# A functional iteration 2 code base
+Though with some minor known bugs which will be fixed in iteration 3
 # Do not expect "clone then run"
 Some external package for django is needed, install them with pip
 
@@ -39,6 +39,11 @@ When all of these are done, we can now run the test!
 Type ```npm test``` to test the components.
 Type ```./node_modules/jest/bin/jest.js --coverage``` for code coverage.
 
+There is no extra packages you need to install for backend testing.
+
+For testing, ```python manage.py test``` is enough.
+
+For coverage, run ```coverage run --source='.' manage.py test main```, and ```coverage report```.
 
 # Now one more thing...
 open ```backend/dj/dj/settings.py``` and check ```DATABASE``` section for configs you need to set up a database on your local environment, we will use postgresql here.
