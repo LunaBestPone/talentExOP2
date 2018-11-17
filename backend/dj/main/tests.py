@@ -22,3 +22,17 @@ class UserTestCase(TestCase):
         self.assertEqual(response.data['age'], 9)
         self.assertEqual(response.data['user_rating'], 5.0)
         self.assertEqual(response.data['learning_credit'], 10)
+
+class WorkshopTestCase(TestCase):
+
+    fixtures =  ['workshoptest.json','usertest.json']
+    @classmethod
+    def setUpTestData(cls):
+        cls.fixtureWorkshop = Workshop.objects.get(ws_name='Testing')
+
+    def test_fields_retrieval(self):
+        self.assertEqual(self.fixtureWorkshop.description, 'This is a testing workshop')
+
+    def test_user_detail(self):
+        response =  self.client.get('/api/workshop/detail/' + str(self.fixtureWorkshop.ws_id) + '/')
+        self.assertEqual(response.data['description'], 'This is a testing workshop')
