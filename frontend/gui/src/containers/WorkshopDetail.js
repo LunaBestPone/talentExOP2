@@ -235,11 +235,11 @@ class WorkshopDetail extends React.Component{
         */}
       </Card>
 
-      <div style = {{float: 'right', padding: '5px'}} >
+      <div style = {{float: 'left', padding: '5px'}} >
           <NavLink
             style={{padding: '5px'}}
             to='/workshop/'>
-            Cancel
+            Close
           </NavLink>
           {registerbutton}
           {editbutton}
@@ -261,4 +261,3 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps)(WorkshopDetail);
-
