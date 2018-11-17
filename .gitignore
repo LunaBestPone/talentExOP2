@@ -1,3 +1,5 @@
 **/__pycache__/
 ./frontend/gui/node_modules
+htmlcov/
+backend/dj/.coverage
 

@@ -1,0 +1,23 @@
+[
+{
+    "model": "main.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$UM36MQDZoWjL$YF4kOG7FkoMCsFKCeOkaDA3FmhOKAMdyUHMY4rI1Lp4=",
+        "last_login": "2018-10-29T23:16:08.313Z",
+        "is_superuser": true,
+        "username": "default",
+        "first_name": "",
+        "last_name": "",
+        "email": "default@default.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2018-10-29T23:12:37.401Z",
+        "age": 9,
+        "user_rating": 5.0,
+        "learning_credit": 10,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
