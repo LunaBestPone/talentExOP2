@@ -261,4 +261,4 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps)(WorkshopDetail);
-//export default WorkshopDetail;
+
