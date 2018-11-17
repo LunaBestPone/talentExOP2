@@ -47,8 +47,6 @@ class WorkshopDetail extends React.Component{
   saveWorkshop(event) {
     event.preventDefault();
 
-    //this.props.history.push('/workshop/');
-
     return axios.patch('http://127.0.0.1:8000/api/workshop/detail/' + this.state.workshop.ws_id  + '/update/', {
         ws_name: this.state.workshop.ws_name,
         min_cap: this.state.workshop.min_cap,
@@ -169,7 +167,7 @@ class WorkshopDetail extends React.Component{
     if (this.state.isEditing) {
       return (
       <div style = {{width: '100%'}}>
-        <h1>edit workshop</h1>
+        <h1>Edit Workshop</h1>
         <WSForm
           workshop={this.state.workshop}
           onSave={this.saveWorkshop}

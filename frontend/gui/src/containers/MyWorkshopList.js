@@ -10,84 +10,53 @@ import { NavLink } from 'react-router-dom';
 import { List, Icon, Button, Row, Col, Collapse } from 'antd';
 
 import Workshop from '../components/Workshop';
-import Sort from '../containers/Sort';
 
 const Panel = Collapse.Panel;
 const stylebutton = {
   position: 'fixed',
 }
 
-class WorkshopListView extends React.Component{
-  state = {
-    workshops: [],
-    filterSub: "-1",
-    subjects: ["Any"],
-    locations: ["Any"],
-  }
-
-  handleFilterChange = (value) => {
-    let val = "=" + value.replace(" ", "+");
-    if(val !== "=Any"){
-      this.setState({
-        filterSub: val
-      })
-    } else {
-      this.setState({
-        filterSub: ""
-      })
-    }
+class MyWorkshopList extends React.Component{
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      workshops: [],
+      isRegistered: false,
+      user:{}
+    };
   }
 
   componentDidMount() {
-    axios.get('http://127.0.0.1:8000/api/workshop/')
+    axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user)
       .then(res => {
         this.setState({
             workshops: res.data,
         });
-        for(var i = 0; i < this.state.workshops.length; i++){
-          let sub = this.state.workshops[i].category;
-          if(!this.state.subjects.includes(sub) && sub !== null){
-            this.setState({
-              subjects: this.state.subjects.concat(sub)
-            })
-          }
-        }
+        
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log("value = " + nextState.filterSub);
-    if (prevState.filterSub !== this.state.filterSub) {
-      axios.get('http://127.0.0.1:8000/api/workshop/?category' + this.state.filterSub)
-        .then(res => {
-          this.setState({
-              workshops: res.data,
-          });
-          // console.log("workshops"+nextState.workshops);
-      })
-    }
-  }
 
   render() {
+    //event.preventDefault();
+
+    const isLoggedIn = this.props.isAuthenticated;
+    const isRegistered = this.state.isRegistered;
+    const user_id = this.props.user;
     console.log("render");
+
+    if(isLoggedIn ) {
     return (
       <div>
-        <h1>Workshop Lists  </h1>
+        <h1>My Workshops</h1>
         <p><NavLink to="/workshopmap/">Click for Map View</NavLink></p>
         <Row gutter={16}>
-          <Col span={7}>
-          {/* This is for sorting UI */}
-          <Collapse accordion>
-            <Panel header="Sort/Filter" key="1">
-              <Sort subjects={this.state.subjects} changeSub = {(val) => this.handleFilterChange(val)}/>
-            </Panel>
-          </Collapse>
-          </Col>
           <Col span={7} offset={1}>
           <List
               grid={{ gutter: 16, column: 1 }}
               dataSource={this.state.workshops}
               renderItem={item => (
+                //if(isRegistered ) {
                 <List.Item>
                   <Workshop
                     ws_id = {item.ws_id}
@@ -102,27 +71,22 @@ class WorkshopListView extends React.Component{
                     end_time_display = {item.end_time_display}
                     is_detailed = {false} />
                 </List.Item>
+              //}
               )}
             />
           </Col>
-          {
-            this.props.isAuthenticated ?
-            <Col span={7} offset={15} style={stylebutton}>
-              <NavLink to="/createws/">
-                <Button>
-                  <Icon type="plus" theme="outlined" />
-                    Create Workshop
-                </Button>
-              </NavLink>
-            </Col>
-            :
-            <Col span={7} offset={15} style={stylebutton} />
-          }
         </Row>
       </div>
     )
+
+} else {
+    window.alert("Log in before viewing your workshops.");
+    this.props.history.push("/");
   }
+
 }
+}
+
 
 const mapStateToProps = (state) => {
   return {
@@ -132,4 +96,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(WorkshopListView);
+export default connect(mapStateToProps)(MyWorkshopList);
