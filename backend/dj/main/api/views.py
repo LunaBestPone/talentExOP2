@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from main.models import User, Workshop, Enrollment
 from .serializer import UserSerializer, WorkshopSerializer, EnrollmentSerializer
 from django_filters.rest_framework import DjangoFilterBackend
