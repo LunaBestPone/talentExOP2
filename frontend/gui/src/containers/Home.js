@@ -6,7 +6,7 @@ class Home extends React.Component {
         return(
             <Card title="Welcome to Talent Exchange and Meet Up Project!" bordered={false} style={{ width: '100%' }}>
                 <p>This is a CS 506 Team Project by <br></br>
-                Yong Jae Cho, Charles Grosz, William Laine, Jamie Lee, Zihan Wang, Xiaochao Yan, Sung Ho Youn, Hao Yuan</p>
+                Yong Jae Cho, Charles Grosz, William Laine, Jamie Lee, Zihan Wang, Xiaochao Yan, Sung Ho Youn, Hao Yuan, Zhaoqi Li</p>
                 <p>The github could be found <a href="https://github.com/LunaBestPone/talentExOP2">HERE</a></p>
             </Card>
         )
