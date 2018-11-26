@@ -51,10 +51,16 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'django_filters',
 ]
 
 SITE_ID = 1
 AUTH_USER_MODEL = 'main.User'
+
+# define token serializer
+REST_AUTH_SERIALIZERS = {
+        'TOKEN_SERIALIZER': 'main.api.serializer.TokenSerializer',
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -132,7 +138,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
         'rest_framework.permissions.AllowAny'
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
 # Internationalization

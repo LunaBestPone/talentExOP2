@@ -14,6 +14,9 @@ const Workshop = (props) => {
         <div className = 'host_user'>
           <b>Host:</b> {props.host_user}
         </div>
+        <div className = 'category'>
+          <b>Subject</b>: {props.category}
+        </div>
         <div className = 'min_cap'>
           <b>Minimum Capacity:</b> {props.min_cap}
         </div>
@@ -26,11 +29,11 @@ const Workshop = (props) => {
         <div className = 'description'>
           <b>Description:</b> {props.description}
         </div>
-        <div className = 'start_date_time'>
-          <b>Start Date:</b> {props.start_date_time}
+        <div className = 'start_time_display'>
+          <b>Start Date:</b> {props.start_time_display}
         </div>
-        <div className = 'end_date_time'>
-          <b>End Date:</b> {props.end_date_time}
+        <div className = 'end_time_display'>
+          <b>End Date:</b> {props.end_time_display}
         </div>
       </Card>
     )
@@ -41,11 +44,14 @@ const Workshop = (props) => {
       <div className = 'description'>
         <b>Description:</b>  {props.description}
       </div>
-      <div className = 'start_date_time'>
-        <b>Start Date:</b> {props.start_date_time}
+      <div className = 'category'>
+        <b>Subject</b>: {props.category}
       </div>
-      <div className = 'end_date_time'>
-        <b>End Date:</b> {props.end_date_time}
+      <div className = 'start_time_display'>
+        <b>Start Date:</b> {props.start_time_display}
+      </div>
+      <div className = 'end_time_display'>
+        <b>End Date:</b> {props.end_time_display}
       </div>
     </Card>
     )
