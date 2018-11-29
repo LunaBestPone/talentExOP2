@@ -16,13 +16,13 @@ const tabList = [{
 
 class profile extends React.Component {
 	constructor(props, context) {
-    super(props, context);
-    this.state = {
-      isRegistered: false,
-      user:{}
-    };
+		super(props, context);
+		this.state = {
+			isRegistered: false,
+			user: {}
+		};
 
-  }
+	}
 	// state = {
 	// 	key: 'tab1',
 	// 	user: ''
@@ -40,7 +40,7 @@ class profile extends React.Component {
 		}
 		else {
 			window.alert("Please log in");
-      this.props.history.push("/login");
+			this.props.history.push("/login");
 		}
 	}
 

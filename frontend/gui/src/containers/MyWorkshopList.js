@@ -16,69 +16,70 @@ const stylebutton = {
   position: 'fixed',
 }
 
-class MyWorkshopList extends React.Component{
+class MyWorkshopList extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       workshops: [],
       isRegistered: false,
-      user:{}
+      user: {}
     };
   }
 
   componentDidMount() {
-    //workshops user is host of
-    axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user)
-      .then(res => {
-        this.setState({
+    if (this.props.isAuthenticated) {
+      //workshops user is host of
+      axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user)
+        .then(res => {
+          this.setState({
             workshops: res.data,
-        });
+          });
 
-    })
-    //workshops user is enrolled in
-    axios.get('http://127.0.0.1:8000/api/user/?enrollment' + "=" + this.props.workshops)
-      .then(res => {
-        this.setState({
-          workshop: res.data,
         })
-      })
+      //workshops user is enrolled in
+      axios.get('http://127.0.0.1:8000/api/user/?enrollment' + "=" + this.props.workshops)
+        .then(res => {
+          this.setState({
+            workshop: res.data,
+          })
+        })
+    }
+    else {
+      //event.preventDefault();
+      window.alert("Log in before viewing your workshops.");
+      this.props.history.push("/login");
+    }
   }
 
 
   render() {
-
-    const isLoggedIn = this.props.isAuthenticated;
-    const isRegistered = this.state.isRegistered;
     const user_id = this.props.user;
     console.log("render");
 
-    if(isLoggedIn ) {
     return (
       <div>
         <h1>My Workshops</h1>
         <p><NavLink to="/workshopmap/">Click for Map View</NavLink></p>
         <Row gutter={16}>
           <Col span={7} offset={1}>
-          <List
+            <List
               grid={{ gutter: 16, column: 1 }}
               dataSource={this.state.workshops}
               renderItem={item => (
-                //if(isRegistered ) {
                 <List.Item>
                   <Workshop
-                    ws_id = {item.ws_id}
-                    ws_name = {item.ws_name}
-                    host_user = {item.host_user}
-                    category = {item.category}
-                    min_cap = {item.min_cap}
-                    max_cap = {item.max_cap}
-                    is_active = {item.is_active}
-                    description = {item.description}
-                    start_time_display = {item.start_time_display}
-                    end_time_display = {item.end_time_display}
-                    is_detailed = {false} />
+                    ws_id={item.ws_id}
+                    ws_name={item.ws_name}
+                    host_user={item.host_user}
+                    category={item.category}
+                    min_cap={item.min_cap}
+                    max_cap={item.max_cap}
+                    is_active={item.is_active}
+                    description={item.description}
+                    start_time_display={item.start_time_display}
+                    end_time_display={item.end_time_display}
+                    is_detailed={false} />
                 </List.Item>
-              //}
               )}
             />
           </Col>
@@ -86,13 +87,7 @@ class MyWorkshopList extends React.Component{
       </div>
     )
 
-} else {
-    //event.preventDefault();
-    window.alert("Log in before viewing your workshops.");
-    this.props.history.push("/");
   }
-
-}
 }
 
 
