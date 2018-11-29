@@ -44,7 +44,14 @@ class WorkshopDetail extends React.Component{
     workshop[field] = event.target.value;
     return this.setState({workshop: workshop});
   }
-
+  handleSubject = (value) => {
+    const workshop = this.state.workshop;
+    console.log("cat: " + value);
+    workshop["category"] = value;
+    return this.setState({
+      workshop: workshop
+    })
+  }
   saveWorkshop(event) {
     event.preventDefault();
 
@@ -175,6 +182,7 @@ class WorkshopDetail extends React.Component{
           workshop={this.state.workshop}
           onSave={this.saveWorkshop}
           onChange={this.updateWorkshopState}
+          handleSubject={this.handleSubject}
           onCancel={this.toggleEdit}/>
       </div>
       )

@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import TextInput from './TextInput';
-import { Row, Col, Form, Input} from 'antd';
+import { Row, Select, Form, Input} from 'antd';
 
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 class WSForm extends React.Component {
   render() {
@@ -34,12 +35,20 @@ class WSForm extends React.Component {
           </FormItem>
           <FormItem
             {...formItemLayout}
-            categories={this.props.subjects}
+            // categories={this.props.subjects}
             label="Category:">
-            <TextInput
-            name="category"
-            value={this.props.workshop.category}
-            onChange={this.props.onChange} />
+            <Select
+                showSearch
+                style = {{width: '50%'}}
+                // onChange={this.handleSubject.bind(this)}
+                onChange={this.props.handleSubject}
+                optionFilterProp="children"
+                placeholder={this.props.workshop.category}
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+                  <Option value= "Calculus I">Calculus I</Option>
+                  <Option value= "Linear Algebra">Linear Algebra</Option>
+                  <Option value= "Language">Language</Option>
+              </Select>
           </FormItem>
           <FormItem
             {...formItemLayout}
