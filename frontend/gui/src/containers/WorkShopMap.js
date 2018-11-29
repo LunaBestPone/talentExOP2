@@ -86,10 +86,6 @@ class WorkShopMap extends React.Component {
 
      
         return (
-
-            
-
-
             <div>
                 <Map google={this.props.google} 
                     zoom={14}
@@ -97,7 +93,7 @@ class WorkShopMap extends React.Component {
                     initialCenter={{
                         lat: 43.073051,
                         lng: -89.401230
-                      }}
+                    }}
                       /*Someplace={{
                         lat: 44.073051,
                         lng: -88.401230
@@ -130,8 +126,7 @@ class WorkShopMap extends React.Component {
 
                     <Marker onClick={this.onMarkerClick}
                             name={'Current location'} />
-                    <InfoWindow onClose={this.onInfoWindowClose}>
-                    </InfoWindow>
+                    
                 </Map>
             </div>
         )
