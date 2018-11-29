@@ -10,50 +10,9 @@ import { connect } from 'react-redux';
 const tabList = [{
 	key: 'tab1',
 	tab: 'Personal Information',
-}, {
-	key: 'tab2',
-	tab: 'Involvement Record',
 }];
 
-/*
-const contentList = {
-	tab1: 
 
-<div>
-
-	<div style={{ background: '#ECECEC', padding: '30px' }}>
-		<Row gutter={16}>
-			<Col span={8}>
-				<Card title="E-mail" bordered={false}>zli484@wisc.edu</Card>
-			</Col>
-			<Col span={8}>
-				<Card title="Age" bordered={false}>21</Card>
-			</Col>
-			<Col span={8}>
-				<Card title="Rating" bordered={false}>4.9</Card>
-			</Col>
-		</Row>
-	</div>
-
-	<div style={{ background: '#ECECEC', padding: '30px' }}>
-		<Row gutter={16}>
-			<Col span={8}>
-				<Card title="Learning Credit" bordered={false}>{50}</Card>
-			</Col>
-
-		</Row>
-	</div>
-
-
-</div>,
-
-
-		
-	tab2: <p>
-	Nothing
-	</p>,
-};
-*/
 
 class profile extends React.Component {
 	constructor(props, context) {
@@ -101,8 +60,6 @@ class profile extends React.Component {
 				<Card
 
 					style={{ width: '100%' }}
-
-					extra={<a href="#">More</a>}
 					tabList={tabList}
 					activeTabKey={this.state.key}
 					onTabChange={(key) => { this.onTabChange(key, 'key'); }}
