@@ -64,8 +64,14 @@ class Registration extends React.Component {
         const month = date.getMonth();
         const day = date.getDate() + 1;
 
-        var startDate = new Date(year, month, day, this.state.st);
-        var endDate = new Date(year, month, day, this.state.et);
+        const startDate = new Date(year, month, day, this.state.st);
+        const endDate = new Date(year, month, day, this.state.et);
+
+
+        const address = e.target.elements.address;
+        const city = e.target.elements.city;
+        const state = this.state.locationState;
+        const zip = e.target.elements.zip; 
 
         // Form we need "2018-05-30T10:13:00-05:00" -> needs to be converted in datetime field
         // const startDate = dayString + " " + (date.getMonth() + 1) + "-" + (date.getDate() + 1) + "-" + (date.getYear() + 1900) + " at " + this.state.st;
