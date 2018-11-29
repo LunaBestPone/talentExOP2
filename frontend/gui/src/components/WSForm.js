@@ -53,8 +53,10 @@ class WSForm extends React.Component {
           <FormItem
             {...formItemLayout}
             label="Min Attendees:">
+            
             <TextInput
             name="min_cap"
+            is_number={true}
             value={this.props.workshop.min_cap}
             onChange={this.props.onChange} />
           </FormItem>
