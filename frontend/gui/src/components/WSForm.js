@@ -107,7 +107,7 @@ class WSForm extends React.Component {
             value="Cancel"
             disabled={this.props.saving}
             className="btn btn-primary"
-            onClick={this.props.cancelEdit}/>
+            onClick={this.props.onCancel}/>
           </FormItem>
         </Form>
     );
