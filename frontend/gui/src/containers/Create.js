@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Select } from 'antd';
+import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -7,31 +7,14 @@ import SelectUSState from 'react-select-us-states';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
+const { RangePicker } = DatePicker;
 
 class Registration extends React.Component {
   state = {
-    //start and end time
-    st: "",
-    et: "",
     subject: "",
     locationState: 'WI',
   }
-  handleSubjectChange = (value) => {
-    console.log(value);
-    this.props.form.setFieldsValue({
-      subject: value
-    });
-  }
-  handleSTime = (value) => {
-    this.setState({
-      st: value
-    });
-  }
-  handleETime = (value) => {
-    this.setState({
-      et: value
-    });
-  }
+
   handleSubject = (value) => {
     this.setState({
       subject: value
@@ -41,10 +24,11 @@ class Registration extends React.Component {
   handleLocationStateChange = (value) => {
     this.setState({
       locationState: value
-    });
+    })
   }
 
   handleSubmit = (e) => {
+    e.preventDefault();
     if (!this.props.isAuthenticated) {
       window.alert("Log in before creating a workshop.");
       return;
@@ -57,31 +41,15 @@ class Registration extends React.Component {
         const min_cap = e.target.elements.min.value;
         const max_cap = e.target.elements.max.value;
 
-        const formDate = e.target.elements.date.value;
-        const date = new Date(formDate);
+        const rangeTimeValue = values['range-time-picker'];
+        const startDateTime = new Date(rangeTimeValue[0]);
+        const endDateTime = new Date(rangeTimeValue[1]);
 
-        const year = date.getFullYear();
-        const month = date.getMonth();
-        const day = date.getDate() + 1;
+        const address = e.target.elements.address.value;
+        const city = e.target.elements.city.value;
+        const state = this.state.locationState.value;
+        const zip = e.target.elements.zip.value;
 
-        const startDate = new Date(year, month, day, this.state.st);
-        const endDate = new Date(year, month, day, this.state.et);
-
-
-        const address = e.target.elements.address;
-        const city = e.target.elements.city;
-        const state = this.state.locationState;
-        const zip = e.target.elements.zip; 
-
-        // Form we need "2018-05-30T10:13:00-05:00" -> needs to be converted in datetime field
-        // const startDate = dayString + " " + (date.getMonth() + 1) + "-" + (date.getDate() + 1) + "-" + (date.getYear() + 1900) + " at " + this.state.st;
-        // var startDate = document.createElement("INPUT");
-        // startDate.setAttribute("type", "datetime");
-        //var startDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  " " + this.state.st + ":00.000000+00";
-        //var endDate = (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + (date.getDate() + 1) +  " " + this.state.et + ":00.000000+00";
-
-
-        // const subject_name = this.state.subject;
         axios
           .post('http://127.0.0.1:8000/api/workshop/create/', {
             host_user: this.props.user,
@@ -90,8 +58,8 @@ class Registration extends React.Component {
             max_cap: max_cap,
             is_active: true,
             description: description,
-            start_date_time: startDate.toISOString(),
-            end_date_time: endDate.toISOString(),
+            start_date_time: startDateTime.toISOString(),
+            end_date_time: endDateTime.toISOString(),
             category: this.state.subject,
             // location: null,
           }).then(res => {
@@ -107,8 +75,21 @@ class Registration extends React.Component {
     this.props.history.push('/workshop/');
   }
 
+  disableDate(current){
+    //https://ant.design/components/date-picker/
+  }
+
+  disableRangeTime(_,type) {
+    //https://ant.design/components/date-picker/
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
+
+    const rangeConfig = {
+      rules: [{ type: 'array', required: true, message: 'Please select time!' }],
+    };
+
     const formItemLayout = {
       labelCol: { span: 4 },
       wrapperCol: { span: 12 },
@@ -182,7 +163,7 @@ class Registration extends React.Component {
         <FormItem
           {...formItemLayout}
           label="State: ">
-          {getFieldDecorator('address', {
+          {getFieldDecorator('state', {
             rules: [{
               required: true,
             }],
@@ -201,102 +182,13 @@ class Registration extends React.Component {
             <Input type="text" name='zip' />
           )}
         </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Date: ">
-          {getFieldDecorator('date', {
-            rules: [{
-              required: true, message: 'Please select the date!',
-            }],
-          })(
-            <Input name="date" style={{ width: 300 }} type="date" placeholder="Date" />
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Date: ">
-          {getFieldDecorator('date', {
-            rules: [{
-              required: true, message: 'Please select the date!',
-            }],
-          })(
-            <Input name="date" style={{ width: 300 }} type="date" placeholder="Date" />
-          )}
-        </FormItem>
 
         <FormItem
           {...formItemLayout}
-          label="Start Time: ">
-          {getFieldDecorator('starttime', {
-            rules: [{
-              required: true, message: 'Please select the time of day!',
-            }],
-          })(
-
-            <Select name="startTime" style={{ width: 300 }} onChange={this.handleSTime} >
-              <Option value="1">1am</Option>
-              <Option value="2">2am</Option>
-              <Option value="3">3am</Option>
-              <Option value="4">4am</Option>
-              <Option value="5">5am</Option>
-              <Option value="6">6am</Option>
-              <Option value="7">7am</Option>
-              <Option value="8">8am</Option>
-              <Option value="9">9am</Option>
-              <Option value="10">10am</Option>
-              <Option value="11">11am</Option>
-              <Option value="12">12pm</Option>
-              <Option value="13">1pm</Option>
-              <Option value="14">2pm</Option>
-              <Option value="15">3pm</Option>
-              <Option value="16">4pm</Option>
-              <Option value="17">5pm</Option>
-              <Option value="18">6pm</Option>
-              <Option value="19">7pm</Option>
-              <Option value="20">8pm</Option>
-              <Option value="21">9pm</Option>
-              <Option value="22">10pm</Option>
-              <Option value="23">11pm</Option>
-              <Option value="0">12am</Option>
-            </Select>
-          )}
-        </FormItem>
-
-        <FormItem
-          {...formItemLayout}
-          label="End Time: ">
-          {getFieldDecorator('endtime', {
-            rules: [{
-              required: true, message: 'Please select the time of day!',
-            }],
-          })(
-
-            <Select name="endTime" style={{ width: 300 }} onChange={this.handleETime}>
-              <Option value="1">1am</Option>
-              <Option value="2">2am</Option>
-              <Option value="3">3am</Option>
-              <Option value="4">4am</Option>
-              <Option value="5">5am</Option>
-              <Option value="6">6am</Option>
-              <Option value="7">7am</Option>
-              <Option value="8">8am</Option>
-              <Option value="9">9am</Option>
-              <Option value="10">10am</Option>
-              <Option value="11">11am</Option>
-              <Option value="12">12pm</Option>
-              <Option value="13">1pm</Option>
-              <Option value="14">2pm</Option>
-              <Option value="15">3pm</Option>
-              <Option value="16">4pm</Option>
-              <Option value="17">5pm</Option>
-              <Option value="18">6pm</Option>
-              <Option value="19">7pm</Option>
-              <Option value="20">8pm</Option>
-              <Option value="21">9pm</Option>
-              <Option value="22">10pm</Option>
-              <Option value="23">11pm</Option>
-              <Option value="0">12pm</Option>
-            </Select>
+          label="Time"
+        >
+          {getFieldDecorator('range-time-picker', rangeConfig)(
+            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
           )}
         </FormItem>
 
