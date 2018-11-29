@@ -84,13 +84,83 @@ class WSForm extends React.Component {
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label="Start Time:">
+            label="Current Start Time:">
             {this.props.workshop.start_time_display}
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label="End Time:">
+            label="Change Start Date:">
+            <Input name= "date" style = {{ width: '50%'}} type="date" placeholder="Date" onChange={this.props.handleSDate}/>
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Change Start Time:"> 
+            <Select name="startTime" style = {{ width: '50%'}} onChange={this.props.handleSTime} >
+              <Option value="1">1am</Option>
+              <Option value="2">2am</Option>
+              <Option value="3">3am</Option>
+              <Option value="4">4am</Option>
+              <Option value="5">5am</Option>
+              <Option value="6">6am</Option>
+              <Option value="7">7am</Option>
+              <Option value="8">8am</Option>
+              <Option value="9">9am</Option>
+              <Option value="10">10am</Option>
+              <Option value="11">11am</Option>
+              <Option value="12">12pm</Option>
+              <Option value="13">1pm</Option>
+              <Option value="14">2pm</Option>
+              <Option value="15">3pm</Option>
+              <Option value="16">4pm</Option>
+              <Option value="17">5pm</Option>
+              <Option value="18">6pm</Option>
+              <Option value="19">7pm</Option>
+              <Option value="20">8pm</Option>
+              <Option value="21">9pm</Option>
+              <Option value="22">10pm</Option>
+              <Option value="23">11pm</Option>
+              <Option value="0">12am</Option>
+            </Select>
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Current End Time:">
             {this.props.workshop.end_time_display}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Change End Date:">
+            <Input name= "date" style = {{ width: '50%'}} type="date" placeholder="Date" onChange={this.props.handleEDate}/>
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Change End Time:"> 
+            <Select name="endTime" style = {{ width: '50%'}} onChange={this.props.handleETime} >
+              <Option value="1">1am</Option>
+              <Option value="2">2am</Option>
+              <Option value="3">3am</Option>
+              <Option value="4">4am</Option>
+              <Option value="5">5am</Option>
+              <Option value="6">6am</Option>
+              <Option value="7">7am</Option>
+              <Option value="8">8am</Option>
+              <Option value="9">9am</Option>
+              <Option value="10">10am</Option>
+              <Option value="11">11am</Option>
+              <Option value="12">12pm</Option>
+              <Option value="13">1pm</Option>
+              <Option value="14">2pm</Option>
+              <Option value="15">3pm</Option>
+              <Option value="16">4pm</Option>
+              <Option value="17">5pm</Option>
+              <Option value="18">6pm</Option>
+              <Option value="19">7pm</Option>
+              <Option value="20">8pm</Option>
+              <Option value="21">9pm</Option>
+              <Option value="22">10pm</Option>
+              <Option value="23">11pm</Option>
+              <Option value="0">12am</Option>
+            </Select>
           </FormItem>
           <FormItem
           {...formItemLayout}>

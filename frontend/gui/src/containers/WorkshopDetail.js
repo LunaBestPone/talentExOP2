@@ -27,7 +27,8 @@ class WorkshopDetail extends React.Component{
       workshop: {},
       isRegistered: false,
       enrollment: 0,
-      user:{}
+      user:{},
+      date: "",
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateWorkshopState = this.updateWorkshopState.bind(this);
@@ -46,8 +47,48 @@ class WorkshopDetail extends React.Component{
   }
   handleSubject = (value) => {
     const workshop = this.state.workshop;
-    console.log("cat: " + value);
+    // console.log("cat: " + value);
     workshop["category"] = value;
+    return this.setState({
+      workshop: workshop
+    })
+  }
+  handleSDate = (e) => {
+    const formDate = e.target.value;
+    this.setState({
+      date: formDate
+    })
+  }
+  handleEDate = (e) => {
+    const formDate = e.target.value;
+    this.setState({
+      date: formDate
+    })
+  }
+  handleSTime = (value) => {
+    const workshop = this.state.workshop;
+    const field ="startDate";
+    const date = new Date(this.state.date);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate() + 1;
+    const time = value;
+    var dateTime = new Date(year, month, day, time);
+    workshop[field] = dateTime.toISOString();
+    return this.setState({
+      workshop: workshop
+    })
+  }
+  handleETime = (value) => {
+    const workshop = this.state.workshop;
+    const field ="endDate";
+    const date = new Date(this.state.date);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate() + 1;
+    const time = value;
+    var dateTime = new Date(year, month, day, time);
+    workshop[field] = dateTime.toISOString();
     return this.setState({
       workshop: workshop
     })
@@ -60,8 +101,8 @@ class WorkshopDetail extends React.Component{
         min_cap: this.state.workshop.min_cap,
         max_cap: this.state.workshop.max_cap,
         description: this.state.workshop.description,
-        //start_date_time: this.state.workshop.start_date_time,
-        //end_date_time: this.state.workshop.end_date_time,
+        start_date_time: this.state.workshop.startDate,
+        end_date_time: this.state.workshop.endDate,
         category: this.state.workshop.category,
         // location: null,
       }).then(res => {
@@ -183,6 +224,10 @@ class WorkshopDetail extends React.Component{
           onSave={this.saveWorkshop}
           onChange={this.updateWorkshopState}
           handleSubject={this.handleSubject}
+          handleSTime={this.handleSTime}
+          handleSDate={this.handleSDate}
+          handleETime={this.handleETime}
+          handleEDate={this.handleEDate}
           onCancel={this.toggleEdit}/>
       </div>
       )
