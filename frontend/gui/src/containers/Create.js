@@ -35,10 +35,11 @@ class Registration extends React.Component {
       return;
     }
 
-    const success = false;
+    
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        var success = false;
         const wsname = e.target.elements.ws_title.value;
         const description = e.target.elements.description.value;
         const min_cap = e.target.elements.min.value;
@@ -56,7 +57,7 @@ class Registration extends React.Component {
         const city = e.target.elements.city.value;
         const state = this.state.locationState.value;
         const zip = e.target.elements.zip.value;
-        debugger;
+        // debugger;
         axios
           .post('http://127.0.0.1:8000/api/workshop/create/', {
             host_user: this.props.user,
@@ -73,16 +74,20 @@ class Registration extends React.Component {
             console.log(res);
             console.log(res.data);
             window.alert('Workshop created!')
-            success = true;
+            
+            console.log("1.", success);
           }).catch(err => {
             console.log(err)
             window.alert(err);
           });
+          success = true;
+          console.log("2.", success);
+          if(success) {
+            this.props.history.push('/workshop/');
+          }
       }
     });
-    if(success) {
-      this.props.history.push('/workshop/');
-    }
+    
   }
 
   disabledDate(current){
