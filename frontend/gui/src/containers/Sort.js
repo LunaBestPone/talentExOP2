@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Row, Input } from 'antd';
+import { Select, Row, Input, Button } from 'antd';
 
 const Option = Select.Option;
 
@@ -63,7 +63,6 @@ class Sort extends React.Component{
                     <Option value= "Any">Any</Option>
                     
                 </Select>
-                S
                 <Input name= "date" style={{ width: "100%", padding: "10px"  }} type="date" placeholder="Date" />
                 <Select
                     showSearch
@@ -84,6 +83,7 @@ class Sort extends React.Component{
                 >
                     <Option value= "Any">Any</Option>
                 </Select>
+                <Button onClick={this.props.ascend}>Date Ascending Order</Button>
                 </Row>
             </div>
         );
