@@ -51,11 +51,19 @@ class RegistrationForm extends React.Component {
     return (nextProps !== this.props || nextState !== this.state);
   }
 
+  componentDidMount() {
+    if(this.props.token !== null) {
+      window.alert("You are already logged in.");
+      this.props.history.push("/workshop/");
+    }
+  }
 
   render() {
+    /*
     if (this.props.token !== null) {
       this.props.history.push("/workshop/");
     }
+    */
     const { getFieldDecorator } = this.props.form;
     let EM = null;
     if (this.props.error !== null) {

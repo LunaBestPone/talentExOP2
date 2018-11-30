@@ -29,6 +29,7 @@ class WorkshopDetail extends React.Component{
       enrollment: 0,
       user:{},
       date: "",
+      lc: 0
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateWorkshopState = this.updateWorkshopState.bind(this);
@@ -145,7 +146,7 @@ class WorkshopDetail extends React.Component{
               }).catch(err => {
                   console.log(err)
                   })
-          this.setState({isRegistered: true});
+          this.setState({isRegistered: true, lc: newLearningCredits});
           window.alert("This workshop is added to your schedule!");
       }).catch(err => {
         console.log(err);
@@ -161,11 +162,13 @@ class WorkshopDetail extends React.Component{
     const enrollmentUrl = 'http://127.0.0.1:8000/api/enrollment/?ws_id=' + this.state.workshop.ws_id + '&enrolled_user=' + this.state.user.id
     axios.get(enrollmentUrl)
       .then(res => {
-        this.setState({enrollment: res.data[1]});
-        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.enrollment.id + '/delete'
+        console.log(res.data[0])
+        this.setState({enrollment: res.data[0]});
+        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.enrollment.id + '/delete/'
         axios.delete(deleteurl, {id: this.state.enrollment.id})
         .then(res => {
           console.log(res.data);
+          console.log("Passed")
           }).catch(err => {
               console.log(err)
               })
@@ -173,7 +176,7 @@ class WorkshopDetail extends React.Component{
       .catch(err => console.log(err))
 
     var url = 'http://127.0.0.1:8000/api/user/' + this.state.user.id + '/updatelc'
-    var newLearningCredits = this.state.user.learning_credit + 1
+    var newLearningCredits = this.state.lc + 1
     axios.patch(url, {
       learning_credit: newLearningCredits
     })
@@ -182,7 +185,7 @@ class WorkshopDetail extends React.Component{
         }).catch(err => {
             console.log(err)
             })
-    this.setState({isRegistered: false});
+    this.setState({isRegistered: false, lc: newLearningCredits});
   }
 
   componentDidMount() {
