@@ -1,15 +1,26 @@
 import React, { PropTypes } from 'react';
 import TextInput from './TextInput';
-import { Row, Select, Form, Input} from 'antd';
+import SelectUSState from 'react-select-us-states';
+import {  DatePicker, Select, Form, Input} from 'antd';
+import moment from 'moment';
+
 
 const FormItem = Form.Item;
 const Option = Select.Option;
+const { RangePicker } = DatePicker;
 
 class WSForm extends React.Component {
+  disabledDate(current){
+    return current < moment().startOf('day');
+  }
   render() {
+    // const { getFieldDecorator } = this.props.form;
+    const rangeConfig = {
+      rules: [{ type: 'array', required: true, message: 'Please select time!' }],
+    };
     const formItemLayout = {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 12 },
+      labelCol: { span: 5 },
+      wrapperCol: { span: 15 },
     };
     let active = "";
     this.props.workshop.is_active ? active = "True" : active = "False";
@@ -48,6 +59,7 @@ class WSForm extends React.Component {
                   <Option value= "Calculus I">Calculus I</Option>
                   <Option value= "Linear Algebra">Linear Algebra</Option>
                   <Option value= "Language">Language</Option>
+                  <Option value= "Other">Other</Option>
               </Select>
           </FormItem>
           <FormItem
@@ -84,83 +96,19 @@ class WSForm extends React.Component {
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label="Current Start Time:">
-            {this.props.workshop.start_time_display}
+            label="Current Date/Time:">
+            {this.props.workshop.start_time_display} ~ {this.props.workshop.end_time_display}
           </FormItem>
           <FormItem
             {...formItemLayout}
-            label="Change Start Date:">
-            <Input name= "date" style = {{ width: '50%'}} type="date" placeholder="Date" onChange={this.props.handleSDate}/>
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="Change Start Time:"> 
-            <Select name="startTime" style = {{ width: '50%'}} onChange={this.props.handleSTime} >
-              <Option value="1">1am</Option>
-              <Option value="2">2am</Option>
-              <Option value="3">3am</Option>
-              <Option value="4">4am</Option>
-              <Option value="5">5am</Option>
-              <Option value="6">6am</Option>
-              <Option value="7">7am</Option>
-              <Option value="8">8am</Option>
-              <Option value="9">9am</Option>
-              <Option value="10">10am</Option>
-              <Option value="11">11am</Option>
-              <Option value="12">12pm</Option>
-              <Option value="13">1pm</Option>
-              <Option value="14">2pm</Option>
-              <Option value="15">3pm</Option>
-              <Option value="16">4pm</Option>
-              <Option value="17">5pm</Option>
-              <Option value="18">6pm</Option>
-              <Option value="19">7pm</Option>
-              <Option value="20">8pm</Option>
-              <Option value="21">9pm</Option>
-              <Option value="22">10pm</Option>
-              <Option value="23">11pm</Option>
-              <Option value="0">12am</Option>
-            </Select>
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="Current End Time:">
-            {this.props.workshop.end_time_display}
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="Change End Date:">
-            <Input name= "date" style = {{ width: '50%'}} type="date" placeholder="Date" onChange={this.props.handleEDate}/>
-          </FormItem>
-          <FormItem
-            {...formItemLayout}
-            label="Change End Time:"> 
-            <Select name="endTime" style = {{ width: '50%'}} onChange={this.props.handleETime} >
-              <Option value="1">1am</Option>
-              <Option value="2">2am</Option>
-              <Option value="3">3am</Option>
-              <Option value="4">4am</Option>
-              <Option value="5">5am</Option>
-              <Option value="6">6am</Option>
-              <Option value="7">7am</Option>
-              <Option value="8">8am</Option>
-              <Option value="9">9am</Option>
-              <Option value="10">10am</Option>
-              <Option value="11">11am</Option>
-              <Option value="12">12pm</Option>
-              <Option value="13">1pm</Option>
-              <Option value="14">2pm</Option>
-              <Option value="15">3pm</Option>
-              <Option value="16">4pm</Option>
-              <Option value="17">5pm</Option>
-              <Option value="18">6pm</Option>
-              <Option value="19">7pm</Option>
-              <Option value="20">8pm</Option>
-              <Option value="21">9pm</Option>
-              <Option value="22">10pm</Option>
-              <Option value="23">11pm</Option>
-              <Option value="0">12am</Option>
-            </Select>
+            label="Change Date/Time:">
+            {/* {getFieldDecorator('range-time-picker', rangeConfig)( */}
+              <RangePicker
+                disabledDate={this.disabledDate}
+                showTime
+                onChange={this.props.handleTime}
+                format="YYYY-MM-DD HH:mm:ss" />
+              {/* )} */}
           </FormItem>
           <FormItem
           {...formItemLayout}>

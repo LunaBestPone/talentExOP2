@@ -55,42 +55,15 @@ class WorkshopDetail extends React.Component{
       workshop: workshop
     })
   }
-  handleSDate = (e) => {
-    const formDate = e.target.value;
-    this.setState({
-      date: formDate
-    })
-  }
-  handleEDate = (e) => {
-    const formDate = e.target.value;
-    this.setState({
-      date: formDate
-    })
-  }
-  handleSTime = (value) => {
+  handleTime = (value) => {
     const workshop = this.state.workshop;
-    const field ="startDate";
-    const date = new Date(this.state.date);
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate() + 1;
-    const time = value;
-    var dateTime = new Date(year, month, day, time);
-    workshop[field] = dateTime.toISOString();
-    return this.setState({
-      workshop: workshop
-    })
-  }
-  handleETime = (value) => {
-    const workshop = this.state.workshop;
-    const field ="endDate";
-    const date = new Date(this.state.date);
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate() + 1;
-    const time = value;
-    var dateTime = new Date(year, month, day, time);
-    workshop[field] = dateTime.toISOString();
+    const field1 ="startDate";
+    const field2 ="endDate";
+    const startDateTime = value[0].toISOString();
+    const endDateTime = value[1].toISOString();
+
+    workshop[field1] = startDateTime;
+    workshop[field2] = endDateTime;
     return this.setState({
       workshop: workshop
     })
@@ -235,10 +208,7 @@ class WorkshopDetail extends React.Component{
           onSave={this.saveWorkshop}
           onChange={this.updateWorkshopState}
           handleSubject={this.handleSubject}
-          handleSTime={this.handleSTime}
-          handleSDate={this.handleSDate}
-          handleETime={this.handleETime}
-          handleEDate={this.handleEDate}
+          handleTime={this.handleTime}
           onCancel={this.toggleEdit}/>
       </div>
       )
