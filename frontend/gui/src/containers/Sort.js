@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, Row } from 'antd';
+import { Select, Row, Input } from 'antd';
 
 const Option = Select.Option;
 
@@ -36,7 +36,7 @@ class Sort extends React.Component{
         // console.log(subjs);
         return(
             <div>
-                <Row gutter={16}>
+                <Row gutter={15}>
                 <Select
                     showSearch
                     style={{ width: "100%", padding: "10px"  }}
@@ -63,7 +63,8 @@ class Sort extends React.Component{
                     <Option value= "Any">Any</Option>
                     
                 </Select>
-
+                S
+                <Input name= "date" style={{ width: "100%", padding: "10px"  }} type="date" placeholder="Date" />
                 <Select
                     showSearch
                     style={{ width: "100%", padding: "10px"  }}
