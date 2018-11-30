@@ -29,7 +29,8 @@ class WorkshopDetail extends React.Component{
       enrollment: 0,
       user:{},
       date: "",
-      lc: 0
+      lc: 0,
+      host_lc: 0
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateWorkshopState = this.updateWorkshopState.bind(this);
@@ -127,28 +128,41 @@ class WorkshopDetail extends React.Component{
   //   }
   // }
 
+  updateLearningCredits(id, lc){
+    var url = 'http://127.0.0.1:8000/api/user/' + id + '/updatelc'
+    var flag = false;
+    axios.patch(url, {
+      learning_credit: lc
+    })
+      .then(res => {
+        console.log(res.data);
+        flag = true;
+        }).catch(err => {
+            console.log(err)
+            })
+    return flag;
+  }
+
   onRegisterClick = (e) => {
     if (this.state.user.learning_credit > 1 && this.state.isRegistered === false){
       var d = new Date();
+      axios.get('http://127.0.0.1:8000/api/user/' + this.state.workshop.host_user + '/')
+        .then(
+          res => {this.setState({host_lc: res.data.learning_credit})})
+        .catch(err => console.log(err));
       axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
         enroll_date_time: d.toISOString(),
         ws_id: this.state.workshop.ws_id,
         enrolled_user: this.state.user.id
       })
         .then(res => {
-          var url = 'http://127.0.0.1:8000/api/user/' + this.state.user.id + '/updatelc'
           var newLearningCredits = this.state.user.learning_credit - 1
-          axios.patch(url, {
-            learning_credit: newLearningCredits
-          })
-            .then(res => {
-              console.log(res.data);
-              }).catch(err => {
-                  console.log(err)
-                  })
-          this.setState({isRegistered: true, lc: newLearningCredits});
-          window.alert("This workshop is added to your schedule!");
-      }).catch(err => {
+          this.updateLearningCredits(this.state.user.id, newLearningCredits)
+          var newHostLearningCredits = this.state.host_lc + 1
+          this.updateLearningCredits(this.state.workshop.host_user, newHostLearningCredits)
+          this.setState({isRegistered: true, lc: newLearningCredits, host_lc: newHostLearningCredits});
+          window.alert("This workshop is added to your schedule!");}
+      ).catch(err => {
         console.log(err);
         window.alert("Oops something went wrong~ You can't register for the same workshop twice. And makesure you are logged in~");
       });
@@ -175,17 +189,11 @@ class WorkshopDetail extends React.Component{
       })
       .catch(err => console.log(err))
 
-    var url = 'http://127.0.0.1:8000/api/user/' + this.state.user.id + '/updatelc'
     var newLearningCredits = this.state.lc + 1
-    axios.patch(url, {
-      learning_credit: newLearningCredits
-    })
-      .then(res => {
-        console.log(res.data);
-        }).catch(err => {
-            console.log(err)
-            })
-    this.setState({isRegistered: false, lc: newLearningCredits});
+    var newHostLearningCredits = this.state.host_lc - 1
+    this.updateLearningCredits(this.state.user.id, newLearningCredits)
+    this.updateLearningCredits(this.state.workshop.host_user, newHostLearningCredits)
+    this.setState({isRegistered: false, lc: newLearningCredits, host_lc: newHostLearningCredits});
   }
 
   componentDidMount() {
