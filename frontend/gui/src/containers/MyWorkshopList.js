@@ -33,9 +33,12 @@ class MyWorkshopList extends React.Component {
       enrolledWorkshops: [],
       //isRegistered: false,
       noTitleKey:'hosting',
-      user: {}
+      user: {},
+      enrollment:[]
     };
   }
+
+
 
   componentDidMount() {
 
@@ -43,6 +46,9 @@ class MyWorkshopList extends React.Component {
       //workshops user is host of
       axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user)
         .then(res => {
+          console.log(res.data)
+          console.log("Can you see this 1?")
+
           this.setState({
             hostWorkshops: res.data,
           });
@@ -50,12 +56,33 @@ class MyWorkshopList extends React.Component {
         })
 
       //workshops user is enrolled in
-      axios.get('http://127.0.0.1:8000/api/user/?enrollment' + "=" + this.props.user)
-        .then(res => {
+      axios.get('http://127.0.0.1:8000/api/enrollment/?enrolled_user' + "=" + this.props.user)
+        .then(res2 => {
+          console.log(res2.data)
+          console.log("Can you see this 2?")
+          
           this.setState({
-            enrolledWorkshops: res.data,
-          })
+            enrollment: res2.data,
+
+          });
+
         })
+
+//Current problem: when pass a specific ws_id (eg:1) the REST API returned all 3 workshops even those whose ws_id is not 1 
+//Could not filter 
+      axios.get('http://127.0.0.1:8000/api/workshop/?ws_id' + '=' + this.state.enrollment.ws_id )
+        .then(res3 => {
+          console.log(res3)
+          console.log("Can you see this 3?")
+          this.setState({
+          
+            enrolledWorkshops: res3.data,
+          });
+
+        })
+
+
+
     }
     else {
       //event.preventDefault();
@@ -78,9 +105,9 @@ class MyWorkshopList extends React.Component {
       hosting: <p>
 
           <Row gutter={16}>
-            <Col span={7} offset={1}>
+            <Col span={16} offset={4}>
               <List
-                grid={{ gutter: 16, column: 1 }}
+                grid={{ gutter: 8, column: 1 }}
                 dataSource={this.state.hostWorkshops}
                 renderItem={item => (
                   //if(isRegistered ) {
@@ -108,9 +135,9 @@ class MyWorkshopList extends React.Component {
 
       participating: <p>
           <Row gutter={16}>
-          <Col span={7} offset={1}>
+          <Col span={16} offset={4}>
             <List
-              grid={{ gutter: 16, column: 1 }}
+              grid={{ gutter: 8, column: 1 }}
               dataSource={this.state.enrolledWorkshops}
               renderItem={item => (
                 //if(isRegistered ) {
@@ -145,6 +172,7 @@ class MyWorkshopList extends React.Component {
       <div>
 
         <h1>My Workshops</h1>
+
         <Card
           style={{ width: '100%' }}
           tabList={tabListNoTitle}
@@ -154,6 +182,8 @@ class MyWorkshopList extends React.Component {
           {contentListNoTitle[this.state.noTitleKey]}
 
         </Card>
+
+
       </div>
     )
 
