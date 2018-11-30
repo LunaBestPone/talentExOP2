@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import SelectUSState from 'react-select-us-states';
+import moment from 'moment';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -34,6 +35,8 @@ class Registration extends React.Component {
       return;
     }
 
+    const success = false;
+
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const wsname = e.target.elements.ws_title.value;
@@ -42,14 +45,18 @@ class Registration extends React.Component {
         const max_cap = e.target.elements.max.value;
 
         const rangeTimeValue = values['range-time-picker'];
-        const startDateTime = new Date(rangeTimeValue[0]);
-        const endDateTime = new Date(rangeTimeValue[1]);
+        if(rangeTimeValue[0] < moment()) {
+          window.alert('Selected start time has already past, try again.');
+          return;
+        }
+        const startDateTime = rangeTimeValue[0].toISOString();
+        const endDateTime = rangeTimeValue[1].toISOString();
 
         const address = e.target.elements.address.value;
         const city = e.target.elements.city.value;
         const state = this.state.locationState.value;
         const zip = e.target.elements.zip.value;
-
+        debugger;
         axios
           .post('http://127.0.0.1:8000/api/workshop/create/', {
             host_user: this.props.user,
@@ -58,29 +65,28 @@ class Registration extends React.Component {
             max_cap: max_cap,
             is_active: true,
             description: description,
-            start_date_time: startDateTime.toISOString(),
-            end_date_time: endDateTime.toISOString(),
+            start_date_time: startDateTime,
+            end_date_time: endDateTime,
             category: this.state.subject,
             // location: null,
           }).then(res => {
             console.log(res);
             console.log(res.data);
             window.alert('Workshop created!')
+            success = true;
           }).catch(err => {
             console.log(err)
             window.alert(err);
           });
       }
     });
-    this.props.history.push('/workshop/');
+    if(success) {
+      this.props.history.push('/workshop/');
+    }
   }
 
-  disableDate(current){
-    //https://ant.design/components/date-picker/
-  }
-
-  disableRangeTime(_,type) {
-    //https://ant.design/components/date-picker/
+  disabledDate(current){
+    return current < moment().startOf('day');
   }
 
   render() {
@@ -189,7 +195,10 @@ class Registration extends React.Component {
           label="Time"
         >
           {getFieldDecorator('range-time-picker', rangeConfig)(
-            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+            <RangePicker
+              disabledDate={this.disabledDate}
+              showTime
+              format="YYYY-MM-DD HH:mm:ss" />
           )}
         </FormItem>
 
