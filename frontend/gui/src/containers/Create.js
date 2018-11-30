@@ -135,6 +135,7 @@ class Registration extends React.Component {
               <Option value="Calculus I">Calculus I</Option>
               <Option value="Linear Algebra">Linear Algebra</Option>
               <Option value="Language">Language</Option>
+              <Option value="Other">Other</Option>
             </Select>
           )}
         </FormItem>
