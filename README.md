@@ -72,6 +72,7 @@ Given
 
 //start of section
 {
+
 DATABASES = {
 
     'default': {
@@ -90,6 +91,7 @@ DATABASES = {
     
     }
   }
+  
 }
 //end of section
 
