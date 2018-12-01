@@ -78,15 +78,44 @@ class WorkshopListView extends React.Component{
   }
   toggleAscend = () => {
     var workshops = this.state.workshops;
-    console.log(workshops);
+    // console.log(workshops);
     workshops.sort(function(a,b) { 
       return new Date(a.start_date_time).getTime() - new Date(b.start_date_time).getTime() 
     });
-    console.log(workshops);
+    // console.log(workshops);
     this.setState({
       workshops: workshops
     })
   }
+  toggleDescend = () => {
+    var workshops = this.state.workshops;
+    // console.log(workshops);
+    workshops.sort(function(a,b) { 
+      return new Date(b.start_date_time).getTime() - new Date(a.start_date_time).getTime() 
+    });
+    // console.log(workshops);
+    this.setState({
+      workshops: workshops
+    })
+  }
+  handleRange = () => {
+    // const workshops = this.state.workshops;
+    // const field1 ="startDate";
+    // const field2 ="endDate";
+    // const startDateTime = value[0].toISOString();
+    // const endDateTime = value[1].toISOString();
+    // for(let i = 0; i < workshop.length; i++){
+    //   let workshoptime = workshops[i].startDateTime;
+
+    //   // if(workshops[i])
+    // }
+    // workshops[field1] = startDateTime;
+    // workshops[field2] = endDateTime;
+    // return this.setState({
+    //   workshops: workshops
+    // })
+  }
+
   render() {
     return (
       <div>
@@ -100,7 +129,9 @@ class WorkshopListView extends React.Component{
               <Sort 
                 subjects={this.state.subjects} 
                 changeSub = {(val) => this.handleFilterChange(val)}
-                ascend ={this.toggleAscend}
+                ascend = {this.toggleAscend}
+                descend = {this.toggleDescend}
+                handleRange = {this.handleRange}
               />
             </Panel>
           </Collapse>

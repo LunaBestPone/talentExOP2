@@ -1,7 +1,8 @@
 import React from 'react';
-import { Select, Row, Input, Button } from 'antd';
+import { DatePicker, Select, Row, Input, Button } from 'antd';
 
 const Option = Select.Option;
+const { RangePicker } = DatePicker;
 
 // function handleBlur() {
 //   console.log('blur');
@@ -18,7 +19,6 @@ class Sort extends React.Component{
         super(props);
         this.handleChange = this.handleChange.bind(this);
     }
-    
     handleChange(value) {
         console.log(value);
         this.props.changeSub(value);
@@ -39,51 +39,39 @@ class Sort extends React.Component{
                 <Row gutter={15}>
                 <Select
                     showSearch
-                    style={{ width: "100%", padding: "10px"  }}
+                    style={{ width: "100%"}}
                     placeholder="Sort by subject"
                     optionFilterProp="children"
                     onChange={this.handleChange}
-                    // onFocus={handleFocus}
-                    // onBlur={handleBlur}
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 >
                     {subjs}
-                    {/* <Option value= "Calculus I">Calculus I</Option>
-                    <Option value= "Linear Algebra">Linear Algebra</Option>
-                    <Option value= "Language">Language</Option> */}
                 </Select>
-
+                {/* 
+                This is a filter for Location. But we will leave it out for now
+                <p></p>
                 <Select
                     showSearch
-                    style={{ width: "100%", padding: "10px"  }}
+                    style={{ width: "100%"}}
                     placeholder="Sort by location"
                     optionFilterProp="children"
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 >
                     <Option value= "Any">Any</Option>
                     
-                </Select>
-                <Input name= "date" style={{ width: "100%", padding: "10px"  }} type="date" placeholder="Date" />
-                <Select
-                    showSearch
-                    style={{ width: "100%", padding: "10px"  }}
-                    placeholder="Sort by start time"
-                    optionFilterProp="children"
-                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                >
-                    <Option value= "Any">Any</Option>
-                </Select>
-
-                <Select
-                    showSearch
-                    style={{ width: "100%", padding: "10px" }}
-                    placeholder="Sort by end time"
-                    optionFilterProp="children"
-                    filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                >
-                    <Option value= "Any">Any</Option>
-                </Select>
+                </Select> */}
+                <p></p>
+                {/* Select Range:
+                <RangePicker
+                    style={{width: '100%'}}
+                    showTime
+                    onChange={this.props.handleRange}
+                    format="YYYY-MM-DD HH:mm:ss" />
+                
+                <p></p> */}
                 <Button onClick={this.props.ascend}>Date Ascending Order</Button>
+                <p></p>
+                <Button onClick={this.props.descend}>Date Descending Order</Button>
                 </Row>
             </div>
         );
