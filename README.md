@@ -72,14 +72,23 @@ Given
 
 //start of section
 DATABASES = {
+
     'default': {
+    
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'talentExOP2db',
-        'USER': 'Yan',
-        'PASSWORD': '123',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+    
+    'NAME': 'talentExOP2db',
+    
+    'USER': 'Yan',
+    
+    'PASSWORD': '123',
+    
+    'HOST': '127.0.0.1',
+    
+    'PORT': '5432',
+    
     }
+
 }
 //end of section
 
