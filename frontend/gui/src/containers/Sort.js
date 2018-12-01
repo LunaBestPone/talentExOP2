@@ -61,14 +61,14 @@ class Sort extends React.Component{
                     
                 </Select> */}
                 <p></p>
-                {/* Select Range:
+                Select Range:
                 <RangePicker
                     style={{width: '100%'}}
                     showTime
                     onChange={this.props.handleRange}
                     format="YYYY-MM-DD HH:mm:ss" />
                 
-                <p></p> */}
+                <p></p>
                 <Button onClick={this.props.ascend}>Date Ascending Order</Button>
                 <p></p>
                 <Button onClick={this.props.descend}>Date Descending Order</Button>

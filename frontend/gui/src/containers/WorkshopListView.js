@@ -98,22 +98,22 @@ class WorkshopListView extends React.Component{
       workshops: workshops
     })
   }
-  handleRange = () => {
-    // const workshops = this.state.workshops;
-    // const field1 ="startDate";
-    // const field2 ="endDate";
-    // const startDateTime = value[0].toISOString();
-    // const endDateTime = value[1].toISOString();
-    // for(let i = 0; i < workshop.length; i++){
-    //   let workshoptime = workshops[i].startDateTime;
-
-    //   // if(workshops[i])
-    // }
-    // workshops[field1] = startDateTime;
-    // workshops[field2] = endDateTime;
-    // return this.setState({
-    //   workshops: workshops
-    // })
+  handleRange = (value) => {
+    const workshops = this.state.workshops;
+    const startDateTime = value[0];
+    const endDateTime = value[1];
+    const match = [];
+    for(let i = 0; i < workshops.length; i++){
+      let workshoptime = new Date(workshops[i].start_date_time);
+      if(workshoptime <= endDateTime){
+        if(workshoptime >= startDateTime){
+          match.push(workshops[i]);
+        }
+      }
+    }
+    return this.setState({
+      workshops: match
+    })
   }
 
   render() {
