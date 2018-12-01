@@ -71,8 +71,8 @@ Given
   password = 123
 
 //start of section
-{
 
+```
 DATABASES = {
 
     'default': {
@@ -92,8 +92,7 @@ DATABASES = {
     }
   }
   
-}
-//end of section
+```
 
 
 You will set username and password when you install POSTGRES DATABASE for windows.
