@@ -1,6 +1,6 @@
-This branch is for new development
+This branch is for peer testing
 
-# A functional develop code base
+# A functional code base
 Though with some minor known bugs which will be fixed in iteration 3
 
 # Do not expect "clone then run"
