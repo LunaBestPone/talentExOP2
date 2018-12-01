@@ -71,6 +71,7 @@ Given
   password = 123
 
 //start of section
+{
 DATABASES = {
 
     'default': {
@@ -88,7 +89,7 @@ DATABASES = {
     'PORT': '5432',
     
     }
-
+  }
 }
 //end of section
 
