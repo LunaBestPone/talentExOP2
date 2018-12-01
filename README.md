@@ -70,7 +70,9 @@ Given
   user name = Yan
   password = 123
 
-//start of section
+You will set username and password when you install POSTGRES DATABASE for windows.
+
+You have to create a database mannually.
 
 ```
 DATABASES = {
@@ -94,10 +96,6 @@ DATABASES = {
   
 ```
 
-
-You will set username and password when you install POSTGRES DATABASE for windows.
-
-You have to create a database mannually.
 
 After setting up the db, get in ```backend/dj```, run
 ```
