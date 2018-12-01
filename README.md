@@ -95,3 +95,9 @@ npm start
 to get frontend running.
 
 Happy hacking / exploring.
+
+# Additional Documents
+
+1. Requirements and specification: https://docs.google.com/document/d/1eawekv5lYxWnHvkev0rSs_K8qZAWermdP2YQSLSXKZY/edit?usp=sharing
+
+2. Design and planning: https://docs.google.com/document/d/1YYMlVryNmUAWxUkwHTzcaHF8LJkakZaZLMMBfmVcw74/edit?usp=sharing 
