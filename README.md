@@ -66,8 +66,11 @@ To setp up for WIN10 Users:
 * Remember to change following section regarding DATABASE in (your project root dir)/backend/dj/dj/settings.py
 
 Given 
+
   database name = talentExOP2db
+
   user name = Yan
+
   password = 123
 
 You will set username and password when you install POSTGRES DATABASE for windows.
