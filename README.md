@@ -14,19 +14,10 @@ These packages now include:
 * django-allauth
 * django-rest-auth
 * django-filters
+* react-google-map
 * other packages might be needed for the future, but that's all for now
 
-considering using react goole map react API right now.
-
-
-*react-google-map
-
-*point-geometry
-
-*eventemitter3
-
-this is for marker
-*styled-components
+Google API is for recording Only. No need to put this key anywhere in code.
 
 Google Map API key = AIzaSyBut1PTcKfPOO_dEAKXZf9YsSMHqauyTtI
 
@@ -71,6 +62,31 @@ To setp up for WIN10 Users:
 2.Run PGADMIN4 in start up menu, a server page should pop out in 10 seconds. This will also run the local server.
 3.Create an empty database namded "talentExOP2db".
 4.You should be good to go!
+
+* Remember to change following section regarding DATABASE in (your project root dir)/backend/dj/dj/settings.py
+
+Given 
+  database name = talentExOP2db
+  user name = Yan
+  password = 123
+
+//start of section
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'talentExOP2db',
+        'USER': 'Yan',
+        'PASSWORD': '123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+//end of section
+
+
+You will set username and password when you install POSTGRES DATABASE for windows.
+
+You have to create a database mannually.
 
 After setting up the db, get in ```backend/dj```, run
 ```
