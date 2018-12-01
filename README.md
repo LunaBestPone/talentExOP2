@@ -1,9 +1,10 @@
 This branch is for new development
 
-# A functional iteration 2 code base
+# A functional develop code base
 Though with some minor known bugs which will be fixed in iteration 3
+
 # Do not expect "clone then run"
-Some external package for django is needed, install them with pip
+Some external package for django is needed, install them with pip/pip3
 
 These packages now include:
 * djangorestframework
@@ -20,7 +21,7 @@ These packages now include:
 Make sure you are in frontend/gui/ directory (```ls``` then you'll see ```package.json```)
 Then run following:
 ```
-npm install
+npm install --save
 ```
 # Instruction for Unit Testing
 
@@ -43,9 +44,9 @@ There is no extra packages you need to install for backend testing.
 
 For testing, ```python manage.py test``` is enough.
 
-For coverage, run ```coverage run --source='.' manage.py test main```, and ```coverage report```.
+For coverage, run ```coverage run --source='.' manage.py test main```, and ```coverage report```
 
-# Now one more thing...
+# Now one more thing before you can start
 open ```backend/dj/dj/settings.py``` and check ```DATABASE``` section for configs you need to set up a database on your local environment, we will use postgresql here.
 
 If you don't have postgresql installed, install it. brew if osx, download the installer if windows. How one set up the DB cluster and local server of postgresql is quite different on different operating system, you'll have to figure it out yourself (Google is your best friend when encountering any problem in the project, team members as well).
@@ -56,7 +57,7 @@ To setp up for WIN10 Users:
 1.Install latest version for WIN-64 system, do NOT need to add extensions in StackBuilder (a APP come with POSTGRESQL).
 2.Run PGADMIN4 in start up menu, a server page should pop out in 10 seconds. This will also run the local server.
 3.Create an empty database namded "talentExOP2db".
-4.You should be good to go!
+4.Configure user as indicated in the setting file of django.
 
 After setting up the db, get in ```backend/dj```, run
 ```
@@ -79,5 +80,10 @@ then go to ```frontend/gui```, run
 npm start
 ```
 to get frontend running.
+
+# Bug report
+Github issue: https://github.com/LunaBestPone/talentExOP2/issues
+
+Create new bug report as new issue.
 
 Happy hacking / exploring.
