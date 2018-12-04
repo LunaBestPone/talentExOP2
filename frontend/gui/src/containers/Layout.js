@@ -37,7 +37,7 @@ class CustomLayout extends React.Component {
             defaultSelectedKeys={['0']}
             style={{ lineHeight: '64px', float: 'left' }}
           >
-            <Menu.Item key="1" onClick = {() => this.updatePage("Home")}><Link to="/">talent</Link></Menu.Item>
+            <Menu.Item key="1" onClick = {() => this.updatePage("Home")}><Link to="/">Talent Exchange</Link></Menu.Item>
             {
             this.props.isAuthenticated ?
             <Menu.Item key="2" onClick = {this.props.logout} >Logout</Menu.Item>
