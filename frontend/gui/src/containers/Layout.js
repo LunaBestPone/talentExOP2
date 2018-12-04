@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
 import { Link, withRouter } from 'react-router-dom';
 
+
 const { Header, Content, Footer } = Layout;
 
 class CustomLayout extends React.Component {
@@ -34,9 +35,9 @@ class CustomLayout extends React.Component {
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={['0']}
-            style={{ lineHeight: '64px', float: 'right' }}
+            style={{ lineHeight: '64px', float: 'left' }}
           >
-            <Menu.Item key="1" onClick = {() => this.updatePage("Home")}><Link to="/">Home</Link></Menu.Item>
+            <Menu.Item key="1" onClick = {() => this.updatePage("Home")}><Link to="/">talent</Link></Menu.Item>
             {
             this.props.isAuthenticated ?
             <Menu.Item key="2" onClick = {this.props.logout} >Logout</Menu.Item>
