@@ -5,6 +5,7 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import SelectUSState from 'react-select-us-states';
 import moment from 'moment';
+import { GoogleApiWrapper } from 'google-maps-react';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -13,7 +14,7 @@ const { RangePicker } = DatePicker;
 class Registration extends React.Component {
   state = {
     subject: "",
-    locationState: 'WI',
+    locationState: 'AL',
   }
 
   handleSubject = (value) => {
@@ -24,7 +25,7 @@ class Registration extends React.Component {
 
   handleLocationStateChange = (value) => {
     this.setState({
-      locationState: value
+      locationState: value,
     })
   }
 
@@ -35,7 +36,7 @@ class Registration extends React.Component {
       return;
     }
 
-    
+
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -55,7 +56,8 @@ class Registration extends React.Component {
 
         const address = e.target.elements.address.value;
         const city = e.target.elements.city.value;
-        const state = this.state.locationState.value;
+        const state = this.state.locationState;
+        console.log(state);
         const zip = e.target.elements.zip.value;
         // debugger;
         axios
@@ -74,7 +76,7 @@ class Registration extends React.Component {
             console.log(res);
             console.log(res.data);
             window.alert('Workshop created!')
-            
+
             console.log("1.", success);
           }).catch(err => {
             console.log(err)
@@ -87,7 +89,6 @@ class Registration extends React.Component {
           }
       }
     });
-    
   }
 
   disabledDate(current){
@@ -177,7 +178,7 @@ class Registration extends React.Component {
           label="State: ">
           {getFieldDecorator('state', {
             rules: [{
-              required: true,
+              required: false,
             }],
           })(
             <SelectUSState onChange={this.handleLocationStateChange} />
@@ -259,7 +260,6 @@ class Registration extends React.Component {
 
       </Form>
     );
-    window.alert(this.state.locationState);
   }
 }
 
@@ -274,4 +274,6 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(WrappedRegistrationForm);
+export default connect(mapStateToProps)(GoogleApiWrapper({
+    apiKey: ('AIzaSyDSDo23qnbXL_JeeM9LCIhYh2fUwNRTA_4')
+  })(WrappedRegistrationForm));
