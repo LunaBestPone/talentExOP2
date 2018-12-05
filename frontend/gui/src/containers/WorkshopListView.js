@@ -112,7 +112,7 @@ class WorkshopListView extends React.Component{
       }
     }
     return this.setState({
-      workshops: match
+      workshops: match 
     })
   }
 

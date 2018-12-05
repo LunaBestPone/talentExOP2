@@ -27,6 +27,7 @@ class WorkshopDetail extends React.Component{
       workshop: {},
       isRegistered: false,
       enrollment: 0,
+      enrolled: {},
       user:{},
       date: "",
       lc: 0,
@@ -184,11 +185,28 @@ class WorkshopDetail extends React.Component{
           axios.get('http://127.0.0.1:8000/api/user/' + this.props.user)
             .then(res => {
               this.setState({user: res.data});
+              axios.get('http://127.0.0.1:8000/api/enrollment/?enrolled_user'  + "=" + this.props.user)
+                .then(res =>{
+                  this.setState({enrolled: res.data})
+                  for(let i = 0; i < this.state.enrolled.length; i++){
+                    console.log(this.state.enrolled[i].enrolled_user);
+                    if(this.state.enrolled[i].enrolled_user == this.props.user){
+                      console.log("found");
+                      this.setState({
+                        isRegistered: true
+                      })
+                      break;
+                    }
+                  }
+                })
+                .catch(err => console.log(err))
+                
             })
             .catch(err => console.log(err))
         }
       })
       .catch(err => console.log(err));
+    
   }
 
   render() {
