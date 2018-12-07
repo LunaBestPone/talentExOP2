@@ -41,7 +41,7 @@ class Enrollment(models.Model):
     ws_id = models.ForeignKey(Workshop, on_delete = models.CASCADE)
     enrolled_user = models.ForeignKey(User, on_delete = models.CASCADE)
     enroll_date_time = models.DateTimeField(default = timezone.now)
-    is_rated = models.BooleanField(null = True, default = False)
+    is_rated = models.BooleanField(default = False)
 
 """
 Wishlist model
