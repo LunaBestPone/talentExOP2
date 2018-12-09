@@ -64,7 +64,7 @@ class WorkshopListView extends React.Component{
   componentDidUpdate(prevProps, prevState) {
     // console.log("value = " + nextState.filterSub);
     if (prevState.filterSub !== this.state.filterSub) {
-      axios.get('http://127.0.0.1:8000/api/workshop/?category' + this.state.filterSub)
+      axios.get('http://127.0.0.1:8000/api/workshop/?is_active=true&?category' + this.state.filterSub)
         .then(res => {
           this.setState({
               workshops: res.data,
