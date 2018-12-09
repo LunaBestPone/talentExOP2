@@ -12,8 +12,9 @@ class Home extends React.Component {
                 talent sharing. You can sign up available workshops or
                 create your workshops. For each workshop you registered
                 to particiate, 1 learning credit will be deducted. Similarly,
-                If you host a workshop, you will earn 1 credit. If you have find
-                bugs, whoa, we encourage you to open issues on our repository :)
+                If you host a workshop, the number of credits you earn will be
+                based on the number of participants. If you find bugs, whoa,
+                we encourage you to open issues on our repository :)
                 </p>
             </Card>
         )
