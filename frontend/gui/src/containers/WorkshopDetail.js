@@ -7,6 +7,7 @@ import React from 'react';
 import axios from 'axios';
 import { NavLink  } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 // import Workshop from '../components/Workshop';
 
@@ -117,6 +118,22 @@ class WorkshopDetail extends React.Component{
     return flag;
   }
 
+  onDeleteClick = (e) => {
+    this.setState({ workshop: { ...this.state.workshop, is_active: false} });
+    axios.patch('http://127.0.0.1:8000/api/workshop/detail/' + this.state.workshop.ws_id  + '/update/', {
+        is_active: false,
+      }).then(res => {
+        console.log(res);
+        console.log(res.data);
+        window.location.reload();
+        window.alert("This workshop is deleted.")
+      }).catch(err => {
+        console.log(err)
+      })
+
+
+  }
+
   onRegisterClick = (e) => {
     if (this.state.user.learning_credit > 1 && this.state.isRegistered === false){
       var d = new Date();
@@ -216,6 +233,7 @@ class WorkshopDetail extends React.Component{
     let registerbutton;
     let editbutton;
     let cancelregistrationbutton;
+    let deletebutton;
 
     if (this.state.isEditing) {
       return (
@@ -248,7 +266,13 @@ class WorkshopDetail extends React.Component{
     //Display edit button if the user's id matches the workshop host id
     if(user_id == this.state.workshop.host_user){
       editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
+      deletebutton = <Button onClick = {this.onDeleteClick}>
+                        <Link to="/workshop/">
+                         Delete
+                        </Link>
+                       </Button>
     }
+
     return (
         <Row gutter={14}>
         <Col span={10} offset={7}>
@@ -296,6 +320,7 @@ class WorkshopDetail extends React.Component{
           {registerbutton}
           {editbutton}
           {cancelregistrationbutton}
+          {deletebutton}
         </div>
       </Col>
       </Row>
