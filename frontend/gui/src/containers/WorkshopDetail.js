@@ -118,6 +118,23 @@ class WorkshopDetail extends React.Component{
     return flag;
   }
 
+  deleteEnrollment(enrollmentUrl){
+    axios.get(enrollmentUrl)
+      .then(res => {
+        console.log(res.data[0])
+        this.setState({enrollment: res.data[0]});
+        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.enrollment.id + '/delete/'
+        axios.delete(deleteurl, {id: this.state.enrollment.id})
+        .then(res => {
+          console.log(res.data);
+          console.log("Passed")
+          }).catch(err => {
+              console.log(err)
+              })
+      })
+      .catch(err => console.log(err))
+  }
+
   onDeleteClick = (e) => {
     this.setState({ workshop: { ...this.state.workshop, is_active: false} });
     axios.patch('http://127.0.0.1:8000/api/workshop/detail/' + this.state.workshop.ws_id  + '/update/', {
@@ -165,23 +182,9 @@ class WorkshopDetail extends React.Component{
 
   onCancelRegistrationClick = (e) => {
     const enrollmentUrl = 'http://127.0.0.1:8000/api/enrollment/?ws_id=' + this.state.workshop.ws_id + '&enrolled_user=' + this.state.user.id
-    axios.get(enrollmentUrl)
-      .then(res => {
-        console.log(res.data[0])
-        this.setState({enrollment: res.data[0]});
-        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.enrollment.id + '/delete/'
-        axios.delete(deleteurl, {id: this.state.enrollment.id})
-        .then(res => {
-          console.log(res.data);
-          console.log("Passed")
-          }).catch(err => {
-              console.log(err)
-              })
-      })
-      .catch(err => console.log(err))
-
     var newLearningCredits = this.state.lc + 1
     var newHostLearningCredits = this.state.host_lc - 1
+    this.deleteEnrollment(enrollmentUrl)
     this.updateLearningCredits(this.state.user.id, newLearningCredits)
     this.updateLearningCredits(this.state.workshop.host_user, newHostLearningCredits)
     this.setState({isRegistered: false, lc: newLearningCredits, host_lc: newHostLearningCredits});
