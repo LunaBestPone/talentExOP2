@@ -135,7 +135,7 @@ class WorkshopDetail extends React.Component{
   }
 
   onRegisterClick = (e) => {
-    if (this.state.user.learning_credit > 1 && this.state.isRegistered === false){
+    if (this.state.user.learning_credit > 0 && this.state.isRegistered === false){
       var d = new Date();
       axios.get('http://127.0.0.1:8000/api/user/' + this.state.workshop.host_user + '/')
         .then(
