@@ -11,11 +11,10 @@ class Home extends React.Component {
                 <p>The purpose of this application is to build a community for
                 talent sharing. You can sign up available workshops or
                 create your workshops. For each workshop you registered
-                to particiate, 1 learning credit will be deducted. If you host a
-                workshop, you will earn credits based on the number of
-                participants. Currently, we only allow new workshops to start
-                and end on the same day. If you have find bugs, whoa,
-                we encourage you to open issues on our repository :) </p>
+                to particiate, 1 learning credit will be deducted. Similarly,
+                If you host a workshop, you will earn 1 credit. If you have find
+                bugs, whoa, we encourage you to open issues on our repository :)
+                </p>
             </Card>
         )
     }
