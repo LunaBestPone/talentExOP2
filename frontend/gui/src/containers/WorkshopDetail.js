@@ -200,13 +200,13 @@ class WorkshopDetail extends React.Component{
                   }
                 })
                 .catch(err => console.log(err))
-                
+
             })
             .catch(err => console.log(err))
         }
       })
       .catch(err => console.log(err));
-    
+
   }
 
   render() {
@@ -233,7 +233,7 @@ class WorkshopDetail extends React.Component{
     }
 
     //Display register button if the user is logged in
-    if(isLoggedIn && !isRegistered){
+    if(isLoggedIn && !isRegistered && (user_id != this.state.workshop.host_user)){
       registerbutton = <Button style={{padding: '5px'}} onClick={(e) => {this.onRegisterClick(e)}}>
         Register
       </Button>
