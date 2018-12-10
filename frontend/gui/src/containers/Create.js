@@ -5,6 +5,7 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import SelectUSState from 'react-select-us-states';
 import moment from 'moment';
+import { GoogleApiWrapper } from 'google-maps-react';
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -13,7 +14,7 @@ const { RangePicker } = DatePicker;
 class Registration extends React.Component {
   state = {
     subject: "",
-    locationState: 'WI',
+    locationState: 'AL',
   }
 
   handleSubject = (value) => {
@@ -24,7 +25,7 @@ class Registration extends React.Component {
 
   handleLocationStateChange = (value) => {
     this.setState({
-      locationState: value
+      locationState: value,
     })
   }
 
@@ -35,11 +36,12 @@ class Registration extends React.Component {
       return;
     }
 
-    
+
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
         var success = false;
+
         const wsname = e.target.elements.ws_title.value;
         const description = e.target.elements.description.value;
         const min_cap = e.target.elements.min.value;
@@ -55,9 +57,29 @@ class Registration extends React.Component {
 
         const address = e.target.elements.address.value;
         const city = e.target.elements.city.value;
-        const state = this.state.locationState.value;
+        const state = this.state.locationState;
+        console.log(state);
         const zip = e.target.elements.zip.value;
-        // debugger;
+
+        var longitude;
+        var latitude;
+        var geocoder;
+        geocoder = new this.props.google.maps.Geocoder();
+        var searchaddr = "";
+        searchaddr += address + ' ' + city + ' ' + state + ' ' + zip;
+        geocoder.geocode({'address': searchaddr}, function(results, status){
+          if (status === 'OK') {
+            longitude = results[0].geometry.location.lng();
+            latitude = results[0].geometry.location.lat();
+            console.log("var long = : " + longitude);
+            console.log("formatted address = : " + results[0].formatted_address);
+          }
+          else {
+            console.log('The location in typed in cannot be found on the map, try again. Geocoder status code: ' + status);
+            return;
+          }
+        });
+
         axios
           .post('http://127.0.0.1:8000/api/workshop/create/', {
             host_user: this.props.user,
@@ -69,12 +91,17 @@ class Registration extends React.Component {
             start_date_time: startDateTime,
             end_date_time: endDateTime,
             category: this.state.subject,
-            // location: null,
+            street: address,
+            city: city,
+            state: state,
+            zip: zip,
+            longitude: longitude,
+            latitude: latitude,
           }).then(res => {
             console.log(res);
             console.log(res.data);
             window.alert('Workshop created!')
-            
+
             console.log("1.", success);
           }).catch(err => {
             console.log(err)
@@ -87,7 +114,6 @@ class Registration extends React.Component {
           }
       }
     });
-    
   }
 
   disabledDate(current){
@@ -177,7 +203,7 @@ class Registration extends React.Component {
           label="State: ">
           {getFieldDecorator('state', {
             rules: [{
-              required: true,
+              required: false,
             }],
           })(
             <SelectUSState onChange={this.handleLocationStateChange} />
@@ -259,7 +285,6 @@ class Registration extends React.Component {
 
       </Form>
     );
-    window.alert(this.state.locationState);
   }
 }
 
@@ -274,4 +299,6 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(WrappedRegistrationForm);
+export default connect(mapStateToProps)(GoogleApiWrapper({
+    apiKey: ('AIzaSyB7PMehecNIkcLBqkvyYi1vgmcG2u2Riic')
+  })(WrappedRegistrationForm));

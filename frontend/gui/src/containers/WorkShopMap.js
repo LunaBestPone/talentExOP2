@@ -58,7 +58,7 @@ class WorkShopMap extends React.Component {
         locations: [],
     }
     onMarkerClick(){
-        
+
     }
     componentDidMount() {
        /* axios.get('http://127.0.0.1:8000/api/workshop/')
@@ -76,18 +76,20 @@ class WorkShopMap extends React.Component {
             .catch(err => console.log(err));
 
             */
+            /*
             const location = "437 N Frances Street, Madison, WI";
             axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA &key=AIzaSyDSDo23qnbXL_JeeM9LCIhYh2fUwNRTA_4')
                 .then(res=>{
                     console.log(res.data)
-                })
+                });
+            */
     }
     render() {
 
-     
+
         return (
             <div>
-                <Map google={this.props.google} 
+                <Map google={this.props.google}
                     zoom={14}
                     style={{width: "80%"}}
                     initialCenter={{
@@ -99,34 +101,34 @@ class WorkShopMap extends React.Component {
                         lng: -88.401230
                       }}
                       */
-               
+
                     >
                         <Marker
                           onClick = { this.onMarkerClick }
                           title = { 'Changing Colors Garage' }
                           position = {{ lat: 43.078209, lng: -89.411185 }}
-                         
+
                         />
 
                         <Marker
                           onClick = { this.onMarkerClick }
                           title = { 'Changing Colors Garage' }
                           position = {{ lat: 43.074775, lng: -89.395588 }}
-                        
+
                         />
 
                         <Marker
                           onClick = { this.onMarkerClick }
                           title = { 'Changing Colors Garage' }
                           position = {{ lat: 43.078239, lng: -89.431189 }}
-                        
+
                         />
 
 
 
                     <Marker onClick={this.onMarkerClick}
                             name={'Current location'} />
-                    
+
                 </Map>
             </div>
         )

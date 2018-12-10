@@ -12,6 +12,7 @@ import WorkshopMap from './containers/WorkShopMap';
 import MyWorkshopList from './containers/MyWorkshopList';
 import profile from './containers/profile';
 import Rate from './components/Rate';
+import About from './components/About.js'
 
 const BaseRouter = () => (
   <div>
@@ -26,6 +27,7 @@ const BaseRouter = () => (
     <Route exact strict path='/MyWorkshopList/' component={MyWorkshopList} />
     <Route exact path='/profile/' component={profile}/>
     <Route exact path='/rate/' component={Rate}/>
+    <Route exact path='/about/' component={About}/>
   </div>
 );
 

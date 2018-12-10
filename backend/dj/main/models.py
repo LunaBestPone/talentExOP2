@@ -15,15 +15,6 @@ class User(AbstractUser):
         return self.username
 
 """
-Location model
-"""
-class Location(models.Model):
-    street = models.TextField()
-    city = models.TextField()
-    state = models.TextField()
-    zip = models.TextField()
-
-"""
 Workshop model
 """
 class Workshop(models.Model):
@@ -36,8 +27,13 @@ class Workshop(models.Model):
     description = models.TextField(null = True)
     start_date_time = models.DateTimeField(default = timezone.now)
     end_date_time = models.DateTimeField(default = timezone.now)
-    location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL)
-    category = models.TextField(null=True)
+    street = models.TextField(null = True)
+    city = models.TextField(null = True)
+    state = models.TextField(null = True)
+    zip = models.TextField(null = True)
+    longitude = models.FloatField(default = 0.0);
+    latitude = models.FloatField(default = 0.0);
+    category = models.TextField(null = True)
 
 
 
@@ -49,6 +45,7 @@ class Enrollment(models.Model):
     ws_id = models.ForeignKey(Workshop, on_delete = models.CASCADE)
     enrolled_user = models.ForeignKey(User, on_delete = models.CASCADE)
     enroll_date_time = models.DateTimeField(default = timezone.now)
+    is_rated = models.BooleanField(default = False)
 
 """
 Wishlist model
