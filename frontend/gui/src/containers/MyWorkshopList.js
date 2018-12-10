@@ -44,7 +44,7 @@ class MyWorkshopList extends React.Component {
 
     if (this.props.isAuthenticated) {
       //workshops user is host of
-      axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user)
+      axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user + '&is_active=true')
         .then(res => {
           console.log(res.data)
           console.log("Can you see this 1?")
@@ -67,7 +67,7 @@ class MyWorkshopList extends React.Component {
           })
           for(var i = 0; i < res.data.length; i++){
             console.log(res.data[i])
-            axios.get('http://127.0.0.1:8000/api/workshop/?ws_id' + '=' + res.data[i].ws_id )
+            axios.get('http://127.0.0.1:8000/api/workshop/?ws_id' + '=' + res.data[i].ws_id + '&is_active=true')
               .then(res1 => {
                 console.log(res1)
                 console.log("Can you see this 3?")
