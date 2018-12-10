@@ -38,7 +38,8 @@ class WorkshopDetail extends React.Component{
       currentUser: "",
       host: "",
       user2id: [],
-      date: ""
+      date: "",
+      rated: true,
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateWorkshopState = this.updateWorkshopState.bind(this);
@@ -226,7 +227,11 @@ class WorkshopDetail extends React.Component{
     let workshop_id = this.props.match.params.ws_id;
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
       .then(res => {
-        this.setState({workshop: res.data, host: res.data.host_username});
+        this.setState({
+          workshop: res.data, 
+          host: res.data.host_username, 
+          enrolled_users: this.state.enrolled_users.concat(res.data.host_user),
+        });
         /*
         const user_id = res.data.host_user;
         axios.get('http://127.0.0.1:8000/api/user/' + user_id)
@@ -274,6 +279,13 @@ class WorkshopDetail extends React.Component{
                     }
                   }
                   console.log(this.state.enrolled_users);
+                  axios.get('http://127.0.0.1:8000/api/enrollment/?ws_id=' + workshop_id + '&enrolled_user=' + this.props.user).then(res => {
+                    if(res.data[0] != undefined){
+                      this.setState({
+                        rated: res.data[0].is_rated
+                      })
+                    }
+                  })
                 })
                 .catch(err => console.log(err))
             })
@@ -291,9 +303,10 @@ class WorkshopDetail extends React.Component{
     const user_id = this.props.user;
     const rating = {
       pathname: '/rate/',
-      param1 : this.state.user2id,
+      param1 : user_id,
       param2 : this.state.currentUser,
-      param3 : this.state.host,
+      param3 : this.state.workshop.host_username,
+      param4 : this.state.workshop.ws_id
     }
     let registerbutton;
     let editbutton;
@@ -340,10 +353,10 @@ if(isRegistered && (user_id != this.state.workshop.host_user)){
                         </Link>
                        </Button>
     }
-    //has to be !is_active but is_active is not changed yet.
+    //has to be !is_active but is_active is not changed yet. (active = workshop's not in the past, is_active = db)
     if((user_id == this.state.workshop.host_user || enrolled_users.includes(parseInt(user_id))) && active){
       console.log(this.state.enrolled_users, this.state.enrolled_users_name)
-      if(this.state.workshop.is_active){
+      if(this.state.workshop.is_active && !this.state.rated){ //if rated = false -> haven't rated
         rateButton = <Button><Link to = {rating} >Rate</Link></Button>
       }
     }
