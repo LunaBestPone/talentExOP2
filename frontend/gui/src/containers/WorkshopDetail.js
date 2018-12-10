@@ -113,8 +113,7 @@ class WorkshopDetail extends React.Component{
     axios.get(enrollmentUrl)
       .then(res => {
         console.log(res.data[0])
-        this.setState({enrollment: res.data[0]});
-        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.enrollment.id + '/delete/'
+        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + res.data[0].id + '/delete/'
         axios.delete(deleteurl, {id: this.state.enrollment.id})
         .then(res => {
           console.log(res.data);
@@ -130,15 +129,38 @@ class WorkshopDetail extends React.Component{
     const enrollmentListUrl = 'http://127.0.0.1:8000/api/enrollment/?ws_id=' + this.state.workshop.ws_id
     var enrollmentList;
     var restoredHostLearningCredits;
-    var indx;
 
     axios.get(enrollmentListUrl)
       .then(res => {
         enrollmentList = res.data;
-        this.updateLearningCredits(this.state.workshop.host_user, -Object.keys(enrollmentList).length)})
+        //Update workshop host learning credits
+        this.updateLearningCredits(this.state.workshop.host_user, -Object.keys(enrollmentList).length)
+        //Iteratively delete all enrollment records and restore learning credits
+        for (let indx = 0; indx < Object.keys(enrollmentList).length; indx++){
+          var id = enrollmentList[indx].enrolled_user
+          this.updateLearningCredits(id, 1)
+          var enrollmentUrl = 'http://127.0.0.1:8000/api/enrollment/?ws_id=' + this.state.workshop.ws_id + '&enrolled_user=' + id
+          console.log(enrollmentUrl)
+          this.deleteEnrollment(enrollmentUrl)
+        }
+      })
       .catch(err => {
         console.log(err)
       })
+
+    this.setState({ workshop: { ...this.state.workshop, is_active: false} });
+    axios.patch('http://127.0.0.1:8000/api/workshop/detail/' + this.state.workshop.ws_id  + '/update/', {
+        is_active: false,
+      }).then(res => {
+        console.log(res);
+        console.log(res.data);
+        window.location.reload();
+        window.alert("This workshop is deleted.")
+      }).catch(err => {
+        console.log(err)
+      })
+
+
 
     //Update workshop host learning credits
     //console.log(this.state.host_lc)
