@@ -1,11 +1,13 @@
 import React from 'react';
-import { Form, Input, Button, Select, DatePicker, TimePicker } from 'antd';
+import { Form, Input, Button, Select, DatePicker, TimePicker, InputNumber } from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import SelectUSState from 'react-select-us-states';
 import moment from 'moment';
 import { GoogleApiWrapper } from 'google-maps-react';
+
+
 
 const Option = Select.Option;
 const FormItem = Form.Item;
@@ -36,8 +38,6 @@ class Registration extends React.Component {
       return;
     }
 
-
-
     this.props.form.validateFields((err, values) => {
       if (!err) {
         var success = false;
@@ -46,8 +46,13 @@ class Registration extends React.Component {
         const description = e.target.elements.description.value;
         const min_cap = e.target.elements.min.value;
         const max_cap = e.target.elements.max.value;
-
         const rangeTimeValue = values['range-time-picker'];
+        
+        if (min_cap > max_cap) {
+          alert('min attendees cannot be more than max attendees');
+          return;
+        }
+        
         if(rangeTimeValue[0] < moment()) {
           window.alert('Selected start time has already past, try again.');
           return;
@@ -245,7 +250,7 @@ class Registration extends React.Component {
           )}
         </FormItem>
 
-        <FormItem
+        <FormItem 
           {...formItemLayout}
           label="Minimum Attendees: ">
           {getFieldDecorator('minAttendees', {
@@ -253,7 +258,8 @@ class Registration extends React.Component {
               required: true, message: 'Please select the minimum amount of attendees!',
             }],
           })(
-            <Input type="number" name='min' />
+            
+            <InputNumber min={1} type="number" name='min'/>
           )}
         </FormItem>
 
@@ -265,7 +271,7 @@ class Registration extends React.Component {
               required: true, message: 'Please select the maximum amount of attendees!',
             }],
           })(
-            <Input type="number" name='max' />
+            <InputNumber min={1} type="number" name='max'/>
           )}
         </FormItem>
 
