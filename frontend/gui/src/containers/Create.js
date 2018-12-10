@@ -31,10 +31,6 @@ class Registration extends React.Component {
     })
   }
 
-  handleNumChange = (e) => {
-    
-  }
-
   handleSubmit = (e) => {
     e.preventDefault();
     if (!this.props.isAuthenticated) {
@@ -56,8 +52,7 @@ class Registration extends React.Component {
           alert('min attendees cannot be more than max attendees');
           return;
         }
-
-
+        
         if(rangeTimeValue[0] < moment()) {
           window.alert('Selected start time has already past, try again.');
           return;
