@@ -83,7 +83,8 @@ class NormalLoginForm extends React.Component {
           this.props.loading ?
           <Spin />
           :
-          <Form onSubmit={this.handleSubmit} className="login-form" style={{width: '30%', border: 'solid 1px rgba(0,0,0,.20)', borderRadius: '5px', padding: "15px"}}>
+          <Form onSubmit={this.handleSubmit} className="login-form" style={{width: '30%', border: 'solid 1px rgba(0,0,0,.20)', borderRadius: '5px', padding: "15px", marginLeft: 'auto',
+  marginRight: 'auto'}}>
             <FormItem>
               {getFieldDecorator('userName', {
                 rules: [{ required: true, message: 'Please input your username!' }, {min: 6, message: 'Username must have a length greater than 6 characters!'}],
