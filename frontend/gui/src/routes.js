@@ -11,6 +11,7 @@ import Home from './containers/Home';
 import WorkshopMap from './containers/WorkShopMap';
 import MyWorkshopList from './containers/MyWorkshopList';
 import profile from './containers/profile';
+import About from './components/About.js'
 
 const BaseRouter = () => (
   <div>
@@ -24,6 +25,8 @@ const BaseRouter = () => (
     <Route exact strict path='/signup/' component={Signup} />
     <Route exact strict path='/MyWorkshopList/' component={MyWorkshopList} />
     <Route exact path='/profile/' component={profile}/>
+    <Route exact path='/about/' component={About}/>
+
   </div>
 );
 
