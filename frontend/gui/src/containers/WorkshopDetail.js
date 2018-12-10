@@ -7,11 +7,13 @@ import React from 'react';
 import axios from 'axios';
 import { NavLink  } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 // import Workshop from '../components/Workshop';
 
 import { Button, Card, Row, Col } from 'antd';
 import WSForm from '../components/WSForm';
+import Rate from '../components/Rate';
 
 const closeStyle = {
   position: 'fixed',
@@ -28,10 +30,15 @@ class WorkshopDetail extends React.Component{
       isRegistered: false,
       enrollment: 0,
       enrolled: {},
+      enrolled_users: [],
+      enrolled_users_name: [],
       user:{},
       date: "",
       lc: 0,
-      host_lc: 0
+      host_lc: 0,
+      currentUser: "",
+      host: "",
+      user2id: []
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateWorkshopState = this.updateWorkshopState.bind(this);
@@ -174,33 +181,57 @@ class WorkshopDetail extends React.Component{
     let workshop_id = this.props.match.params.ws_id;
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
       .then(res => {
-        this.setState({workshop: res.data});
+        this.setState({workshop: res.data, host: res.data.host_username});
         /*
         const user_id = res.data.host_user;
         axios.get('http://127.0.0.1:8000/api/user/' + user_id)
           .then(resFuser => this.setState({host: resFuser.data}))
           .catch(err => console.log(err));
           */
+         // enrolled_users_name: this.state.enrolled_users_name.concat(res.data[i].host_user)
+
+        axios.get('http://127.0.0.1:8000/api/enrollment/?ws_id'  + "=" + workshop_id)
+          .then(res2 => {
+            for(let i = 0; i < res2.data.length; i++){
+              this.setState({
+                enrolled_users: this.state.enrolled_users.concat(res2.data[i].enrolled_user),
+              })
+            }
+            console.log(this.state.enrolled_users)
+            for(let i = 0; i < this.state.enrolled_users.length; i++){
+              console.log(this.state.enrolled_users[i])
+              axios.get('http://127.0.0.1:8000/api/user/' + this.state.enrolled_users[i] +"/").then(res => {
+                var x = {user: res.data.username, id: res.data.id}
+                console.log("x: " + x)
+                this.setState({
+                  user2id: this.state.user2id.concat(x),
+                  enrolled_users_name: this.state.enrolled_users_name.concat(res.data.username)
+                 })
+              }).catch(err => console.log(err))
+            }
+            console.log(this.state.user2id);
+          }
+          ).catch(err => console.log(err))
         if(this.props.user != null){
           axios.get('http://127.0.0.1:8000/api/user/' + this.props.user)
             .then(res => {
-              this.setState({user: res.data});
+              this.setState({user: res.data, currentUser: res.data.username});
+              console.log(this.state.currentUser)
               axios.get('http://127.0.0.1:8000/api/enrollment/?enrolled_user'  + "=" + this.props.user)
                 .then(res =>{
                   this.setState({enrolled: res.data})
-                  for(let i = 0; i < this.state.enrolled.length; i++){
-                    console.log(this.state.enrolled[i].enrolled_user);
+                  console.log(res.data);
+                  for(let i = 0; i < res.data.length; i++){
                     if(this.state.enrolled[i].enrolled_user == this.props.user){
-                      console.log("found");
                       this.setState({
                         isRegistered: true
                       })
-                      break;
                     }
                   }
+                  console.log(this.state.enrolled_users);
                 })
                 .catch(err => console.log(err))
-                
+              
             })
             .catch(err => console.log(err))
         }
@@ -212,11 +243,21 @@ class WorkshopDetail extends React.Component{
   render() {
     const isLoggedIn = this.props.isAuthenticated;
     const isRegistered = this.state.isRegistered;
+    const enrolled_users = this.state.enrolled_users;
     const user_id = this.props.user;
+    const rating = {
+      pathname: '/rate/',
+      param1 : this.state.user2id,
+      param2 : this.state.currentUser,
+      param3 : this.state.host,
+    }
     let registerbutton;
     let editbutton;
     let cancelregistrationbutton;
-
+    let rateButton;
+    let current = new Date().getTime();
+    let wsTime = new Date (this.state.workshop.end_date_time).getTime();
+    let active = (current < wsTime ? false : true);
     if (this.state.isEditing) {
       return (
       <div style = {{width: '100%'}}>
@@ -240,7 +281,7 @@ class WorkshopDetail extends React.Component{
     }
 
     if(isRegistered){
-      cancelregistrationbutton = <Button  style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
+      cancelregistrationbutton = <Button style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
         Cancel Registration
       </Button>
     }
@@ -248,6 +289,14 @@ class WorkshopDetail extends React.Component{
     //Display edit button if the user's id matches the workshop host id
     if(user_id == this.state.workshop.host_user){
       editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
+      
+    }
+    //has to be !is_active but is_active is not changed yet.
+    if((user_id == this.state.workshop.host_user || enrolled_users.includes(parseInt(user_id))) && active){
+      console.log(this.state.enrolled_users, this.state.enrolled_users_name)
+      if(this.state.workshop.is_active){
+        rateButton = <Button><Link to = {rating} >Rate</Link></Button>
+      }
     }
     return (
         <Row gutter={14}>
@@ -296,6 +345,7 @@ class WorkshopDetail extends React.Component{
           {registerbutton}
           {editbutton}
           {cancelregistrationbutton}
+          {rateButton}
         </div>
       </Col>
       </Row>

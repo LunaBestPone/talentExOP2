@@ -1,14 +1,20 @@
 
 import React from 'react';
 import { Form, Icon, Input, Button, Spin } from 'antd';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../store/actions/auth';
+import Rate from '../components/Rate';
 
 const FormItem = Form.Item;
 
 class NormalLoginForm extends React.Component {
-
+  state = {
+    hostWorkshops: [],
+    enrolledWorkshops: [],
+    // user: ""
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -24,6 +30,41 @@ class NormalLoginForm extends React.Component {
 
   render() {
     if (this.props.token !== null) {
+      // let noRate = true;
+      // //Look at the workshops he/she particiapted and hosted and determine 
+      // //whether anyone of them are in the past.
+      // //If yes, then is_active => false and ask to rate them.
+      // axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user)
+      //   .then(res => {
+      //     console.log(res.data);
+      //     for(let i = 0; i <res.data.length; i++){
+      //       //host check
+      //       if(res.data[i].host_user == this.props.user){
+      //         //time check
+      //         var current = new Date();
+      //         var wsTime = new Date(res.data[i].end_date_time);
+      //         if(current.getTime() > wsTime.getTime()){
+      //           noRate = false;
+      //           break;
+      //         }
+      //       }
+      //     }
+      //   })
+      // //workshops user is enrolled in
+      // axios.get('http://127.0.0.1:8000/api/enrollment/?enrolled_user' + "=" + this.props.user)
+      //   .then(res => {
+      //     for(let i = 0; i <res.data.length; i++){
+      //       //time check
+      //       var ws = res.data[i].ws_id;
+      //       var current = new Date();
+      //       var wsTime = new Date(res.data[i].end_date_time);
+      //       if(current.getTime() > wsTime.getTime()){
+      //         noRate = false;
+      //         break;
+      //       }
+      //     }
+      //   })
+      // if(noRate) 
       this.props.history.push("/workshop/");
     }
     const { getFieldDecorator } = this.props.form;
@@ -75,7 +116,8 @@ const mapStateToProps = (state) => {
   return {
     token:state.token,
     loading:state.loading,
-    error: state.error
+    error: state.error,
+    user: state.user
   }
 }
 
