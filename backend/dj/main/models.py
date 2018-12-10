@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
+
 """
 User model
 """
@@ -37,6 +38,9 @@ class Workshop(models.Model):
     end_date_time = models.DateTimeField(default = timezone.now)
     location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL)
     category = models.TextField(null=True)
+
+
+
 
 """
 Enrollment model
