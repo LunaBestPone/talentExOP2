@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
+
 """
 User model
 """
@@ -33,6 +34,9 @@ class Workshop(models.Model):
     longitude = models.FloatField(default = 0.0);
     latitude = models.FloatField(default = 0.0);
     category = models.TextField(null = True)
+
+
+
 
 """
 Enrollment model

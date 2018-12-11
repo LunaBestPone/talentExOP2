@@ -45,7 +45,7 @@ class WorkshopListView extends React.Component{
   }
 
   componentDidMount() {
-    axios.get('http://127.0.0.1:8000/api/workshop/')
+    axios.get('http://127.0.0.1:8000/api/workshop/?is_active=true')
       .then(res => {
         this.setState({
             workshops: res.data,
@@ -64,7 +64,7 @@ class WorkshopListView extends React.Component{
   componentDidUpdate(prevProps, prevState) {
     // console.log("value = " + nextState.filterSub);
     if (prevState.filterSub !== this.state.filterSub) {
-      axios.get('http://127.0.0.1:8000/api/workshop/?category' + this.state.filterSub)
+      axios.get('http://127.0.0.1:8000/api/workshop/?is_active=true&?category' + this.state.filterSub)
         .then(res => {
           this.setState({
               workshops: res.data,
@@ -79,8 +79,8 @@ class WorkshopListView extends React.Component{
   toggleAscend = () => {
     var workshops = this.state.workshops;
     // console.log(workshops);
-    workshops.sort(function(a,b) { 
-      return new Date(a.start_date_time).getTime() - new Date(b.start_date_time).getTime() 
+    workshops.sort(function(a,b) {
+      return new Date(a.start_date_time).getTime() - new Date(b.start_date_time).getTime()
     });
     // console.log(workshops);
     this.setState({
@@ -90,8 +90,8 @@ class WorkshopListView extends React.Component{
   toggleDescend = () => {
     var workshops = this.state.workshops;
     // console.log(workshops);
-    workshops.sort(function(a,b) { 
-      return new Date(b.start_date_time).getTime() - new Date(a.start_date_time).getTime() 
+    workshops.sort(function(a,b) {
+      return new Date(b.start_date_time).getTime() - new Date(a.start_date_time).getTime()
     });
     // console.log(workshops);
     this.setState({
@@ -112,7 +112,7 @@ class WorkshopListView extends React.Component{
       }
     }
     return this.setState({
-      workshops: match 
+      workshops: match
     })
   }
 
@@ -126,8 +126,8 @@ class WorkshopListView extends React.Component{
           {/* This is for sorting UI */}
           <Collapse accordion>
             <Panel header="Sort/Filter" key="1">
-              <Sort 
-                subjects={this.state.subjects} 
+              <Sort
+                subjects={this.state.subjects}
                 changeSub = {(val) => this.handleFilterChange(val)}
                 ascend = {this.toggleAscend}
                 descend = {this.toggleDescend}

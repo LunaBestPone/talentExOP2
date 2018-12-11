@@ -19,7 +19,7 @@ class WorkshopListView(ListAPIView):
     queryset = Workshop.objects.all()
     serializer_class = WorkshopSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('category', 'host_user')
+    filter_fields = ('category', 'host_user', 'ws_id', 'is_active')
 
 class WorkshopDetailView(RetrieveAPIView):
     queryset = Workshop.objects.all()

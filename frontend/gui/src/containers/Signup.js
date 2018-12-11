@@ -77,7 +77,8 @@ class RegistrationForm extends React.Component {
     return (
       <div>
         {EM}
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} style={{width: '30%', border: 'solid 1px rgba(0,0,0,.20)', borderRadius: '5px', padding: "15px", marginLeft: 'auto',
+  marginRight: 'auto'}}>
 
           <FormItem style = {{ width: 300}}>
               {getFieldDecorator('userName', {

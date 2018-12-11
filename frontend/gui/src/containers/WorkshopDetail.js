@@ -7,11 +7,13 @@ import React from 'react';
 import axios from 'axios';
 import { NavLink  } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 // import Workshop from '../components/Workshop';
 
 import { Button, Card, Row, Col } from 'antd';
 import WSForm from '../components/WSForm';
+import Rate from '../components/Rate';
 
 const closeStyle = {
   position: 'fixed',
@@ -28,10 +30,16 @@ class WorkshopDetail extends React.Component{
       isRegistered: false,
       enrollment: 0,
       enrolled: {},
+      enrolled_users: [],
+      enrolled_users_name: [],
       user:{},
-      date: "",
       lc: 0,
-      host_lc: 0
+      host_lc: 0,
+      currentUser: "",
+      host: "",
+      user2id: [],
+      date: "",
+      rated: true,
     };
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateWorkshopState = this.updateWorkshopState.bind(this);
@@ -93,52 +101,113 @@ class WorkshopDetail extends React.Component{
 
   }
 
-  // onWishlistClick = (e) => {
-  //   if(this.state.wishlist == false){
-  //     this.setState({
-  //       wishlist: true
-  //     })
-  //     window.alert("This workshop is added to your wishlist!");
-  //   }
-  // }
+  updateLearningCredits(user_id, delta){
+    var url = 'http://127.0.0.1:8000/api/user/' + user_id + '/updatelc'
+    var lc;
+    axios.get('http://127.0.0.1:8000/api/user/' + user_id + '/')
+      .then(
+        res => {
+          lc = res.data.learning_credit + delta;
+          console.log(lc)
+          axios.patch(url, {
+            learning_credit: lc
+          })
+            .then(res => {
+              console.log(res.data);
+            }).catch(err => {console.log(err)})
+      }).catch(err => console.log(err));
+  }
 
-  updateLearningCredits(id, lc){
-    var url = 'http://127.0.0.1:8000/api/user/' + id + '/updatelc'
-    var flag = false;
-    axios.patch(url, {
-      learning_credit: lc
-    })
+  deleteEnrollment(enrollmentUrl){
+    axios.get(enrollmentUrl)
       .then(res => {
+        console.log(res.data[0])
+        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + res.data[0].id + '/delete/'
+        axios.delete(deleteurl, {id: this.state.enrollment.id})
+        .then(res => {
+          console.log(res.data);
+          console.log("Deleted enrollment record")
+          }).catch(err => {
+              console.log(err)
+              })
+      })
+      .catch(err => console.log(err))
+  }
+
+  onDeleteClick = (e) => {
+    const enrollmentListUrl = 'http://127.0.0.1:8000/api/enrollment/?ws_id=' + this.state.workshop.ws_id
+    var enrollmentList;
+    var restoredHostLearningCredits;
+
+    axios.get(enrollmentListUrl)
+      .then(res => {
+        enrollmentList = res.data;
+        //Update workshop host learning credits
+        this.updateLearningCredits(this.state.workshop.host_user, -Object.keys(enrollmentList).length)
+        //Iteratively delete all enrollment records and restore learning credits
+        for (let indx = 0; indx < Object.keys(enrollmentList).length; indx++){
+          var id = enrollmentList[indx].enrolled_user
+          this.updateLearningCredits(id, 1)
+          var enrollmentUrl = 'http://127.0.0.1:8000/api/enrollment/?ws_id=' + this.state.workshop.ws_id + '&enrolled_user=' + id
+          console.log(enrollmentUrl)
+          this.deleteEnrollment(enrollmentUrl)
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+    this.setState({ workshop: { ...this.state.workshop, is_active: false} });
+    axios.patch('http://127.0.0.1:8000/api/workshop/detail/' + this.state.workshop.ws_id  + '/update/', {
+        is_active: false,
+      }).then(res => {
+        console.log(res);
         console.log(res.data);
-        flag = true;
-        }).catch(err => {
-            console.log(err)
-            })
-    return flag;
+        window.location.reload();
+        window.alert("This workshop is deleted.")
+      }).catch(err => {
+        console.log(err)
+      })
+
+
+
+    //Update workshop host learning credits
+    //console.log(this.state.host_lc)
+    //newHostLearningCredits = this.state.host_lc - Object.keys(enrollmentList).length;
+    //console.log(newHostLearningCredits);
+    //this.updateLearningCredits(this.state.workshop.host_user, newHostLearningCredits)
+    // axios.patch('http://127.0.0.1:8000/api/workshop/detail/' + this.state.workshop.ws_id  + '/update/', {
+    //     is_active: false,
+    //   }).then(res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //     window.location.reload();
+    //     //Update workshophost learning credits
+    //     //var newHostLearningCredits = this.state.host_lc - Object.keys(enrollmentList).length
+    //     //this.updateLearningCredits(this.state.workshop.host_user, newHostLearningCredits)
+    //     window.alert("This workshop is deleted.")
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    //this.setState({ workshop: { ...this.state.workshop, is_active: false} });
+
   }
 
   onRegisterClick = (e) => {
-    if (this.state.user.learning_credit > 1 && this.state.isRegistered === false){
+    if (this.state.user.learning_credit > 0 && this.state.isRegistered === false){
       var d = new Date();
-      axios.get('http://127.0.0.1:8000/api/user/' + this.state.workshop.host_user + '/')
-        .then(
-          res => {this.setState({host_lc: res.data.learning_credit})})
-        .catch(err => console.log(err));
       axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
         enroll_date_time: d.toISOString(),
         ws_id: this.state.workshop.ws_id,
-        enrolled_user: this.state.user.id
-      })
+        enrolled_user: this.state.user.id})
         .then(res => {
-          var newLearningCredits = this.state.user.learning_credit - 1
-          this.updateLearningCredits(this.state.user.id, newLearningCredits)
-          var newHostLearningCredits = this.state.host_lc + 1
-          this.updateLearningCredits(this.state.workshop.host_user, newHostLearningCredits)
-          this.setState({isRegistered: true, lc: newLearningCredits, host_lc: newHostLearningCredits});
-          window.alert("This workshop is added to your schedule!");}
-      ).catch(err => {
-        console.log(err);
-        window.alert("Oops something went wrong~ You can't register for the same workshop twice. And makesure you are logged in~");
+          this.updateLearningCredits(this.state.workshop.host_user, +1)
+          this.updateLearningCredits(this.state.user.id, -1)
+          this.setState({isRegistered: true});
+          window.alert("This workshop is added to your schedule!")})
+       .catch(err => {
+          console.log(err);
+          window.alert("Oops, You can't register for the same workshop twice.");
       });
     }
     else{
@@ -148,75 +217,105 @@ class WorkshopDetail extends React.Component{
 
   onCancelRegistrationClick = (e) => {
     const enrollmentUrl = 'http://127.0.0.1:8000/api/enrollment/?ws_id=' + this.state.workshop.ws_id + '&enrolled_user=' + this.state.user.id
-    axios.get(enrollmentUrl)
-      .then(res => {
-        console.log(res.data[0])
-        this.setState({enrollment: res.data[0]});
-        var deleteurl = 'http://127.0.0.1:8000/api/enrollment/detail/' + this.state.enrollment.id + '/delete/'
-        axios.delete(deleteurl, {id: this.state.enrollment.id})
-        .then(res => {
-          console.log(res.data);
-          console.log("Passed")
-          }).catch(err => {
-              console.log(err)
-              })
-      })
-      .catch(err => console.log(err))
-
-    var newLearningCredits = this.state.lc + 1
-    var newHostLearningCredits = this.state.host_lc - 1
-    this.updateLearningCredits(this.state.user.id, newLearningCredits)
-    this.updateLearningCredits(this.state.workshop.host_user, newHostLearningCredits)
-    this.setState({isRegistered: false, lc: newLearningCredits, host_lc: newHostLearningCredits});
+    this.deleteEnrollment(enrollmentUrl);
+    this.updateLearningCredits(this.state.workshop.host_user, -1)
+    this.updateLearningCredits(this.state.user.id, +1)
+    this.setState({isRegistered: false});
   }
 
   componentDidMount() {
     let workshop_id = this.props.match.params.ws_id;
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
       .then(res => {
-        this.setState({workshop: res.data});
+        this.setState({
+          workshop: res.data, 
+          host: res.data.host_username, 
+          enrolled_users: this.state.enrolled_users.concat(res.data.host_user),
+        });
         /*
         const user_id = res.data.host_user;
         axios.get('http://127.0.0.1:8000/api/user/' + user_id)
           .then(resFuser => this.setState({host: resFuser.data}))
           .catch(err => console.log(err));
           */
+         // enrolled_users_name: this.state.enrolled_users_name.concat(res.data[i].host_user)
+
+        axios.get('http://127.0.0.1:8000/api/enrollment/?ws_id'  + "=" + workshop_id)
+          .then(res2 => {
+            for(let i = 0; i < res2.data.length; i++){
+              this.setState({
+                enrolled_users: this.state.enrolled_users.concat(res2.data[i].enrolled_user),
+              })
+            }
+            console.log(this.state.enrolled_users)
+            for(let i = 0; i < this.state.enrolled_users.length; i++){
+              console.log(this.state.enrolled_users[i])
+              axios.get('http://127.0.0.1:8000/api/user/' + this.state.enrolled_users[i] +"/").then(res => {
+                var x = {user: res.data.username, id: res.data.id}
+                console.log("x: " + x)
+                this.setState({
+                  user2id: this.state.user2id.concat(x),
+                  enrolled_users_name: this.state.enrolled_users_name.concat(res.data.username)
+                 })
+              }).catch(err => console.log(err))
+            }
+            console.log(this.state.user2id);
+          }
+          ).catch(err => console.log(err))
         if(this.props.user != null){
           axios.get('http://127.0.0.1:8000/api/user/' + this.props.user)
             .then(res => {
-              this.setState({user: res.data});
+              this.setState({user: res.data, currentUser: res.data.username});
+              console.log(this.state.currentUser)
               axios.get('http://127.0.0.1:8000/api/enrollment/?enrolled_user'  + "=" + this.props.user)
                 .then(res =>{
                   this.setState({enrolled: res.data})
-                  for(let i = 0; i < this.state.enrolled.length; i++){
-                    console.log(this.state.enrolled[i].enrolled_user);
+                  console.log(res.data);
+                  for(let i = 0; i < res.data.length; i++){
                     if(this.state.enrolled[i].enrolled_user == this.props.user){
-                      console.log("found");
                       this.setState({
                         isRegistered: true
                       })
-                      break;
                     }
                   }
+                  console.log(this.state.enrolled_users);
+                  axios.get('http://127.0.0.1:8000/api/enrollment/?ws_id=' + workshop_id + '&enrolled_user=' + this.props.user).then(res => {
+                    if(res.data[0] != undefined){
+                      this.setState({
+                        rated: res.data[0].is_rated
+                      })
+                    }
+                  })
                 })
                 .catch(err => console.log(err))
-                
             })
             .catch(err => console.log(err))
         }
       })
       .catch(err => console.log(err));
-    
+
   }
 
   render() {
     const isLoggedIn = this.props.isAuthenticated;
     const isRegistered = this.state.isRegistered;
+    const enrolled_users = this.state.enrolled_users;
     const user_id = this.props.user;
+    const rating = {
+      pathname: '/rate/',
+      param1 : user_id,
+      param2 : this.state.currentUser,
+      param3 : this.state.workshop.host_username,
+      param4 : this.state.workshop.ws_id
+    }
     let registerbutton;
     let editbutton;
     let cancelregistrationbutton;
-
+    let rateButton;
+    let current = new Date().getTime();
+    let wsTime = new Date (this.state.workshop.end_date_time).getTime();
+    let active = (current < wsTime ? false : true);
+    let deletebutton;
     if (this.state.isEditing) {
       return (
       <div style = {{width: '100%'}}>
@@ -233,13 +332,13 @@ class WorkshopDetail extends React.Component{
     }
 
     //Display register button if the user is logged in
-    if(isLoggedIn && !isRegistered){
+    if(isLoggedIn && !isRegistered && (user_id != this.state.workshop.host_user)){
       registerbutton = <Button style={{padding: '5px'}} onClick={(e) => {this.onRegisterClick(e)}}>
         Register
       </Button>
     }
 
-    if(isRegistered){
+if(isRegistered && (user_id != this.state.workshop.host_user)){
       cancelregistrationbutton = <Button  style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
         Cancel Registration
       </Button>
@@ -248,7 +347,20 @@ class WorkshopDetail extends React.Component{
     //Display edit button if the user's id matches the workshop host id
     if(user_id == this.state.workshop.host_user){
       editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
+      deletebutton = <Button onClick = {this.onDeleteClick}>
+                        <Link to="/workshop/">
+                         Delete
+                        </Link>
+                       </Button>
     }
+    //has to be !is_active but is_active is not changed yet. (active = workshop's not in the past, is_active = db)
+    if((user_id == this.state.workshop.host_user || enrolled_users.includes(parseInt(user_id))) && active){
+      console.log(this.state.enrolled_users, this.state.enrolled_users_name)
+      if(this.state.workshop.is_active && !this.state.rated){ //if rated = false -> haven't rated
+        rateButton = <Button><Link to = {rating} >Rate</Link></Button>
+      }
+    }
+
     return (
         <Row gutter={14}>
         <Col span={10} offset={7}>
@@ -296,6 +408,8 @@ class WorkshopDetail extends React.Component{
           {registerbutton}
           {editbutton}
           {cancelregistrationbutton}
+          {rateButton}
+          {deletebutton}
         </div>
       </Col>
       </Row>

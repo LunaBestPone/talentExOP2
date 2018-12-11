@@ -54,9 +54,6 @@ class profile extends React.Component {
 		return (
 			<div>
 				<h1> User Profile </h1>
-
-
-
 				<Card
 
 					style={{ width: '100%' }}
