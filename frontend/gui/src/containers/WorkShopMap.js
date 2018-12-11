@@ -18,38 +18,12 @@ import axios from 'axios';
 import { Map, InfoWindow, GoogleApiWrapper, Marker} from 'google-maps-react';
 import { Card, Icon } from 'antd';
 
-//import Marker from "react-google-maps";
-
-
-// const Marker = ({ text }) => (
-//     <div style={{
-//         color: '#ffccb3',
-//         background: 'grey',
-//         padding: '15px 10px',
-//         display: 'inline-flex',
-//         textAlign: 'center',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         borderRadius: '100%',
-//         transform: 'translate(-50%, -50%)'
-//     }}>
-//         {text}
-//     </div>
-// );
-
 const closeStyle = {
     position: 'fixed',
     top: 160,
     right: 95
 }
 
-/*
-
-var bounds = this.props.google.LatLngBounds();
-for (var i=0; i<points.length;i++){
-    bounds.extends(points[i]);
-}
-*/
 
 class WorkShopMap extends React.Component {
 
@@ -61,7 +35,7 @@ class WorkShopMap extends React.Component {
 
     }
     componentDidMount() {
-       /* axios.get('http://127.0.0.1:8000/api/workshop/')
+       axios.get('http://127.0.0.1:8000/api/workshop/')
             .then(res => {
                 this.setState({ workshop: res.data });
                 for(var i = 0; i < this.state.workshops.length; i++){
@@ -74,8 +48,6 @@ class WorkShopMap extends React.Component {
                 }
             })
             .catch(err => console.log(err));
-
-            */
             /*
             const location = "437 N Frances Street, Madison, WI";
             axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA &key=AIzaSyDSDo23qnbXL_JeeM9LCIhYh2fUwNRTA_4')
@@ -85,9 +57,7 @@ class WorkShopMap extends React.Component {
             */
     }
     render() {
-
-
-        return (
+      return (
             <div>
                 <Map google={this.props.google}
                     zoom={14}
@@ -96,12 +66,6 @@ class WorkShopMap extends React.Component {
                         lat: 43.073051,
                         lng: -89.401230
                     }}
-                      /*Someplace={{
-                        lat: 44.073051,
-                        lng: -88.401230
-                      }}
-                      */
-
                     >
                         <Marker
                           onClick = { this.onMarkerClick }
