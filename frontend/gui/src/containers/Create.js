@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Button, Select, DatePicker, TimePicker, InputNumber } from 'antd';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import SelectUSState from 'react-select-us-states';
 import moment from 'moment';
 import { GoogleApiWrapper } from 'google-maps-react';
@@ -47,12 +47,12 @@ class Registration extends React.Component {
         const min_cap = e.target.elements.min.value;
         const max_cap = e.target.elements.max.value;
         const rangeTimeValue = values['range-time-picker'];
-        
+
         if (min_cap > max_cap) {
           alert('min attendees cannot be more than max attendees');
           return;
         }
-        
+
         if(rangeTimeValue[0] < moment()) {
           window.alert('Selected start time has already past, try again.');
           return;
@@ -69,6 +69,8 @@ class Registration extends React.Component {
         var longitude;
         var latitude;
         var geocoder;
+        var userref = this.props.user;
+        var subjectref = this.state.subject;
         geocoder = new this.props.google.maps.Geocoder();
         var searchaddr = "";
         searchaddr += address + ' ' + city + ' ' + state + ' ' + zip;
@@ -78,6 +80,33 @@ class Registration extends React.Component {
             latitude = results[0].geometry.location.lat();
             console.log("var long = : " + longitude);
             console.log("formatted address = : " + results[0].formatted_address);
+            axios
+              .post('http://127.0.0.1:8000/api/workshop/create/', {
+                host_user: userref,
+                ws_name: wsname,
+                min_cap: min_cap,
+                max_cap: max_cap,
+                is_active: true,
+                description: description,
+                start_date_time: startDateTime,
+                end_date_time: endDateTime,
+                category: subjectref,
+                street: address,
+                city: city,
+                state: state,
+                zip: zip,
+                longitude: longitude,
+                latitude: latitude,
+              }).then(res => {
+                console.log(res);
+                console.log(res.data);
+                window.alert('Workshop created!')
+
+                console.log("1.", success);
+              }).catch(err => {
+                console.log(err)
+                window.alert(err);
+              });
           }
           else {
             console.log('The location in typed in cannot be found on the map, try again. Geocoder status code: ' + status);
@@ -85,38 +114,11 @@ class Registration extends React.Component {
           }
         });
 
-        axios
-          .post('http://127.0.0.1:8000/api/workshop/create/', {
-            host_user: this.props.user,
-            ws_name: wsname,
-            min_cap: min_cap,
-            max_cap: max_cap,
-            is_active: true,
-            description: description,
-            start_date_time: startDateTime,
-            end_date_time: endDateTime,
-            category: this.state.subject,
-            street: address,
-            city: city,
-            state: state,
-            zip: zip,
-            longitude: longitude,
-            latitude: latitude,
-          }).then(res => {
-            console.log(res);
-            console.log(res.data);
-            window.alert('Workshop created!')
-
-            console.log("1.", success);
-          }).catch(err => {
-            console.log(err)
-            window.alert(err);
-          });
-          success = true;
-          console.log("2.", success);
-          if(success) {
-            this.props.history.push('/workshop/');
-          }
+        success = true;
+        console.log("2.", success);
+        if(success) {
+          this.props.history.push('/workshop/');
+        }
       }
     });
   }
@@ -250,7 +252,7 @@ class Registration extends React.Component {
           )}
         </FormItem>
 
-        <FormItem 
+        <FormItem
           {...formItemLayout}
           label="Minimum Attendees: ">
           {getFieldDecorator('minAttendees', {
@@ -258,7 +260,7 @@ class Registration extends React.Component {
               required: true, message: 'Please select the minimum amount of attendees!',
             }],
           })(
-            
+
             <InputNumber min={1} type="number" name='min'/>
           )}
         </FormItem>
@@ -305,6 +307,6 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(GoogleApiWrapper({
-    apiKey: ('AIzaSyB7PMehecNIkcLBqkvyYi1vgmcG2u2Riic')
-  })(WrappedRegistrationForm));
+export default withRouter(connect(mapStateToProps)(GoogleApiWrapper({
+    apiKey: ('AIzaSyD_K5OGtpluEeHP3Hei7i6Gn_MYiZwRj00')
+  })(WrappedRegistrationForm)));

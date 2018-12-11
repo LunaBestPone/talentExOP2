@@ -28,71 +28,60 @@ const closeStyle = {
 class WorkShopMap extends React.Component {
 
     state = {
-        workshop: [],
-        locations: [],
+        workshops: [],
+        lats: [],
+        lons: [],
     }
     onMarkerClick(){
 
     }
     componentDidMount() {
-       axios.get('http://127.0.0.1:8000/api/workshop/')
+       axios.get('http://127.0.0.1:8000/api/workshop/?is_active=true')
             .then(res => {
-                this.setState({ workshop: res.data });
+                this.setState({ workshops: res.data });
                 for(var i = 0; i < this.state.workshops.length; i++){
-                    let loc = this.state.workshops[i].location;
-                    if(!this.state.locations.includes(loc)){
-                        this.setState({
-                            locations: this.state.locations.concat(loc)
-                        })
-                    }
+                    let lat = this.state.workshops[i].latitude;
+                    let lon = this.state.workshops[i].longitude;
+                    this.setState({
+                        lats: this.state.lats.concat(lat),
+                        lons: this.state.lons.concat(lon)
+                    })
                 }
             })
             .catch(err => console.log(err));
-            /*
-            const location = "437 N Frances Street, Madison, WI";
-            axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA &key=AIzaSyDSDo23qnbXL_JeeM9LCIhYh2fUwNRTA_4')
-                .then(res=>{
-                    console.log(res.data)
-                });
-            */
     }
     render() {
+      const style = {
+        width: '100vw',
+        height: '100vh'
+      }
+      let locs = [];
+      console.log(this.state.workshops.length)
+      for (let i = 0; i < this.state.workshops.length; i++) {
+        console.log(this.state.workshops[i].latitude);
+        locs.push(
+          <Marker
+            onClick = { this.onMarkerClick }
+            title = { this.state.workshops[i].ws_name }
+            position = {{ lat: this.state.workshops[i].latitude, lng: this.state.workshops[i].longitude }}
+            key = { this.state.workshops[i].ws_id }
+          />
+        )
+      }
       return (
-            <div>
+            <div style={style}>
+              <h1><a href="/workshop/"> Workshop Lists  </a></h1>
+              <h2> Workshop Map View </h2>
                 <Map google={this.props.google}
                     zoom={14}
-                    style={{width: "80%"}}
+                    style={{width: "90%",
+                            height: "90%"}}
                     initialCenter={{
                         lat: 43.073051,
                         lng: -89.401230
                     }}
                     >
-                        <Marker
-                          onClick = { this.onMarkerClick }
-                          title = { 'Changing Colors Garage' }
-                          position = {{ lat: 43.078209, lng: -89.411185 }}
-
-                        />
-
-                        <Marker
-                          onClick = { this.onMarkerClick }
-                          title = { 'Changing Colors Garage' }
-                          position = {{ lat: 43.074775, lng: -89.395588 }}
-
-                        />
-
-                        <Marker
-                          onClick = { this.onMarkerClick }
-                          title = { 'Changing Colors Garage' }
-                          position = {{ lat: 43.078239, lng: -89.431189 }}
-
-                        />
-
-
-
-                    <Marker onClick={this.onMarkerClick}
-                            name={'Current location'} />
-
+                        {locs}
                 </Map>
             </div>
         )
