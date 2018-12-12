@@ -1,0 +1,22 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Emailer.js",
+  "scripts": {
+    "start": "node Emailer.js",
+    "server": "nodemon Emailer.js",
+    "gui": "npm run start --prefix gui",
+    "dev": "concurrently \"npm run server\" \"npm run gui\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "nodemailer": "^4.7.0",
+    "nodemon": "^1.18.8"
+  }
+}
