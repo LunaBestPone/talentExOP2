@@ -71,22 +71,13 @@ class profile extends React.Component {
 									<Card title="E-mail" bordered={false}>{this.state.user.email}</Card>
 								</Col>
 								<Col span={8}>
-									<Card title="Age" bordered={false}>{this.state.user.age}</Card>
+									<Card title="User Rating" bordered={false}>{this.state.user.user_rating}</Card>
 								</Col>
 								<Col span={8}>
-									<Card title="Rating" bordered={false}>{this.state.user.user_rating}</Card>
+									<Card title="Learng Credit" bordered={false}>{this.state.user.learning_credit}</Card>
 								</Col>
 							</Row>
 						</div>
-
-						<div style={{ background: '#ECECEC', padding: '30px' }}>
-							<Row gutter={16}>
-								<Col span={8}>
-									<Card title="Learning Credit" bordered={false}>{this.state.user.learning_credit}</Card>
-								</Col>
-							</Row>
-						</div>
-
 
 					</div>
 
