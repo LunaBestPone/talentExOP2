@@ -90,6 +90,8 @@ npm run dev
 ```
 This will launch frontend on localhost:3000/ as well as email notification server on localhost:3001/
 
+To verify Emails sent, please go to https://ethereal.email/ and log in with the developer account credentials as listed in frontend/ethereal.txt.
+
 # Bug report
 Github issue: https://github.com/LunaBestPone/talentExOP2/issues
 
