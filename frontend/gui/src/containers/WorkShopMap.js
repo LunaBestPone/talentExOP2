@@ -16,7 +16,10 @@
 import React from 'react';
 import axios from 'axios';
 import { Map, InfoWindow, GoogleApiWrapper, Marker} from 'google-maps-react';
-import { Card, Icon } from 'antd';
+import { Row, Col, Card, Icon,Button } from 'antd';
+import { NavLink } from 'react-router-dom';
+
+
 
 const closeStyle = {
     position: 'fixed',
@@ -69,9 +72,28 @@ class WorkShopMap extends React.Component {
         )
       }
       return (
+
+        <Row>
+
+          <Row>
+          <Col span={8}>
+
+              <h2> Workshop Map</h2>
+
+          </Col>
+
+          <Col span={4} offset={11}>
+              <NavLink to="/workshop/">
+                  <Button type="primary">
+                    <Icon type="arrow-right" theme="outlined" />
+                      To List View
+                  </Button>
+                </NavLink>
+          </Col>
+
+          </Row>
             <div style={style}>
-              <h1><a href="/workshop/"> Workshop Lists  </a></h1>
-              <h2> Workshop Map View </h2>
+
                 <Map google={this.props.google}
                     zoom={14}
                     style={{width: "90%",
@@ -84,6 +106,8 @@ class WorkShopMap extends React.Component {
                         {locs}
                 </Map>
             </div>
+
+        </Row>
         )
     }
 }

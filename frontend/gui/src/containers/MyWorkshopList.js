@@ -4,9 +4,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Card, List, Icon, Button, Row, Col, Collapse } from 'antd';
+import { Card, List, Icon, Button, Collapse } from 'antd';
 
 import Workshop from '../components/Workshop';
+
+import { Carousel, Grid,Jumbotron, Row, Col} from 'react-bootstrap';
 
 
 const tabListNoTitle = [{
@@ -110,7 +112,7 @@ class MyWorkshopList extends React.Component {
           <Row gutter={16}>
             <Col span={16} offset={4}>
               <List
-                grid={{ gutter: 8, column: 1 }}
+                grid={{ gutter: 16, column: 4 }}
                 dataSource={this.state.hostWorkshops}
                 renderItem={item => (
                   //if(isRegistered ) {
