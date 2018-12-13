@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Icon, Button } from 'antd';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import * as actions from '../store/actions/auth';
 
 const FormItem = Form.Item;
@@ -21,6 +21,7 @@ class RegistrationForm extends React.Component {
             values.password,
             values.confirm
         );
+        window.alert("One account signup confirmation email is sent to your Email. You are logged in. Enjoy! ")
       }
     });
   }
@@ -125,7 +126,7 @@ class RegistrationForm extends React.Component {
 
           <FormItem >
           <Button type="primary" htmlType="submit" style={{marginRight: '10px'}}>
-              Signup
+                Signup
           </Button>
 
           <NavLink
