@@ -7,7 +7,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-import { List, Icon, Button, Row, Col, Collapse } from 'antd';
+import { List, Card, Icon, Button, Row, Col, Collapse } from 'antd';
 
 import Workshop from '../components/Workshop';
 import Sort from '../containers/Sort';
@@ -118,12 +118,47 @@ class WorkshopListView extends React.Component{
 
   render() {
     return (
+
+
+      
       <div>
-        <h1>Workshop Lists  </h1>
-        <h2><a href="/workshopmap/"> Workshop Map View </a></h2>
+        <Row gutter={16}>
+          <Col span={6}>
+            <h1>Workshop List</h1>
+          </Col>
+          <Col span={4} offset={9}>
+            {
+              this.props.isAuthenticated ?
+              
+                <NavLink to="/createws/">
+                  <Button type="primary">
+                    <Icon type="plus" theme="outlined" />
+                      Create Workshop
+                  </Button>
+                </NavLink>
+             
+              :
+              <Col span={7} offset={15} style={stylebutton} />
+            }
+          </Col>
+
+          <Col span={5}>
+              <NavLink to="/workshopmap/">
+                  <Button type="primary">
+                    <Icon type="arrow-right" theme="outlined" />
+                      To Map View
+                  </Button>
+                </NavLink>
+          </Col>
+        </Row>
+
+
+        <Row>
+        </Row>
+
         <Row gutter={16}>
           <Col span={7}>
-          {/* This is for sorting UI */}
+          
           <Collapse accordion>
             <Panel header="Sort/Filter" key="1">
               <Sort
@@ -136,9 +171,9 @@ class WorkshopListView extends React.Component{
             </Panel>
           </Collapse>
           </Col>
-          <Col span={7} offset={1}>
+          <Col span={14} offset={1}>
           <List
-              grid={{ gutter: 16, column: 1 }}
+              grid={{ gutter: 16, column: 2 }}
               dataSource={this.state.workshops}
               renderItem={item => (
                 <List.Item>
@@ -158,21 +193,12 @@ class WorkshopListView extends React.Component{
               )}
             />
           </Col>
-          {
-            this.props.isAuthenticated ?
-            <Col span={7} offset={15} style={stylebutton}>
-              <NavLink to="/createws/">
-                <Button>
-                  <Icon type="plus" theme="outlined" />
-                    Create Workshop
-                </Button>
-              </NavLink>
-            </Col>
-            :
-            <Col span={7} offset={15} style={stylebutton} />
-          }
+         
         </Row>
       </div>
+
+      
+
     )
   }
 }

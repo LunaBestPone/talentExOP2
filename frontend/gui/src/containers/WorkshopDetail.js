@@ -21,6 +21,11 @@ const closeStyle = {
   right: 95
 }
 
+var recipientName;
+var recipientEmail;
+var msg;
+var subject;
+
 class WorkshopDetail extends React.Component{
   constructor(props, context) {
     super(props, context);
@@ -194,6 +199,7 @@ class WorkshopDetail extends React.Component{
   }
 
   onRegisterClick = (e) => {
+
     if (this.state.user.learning_credit > 0 && this.state.isRegistered === false){
       var d = new Date();
       axios.post('http://127.0.0.1:8000/api/enrollment/create/', {
@@ -204,6 +210,9 @@ class WorkshopDetail extends React.Component{
           this.updateLearningCredits(this.state.workshop.host_user, +1)
           this.updateLearningCredits(this.state.user.id, -1)
           this.setState({isRegistered: true});
+          subject = "Workshop Registration Confirmation"
+          msg = "Hi " + recipientName + ", workshop named as " + this.state.workshop.ws_name + " is added to your schedule."
+          axios.post('/api/email', {recipientName, recipientEmail, subject, msg})
           window.alert("This workshop is added to your schedule!")})
        .catch(err => {
           console.log(err);
@@ -228,8 +237,8 @@ class WorkshopDetail extends React.Component{
     axios.get('http://127.0.0.1:8000/api/workshop/detail/' + workshop_id)
       .then(res => {
         this.setState({
-          workshop: res.data, 
-          host: res.data.host_username, 
+          workshop: res.data,
+          host: res.data.host_username,
           enrolled_users: this.state.enrolled_users.concat(res.data.host_user),
         });
         /*
@@ -267,6 +276,8 @@ class WorkshopDetail extends React.Component{
             .then(res => {
               this.setState({user: res.data, currentUser: res.data.username});
               console.log(this.state.currentUser)
+              recipientName = this.state.user.username;
+              recipientEmail = this.state.user.email;
               axios.get('http://127.0.0.1:8000/api/enrollment/?enrolled_user'  + "=" + this.props.user)
                 .then(res =>{
                   this.setState({enrolled: res.data})

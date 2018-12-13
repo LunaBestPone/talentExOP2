@@ -2,6 +2,7 @@
   "name": "gui",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "ajv": "^6.6.0",
     "antd": "^3.10.9",

@@ -17,12 +17,20 @@ These packages now include:
 * django-filters
 * other packages might be needed for the future, but that's all for now
 
-# NPM packages you need to install yourself
+# NPM packages you need to install in frontend
+Make sure you are in frontend/ directory (```ls``` then you'll see ```package.json```)
+Then run following:
+```
+npm install --save
+```
+
+# NPM packages you need to install in frontend/gui
 Make sure you are in frontend/gui/ directory (```ls``` then you'll see ```package.json```)
 Then run following:
 ```
 npm install --save
 ```
+
 # Instruction for Unit Testing
 
 The NPM packages required to run unit testing.
@@ -72,14 +80,17 @@ to load fixture into the database for demo or testing purposes, run ```python ma
 This will also set up a super user with name ```default``` and password ```506talentexchange```
 
 fire up backend sever with
+
 ```
 python manage.py runserver
 ```
-then go to ```frontend/gui```, run
+then go to ```frontend/```, run
 ```
-npm start
+npm run dev
 ```
-to get frontend running.
+This will launch frontend on localhost:3000/ as well as email notification server on localhost:3001/
+
+To verify Emails sent, please go to https://ethereal.email/ and log in with the developer account credentials as listed in frontend/ethereal.txt.
 
 # Bug report
 Github issue: https://github.com/LunaBestPone/talentExOP2/issues

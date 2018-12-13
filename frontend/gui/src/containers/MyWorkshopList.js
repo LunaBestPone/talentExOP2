@@ -3,10 +3,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
-import { Card, List, Icon, Button, Row, Col, Collapse } from 'antd';
+import { NavLink, withRouter } from 'react-router-dom';
+import { Card, List, Icon, Button, Collapse } from 'antd';
 
 import Workshop from '../components/Workshop';
+
+import { Carousel, Grid,Jumbotron, Row, Col} from 'react-bootstrap';
 
 
 const tabListNoTitle = [{
@@ -60,7 +62,7 @@ class MyWorkshopList extends React.Component {
         .then(res => {
           console.log(res.data)
           console.log("Can you see this 2?")
-          
+
           this.setState({
             enrollment: res.data,
 
@@ -79,9 +81,9 @@ class MyWorkshopList extends React.Component {
           }
         })
 
-//Current problem: when pass a specific ws_id (eg:1) the REST API returned all 3 workshops even those whose ws_id is not 1 
-//Could not filter 
-        
+//Current problem: when pass a specific ws_id (eg:1) the REST API returned all 3 workshops even those whose ws_id is not 1
+//Could not filter
+
 
 
 
@@ -110,7 +112,7 @@ class MyWorkshopList extends React.Component {
           <Row gutter={16}>
             <Col span={16} offset={4}>
               <List
-                grid={{ gutter: 8, column: 1 }}
+                grid={{ gutter: 16, column: 4 }}
                 dataSource={this.state.hostWorkshops}
                 renderItem={item => (
                   //if(isRegistered ) {
@@ -133,7 +135,7 @@ class MyWorkshopList extends React.Component {
               />
             </Col>
           </Row>
-      
+
             </p>,
 
       participating: <p>
@@ -168,7 +170,7 @@ class MyWorkshopList extends React.Component {
       //project: <p>project content</p>,
     };
 
-    
+
 
     return (
 
@@ -202,4 +204,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(MyWorkshopList);
+export default withRouter(connect(mapStateToProps)(MyWorkshopList));
