@@ -21,7 +21,6 @@ class RegistrationForm extends React.Component {
             values.password,
             values.confirm
         );
-        window.alert("One account signup confirmation email is sent to your Email. You are logged in. Enjoy! ")
       }
     });
   }
