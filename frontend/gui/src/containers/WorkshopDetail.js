@@ -343,14 +343,14 @@ class WorkshopDetail extends React.Component{
     }
 
     //Display register button if the user is logged in
-    if(isLoggedIn && !isRegistered && (user_id != this.state.workshop.host_user)){
-      registerbutton = <Button style={{padding: '5px'}} onClick={(e) => {this.onRegisterClick(e)}}>
+    if(isLoggedIn && !isRegistered && (user_id != this.state.workshop.host_user) && !active){
+      registerbutton = <Button className = "registerButton" style={{padding: '5px'}} onClick={(e) => {this.onRegisterClick(e)}}>
         Register
       </Button>
     }
 
 if(isRegistered && (user_id != this.state.workshop.host_user)){
-      cancelregistrationbutton = <Button  style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
+      cancelregistrationbutton = <Button className = "cancelRegButton" style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
         Cancel Registration
       </Button>
     }
@@ -358,7 +358,7 @@ if(isRegistered && (user_id != this.state.workshop.host_user)){
     //Display edit button if the user's id matches the workshop host id
     if(user_id == this.state.workshop.host_user){
       editbutton = <Button onClick = {this.toggleEdit}>Edit</Button>
-      deletebutton = <Button onClick = {this.onDeleteClick}>
+      deletebutton = <Button className = "deleteRegButton" onClick = {this.onDeleteClick}>
                         <Link to="/workshop/">
                          Delete
                         </Link>
