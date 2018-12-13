@@ -31,7 +31,7 @@ class NormalLoginForm extends React.Component {
   render() {
     if (this.props.token !== null) {
       // let noRate = true;
-      // //Look at the workshops he/she particiapted and hosted and determine 
+      // //Look at the workshops he/she particiapted and hosted and determine
       // //whether anyone of them are in the past.
       // //If yes, then is_active => false and ask to rate them.
       // axios.get('http://127.0.0.1:8000/api/workshop/?host_user' + "=" + this.props.user)
@@ -64,7 +64,7 @@ class NormalLoginForm extends React.Component {
       //       }
       //     }
       //   })
-      // if(noRate) 
+      // if(noRate)
       this.props.history.push("/workshop/");
     }
     const { getFieldDecorator } = this.props.form;
@@ -78,13 +78,13 @@ class NormalLoginForm extends React.Component {
     }
     return (
       <div>
-        {EM}
         {
           this.props.loading ?
           <Spin />
           :
           <Form onSubmit={this.handleSubmit} className="login-form" style={{width: '30%', border: 'solid 1px rgba(0,0,0,.20)', borderRadius: '5px', padding: "15px", marginLeft: 'auto',
   marginRight: 'auto'}}>
+            {EM}
             <FormItem>
               {getFieldDecorator('userName', {
                 rules: [{ required: true, message: 'Please input your username!' }, {min: 6, message: 'Username must have a length greater than 6 characters!'}],

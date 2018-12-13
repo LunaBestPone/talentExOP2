@@ -76,10 +76,9 @@ class RegistrationForm extends React.Component {
     }
     return (
       <div>
-        {EM}
         <Form onSubmit={this.handleSubmit} style={{width: '30%', border: 'solid 1px rgba(0,0,0,.20)', borderRadius: '5px', padding: "15px", marginLeft: 'auto',
   marginRight: 'auto'}}>
-
+          {EM}
           <FormItem style = {{ width: 300}}>
               {getFieldDecorator('userName', {
                   rules: [{ required: true, message: 'Please input your username!' }, {min: 6, message: 'Username must have a length greater than 6 characters!'}],
