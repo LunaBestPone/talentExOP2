@@ -62,7 +62,7 @@ class Sort extends React.Component{
                     
                 </Select> */}
                 <p></p>
-                Select Range:
+                Select Date Range:
                 <RangePicker
                     style={{width: '100%'}}
                     showTime
