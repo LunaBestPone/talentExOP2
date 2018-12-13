@@ -252,8 +252,14 @@ class WorkshopDetail extends React.Component{
         axios.get('http://127.0.0.1:8000/api/enrollment/?ws_id'  + "=" + workshop_id)
           .then(res2 => {
             for(let i = 0; i < res2.data.length; i++){
+              if(this.state.enrolled[i].enrolled_user == this.props.user){
+                this.setState({
+                  isRegistered: true
+                })
+              }
               this.setState({
                 enrolled_users: this.state.enrolled_users.concat(res2.data[i].enrolled_user),
+                
               })
             }
             console.log(this.state.enrolled_users)
@@ -284,9 +290,9 @@ class WorkshopDetail extends React.Component{
                   console.log(res.data);
                   for(let i = 0; i < res.data.length; i++){
                     if(this.state.enrolled[i].enrolled_user == this.props.user){
-                      this.setState({
-                        isRegistered: true
-                      })
+                      // this.setState({
+                      //   isRegistered: true
+                      // })
                     }
                   }
                   console.log(this.state.enrolled_users);
@@ -349,7 +355,7 @@ class WorkshopDetail extends React.Component{
       </Button>
     }
 
-if(isRegistered && (user_id != this.state.workshop.host_user)){
+if(isRegistered && (user_id != this.state.workshop.host_user ) && !active){
       cancelregistrationbutton = <Button className = "cancelRegButton" style={{padding: '5px'}} onClick={(e) => {this.onCancelRegistrationClick(e)}}>
         Cancel Registration
       </Button>
