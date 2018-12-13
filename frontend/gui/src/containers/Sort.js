@@ -37,10 +37,11 @@ class Sort extends React.Component{
         return(
             <div>
                 <Row gutter={15}>
+                Filters: 
                 <Select
                     showSearch
                     style={{ width: "100%"}}
-                    placeholder="Sort by subject"
+                    placeholder="Select subject"
                     optionFilterProp="children"
                     onChange={this.handleChange}
                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
@@ -72,6 +73,8 @@ class Sort extends React.Component{
                 <Button onClick={this.props.ascend}>Date Ascending Order</Button>
                 <p></p>
                 <Button onClick={this.props.descend}>Date Descending Order</Button>
+                <p></p>
+                <Button onClick={this.props.reset}>Reset</Button>
                 </Row>
             </div>
         );

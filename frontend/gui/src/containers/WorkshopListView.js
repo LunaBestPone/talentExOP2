@@ -64,7 +64,7 @@ class WorkshopListView extends React.Component{
   componentDidUpdate(prevProps, prevState) {
     // console.log("value = " + nextState.filterSub);
     if (prevState.filterSub !== this.state.filterSub) {
-      axios.get('http://127.0.0.1:8000/api/workshop/?is_active=true&?category' + this.state.filterSub)
+      axios.get('http://127.0.0.1:8000/api/workshop/?category' + this.state.filterSub +"&?is_active=true")
         .then(res => {
           this.setState({
               workshops: res.data,
@@ -115,7 +115,14 @@ class WorkshopListView extends React.Component{
       workshops: match
     })
   }
-
+  reset = () => {
+    axios.get('http://127.0.0.1:8000/api/workshop/?is_active=true')
+      .then(res => {
+        return this.setState({
+            workshops: res.data,
+        });
+      })
+  }
   render() {
     return (
 
@@ -167,6 +174,7 @@ class WorkshopListView extends React.Component{
                 ascend = {this.toggleAscend}
                 descend = {this.toggleDescend}
                 handleRange = {this.handleRange}
+                reset = {this.reset}
               />
             </Panel>
           </Collapse>
