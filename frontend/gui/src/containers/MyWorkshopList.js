@@ -90,7 +90,7 @@ class MyWorkshopList extends React.Component {
     else {
       //event.preventDefault();
       window.alert("Log in before viewing your workshops.");
-      this.props.history.push("/login");
+      // this.props.history.push("/login");
     }
   }
 
