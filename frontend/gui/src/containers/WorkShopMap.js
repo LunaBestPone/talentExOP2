@@ -18,6 +18,7 @@ import axios from 'axios';
 import { Map, InfoWindow, GoogleApiWrapper, Marker} from 'google-maps-react';
 import { Row, Col, Card, Icon,Button } from 'antd';
 import { NavLink } from 'react-router-dom';
+import Workshop from '../components/Workshop';
 
 
 
@@ -34,10 +35,24 @@ class WorkShopMap extends React.Component {
         workshops: [],
         lats: [],
         lons: [],
-    }
-    onMarkerClick(){
-
-    }
+        showingInfoWindow: false,
+        activeMarker: {},
+        selectedPlace: {},
+    };
+    onMarkerClick = (props, marker, e) =>
+      this.setState({
+        selectedPlace: props,
+        activeMarker: marker,
+        showingInfoWindow: true,
+      });
+    onMapClicked = (props) => {
+      if (this.state.showingInfoWindow) {
+        this.setState({
+          showingInfoWindow: false,
+          activeMarker: null,
+        })
+      }
+    };
     componentDidMount() {
        axios.get('http://127.0.0.1:8000/api/workshop/?is_active=true')
             .then(res => {
@@ -68,6 +83,17 @@ class WorkShopMap extends React.Component {
             title = { this.state.workshops[i].ws_name }
             position = {{ lat: this.state.workshops[i].latitude, lng: this.state.workshops[i].longitude }}
             key = { this.state.workshops[i].ws_id }
+            ws_id = {this.state.workshops[i].ws_id}
+            ws_name = {this.state.workshops[i].ws_name}
+            host_user = {this.state.workshops[i].host_user}
+            category = {this.state.workshops[i].category}
+            min_cap = {this.state.workshops[i].min_cap}
+            max_cap = {this.state.workshops[i].max_cap}
+            is_active = {this.state.workshops[i].is_active}
+            description = {this.state.workshops[i].description}
+            start_time_display = {this.state.workshops[i].start_time_display}
+            end_time_display = {this.state.workshops[i].end_time_display}
+            is_detailed = {false}
           />
         )
       }
@@ -105,6 +131,22 @@ class WorkShopMap extends React.Component {
                     }}
                     >
                         {locs}
+                        <InfoWindow
+                          marker={this.state.activeMarker}
+                          visible={this.state.showingInfoWindow}>
+                            <Workshop
+                              ws_id={this.state.selectedPlace.ws_id}
+                              ws_name={this.state.selectedPlace.ws_name}
+                              host_user={this.state.selectedPlace.host_user}
+                              category={this.state.selectedPlace.category}
+                              min_cap={this.state.selectedPlace.min_cap}
+                              max_cap={this.state.selectedPlace.max_cap}
+                              is_active={this.state.selectedPlace.is_active}
+                              description={this.state.selectedPlace.description}
+                              start_time_display={this.state.selectedPlace.start_time_display}
+                              end_time_display={this.state.selectedPlace.end_time_display}
+                              is_detailed={false} />
+                        </InfoWindow>
                 </Map>
             </div>
 
@@ -114,5 +156,5 @@ class WorkShopMap extends React.Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: ('AIzaSyDSDo23qnbXL_JeeM9LCIhYh2fUwNRTA_4')
+    apiKey: ('AIzaSyCpsrhTt2NeVN3ktdCD3KMZX6PAKQ5RAbk')
   })(WorkShopMap);
