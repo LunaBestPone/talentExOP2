@@ -308,5 +308,5 @@ const mapStateToProps = (state) => {
 
 
 export default withRouter(connect(mapStateToProps)(GoogleApiWrapper({
-    apiKey: ('AIzaSyD_K5OGtpluEeHP3Hei7i6Gn_MYiZwRj00')
+    apiKey: ('AIzaSyCpsrhTt2NeVN3ktdCD3KMZX6PAKQ5RAbk')
   })(WrappedRegistrationForm)));
