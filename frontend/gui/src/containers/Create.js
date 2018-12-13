@@ -148,7 +148,7 @@ class Registration extends React.Component {
 
     return (
       // onSubmit={this.handleSubmit}
-      <Form onSubmit={this.handleSubmit}>
+      <Form className="createForm" onSubmit={this.handleSubmit}>
 
         <FormItem
           {...formItemLayout}

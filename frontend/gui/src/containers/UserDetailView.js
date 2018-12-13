@@ -24,7 +24,6 @@ class UserDetail extends React.Component{
       <User
         user_name = {this.state.user.username}
         email = {this.state.user.email}
-        age = {this.state.user.age}
         user_rating = {this.state.user.user_rating}
         learning_credit = {this.state.user.learning_credit}
         isDetail = {true} />

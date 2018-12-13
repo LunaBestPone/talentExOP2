@@ -7,9 +7,6 @@ const User = (props) => {
       <div className = 'email'>
         <b>Email</b>: {props.email}
       </div>
-      <div className = 'age'>
-        Age: {props.age}
-      </div>
       <div className = 'user_rating'>
         User Rating: {props.user_rating}
       </div>

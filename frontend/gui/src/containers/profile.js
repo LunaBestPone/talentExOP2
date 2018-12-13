@@ -44,10 +44,10 @@ class profile extends React.Component {
 		}
 	}
 
-	onTabChange = (key, type) => {
-		console.log(key, type);
-		this.setState({ [type]: key });
-	}
+	// onTabChange = (key, type) => {
+	// 	console.log(key, type);
+	// 	this.setState({ [type]: key });
+	// }
 
 	render() {
 
@@ -59,7 +59,7 @@ class profile extends React.Component {
 					style={{ width: '100%' }}
 					tabList={tabList}
 					activeTabKey={this.state.key}
-					onTabChange={(key) => { this.onTabChange(key, 'key'); }}
+					// onTabChange={(key) => { this.onTabChange(key, 'key'); }}
 
 				>
 

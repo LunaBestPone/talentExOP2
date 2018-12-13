@@ -59,7 +59,7 @@ class Rate extends React.Component {
                     onStarClick={this.onStarClick.bind(this)}
                 />
                 </div>
-                <div style={{textAlign: 'center'}}>
+                <div className="submit" style={{textAlign: 'center'}}>
                     <Button onClick={this.handleSubmit}>Submit</Button>
                 </div>
             </div>

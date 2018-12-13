@@ -19,12 +19,6 @@ const tabListNoTitle = [{
   tab: 'Participating Workshops',
 }];
 
-
-const Panel = Collapse.Panel;
-const stylebutton = {
-  position: 'fixed',
-}
-
 class MyWorkshopList extends React.Component {
 
 
@@ -96,7 +90,7 @@ class MyWorkshopList extends React.Component {
     }
   }
 
-    onTabChange = (key, type) => {
+  onTabChange = (key, type) => {
     console.log(key, type);
     this.setState({ [type]: key });
   }

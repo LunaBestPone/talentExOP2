@@ -95,6 +95,7 @@ class WorkShopMap extends React.Component {
             <div style={style}>
 
                 <Map google={this.props.google}
+                    className='googleMap'
                     zoom={14}
                     style={{width: "90%",
                             height: "90%"}}
