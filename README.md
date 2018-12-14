@@ -17,14 +17,14 @@ These packages now include:
 * django-filters
 * other packages might be needed for the future, but that's all for now
 
-# NPM packages you need to install in frontend/
+# NPM packages you need to install (for Email server) in frontend/
 Make sure you are in frontend/ directory (```ls``` then you'll see ```package.json```)
 Then run following:
 ```
 npm install --save
 ```
 
-# NPM packages you need to install in frontend/gui
+# NPM packages you need to install (for React frontend) in frontend/gui
 Make sure you are in frontend/gui/ directory (```ls``` then you'll see ```package.json```)
 Then run following:
 ```
