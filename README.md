@@ -17,7 +17,7 @@ These packages now include:
 * django-filters
 * other packages might be needed for the future, but that's all for now
 
-# NPM packages you need to install in frontend
+# NPM packages you need to install in frontend/
 Make sure you are in frontend/ directory (```ls``` then you'll see ```package.json```)
 Then run following:
 ```
