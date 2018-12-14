@@ -35,12 +35,12 @@ class Home extends React.Component {
 
         <Row>
             <Col md={5}>
-              <img class='img' src={require('../images/workshop-1.jpg')}/>    
+              <img class='img' src={require('../images/learn.jpeg')}/>    
             </Col>
             <Col md={7}>
-                  <h1 className='title'>Talent</h1>
+                  <h1 className='title'>Learn</h1>
                   <p className='subtitle'>
-                  Register a workshop to learn something that you do not know before, it has never been easy like this.
+                  At talent & Exchange, you can learn anything you want from all the workshops near you for free. It's never too late to learn a new skill, no matter it's piano or spanish!
                   </p>
                   <p class='button-more'>
                     <Button bsStyle="primary">Browse workshop</Button>
@@ -52,16 +52,16 @@ class Home extends React.Component {
 
          <Row>
              <Col md={7}>
-                  <h1 className='title'>Skill</h1>
+                  <h1 className='title'>Involve</h1>
                   <p className='subtitle'>
-                  Register a workshop to learn something that you do not know before, it has never been easy like this.
+                  By registering workshops, you get the opportunities to involve in the community and make more friends. Too shy to say "Hi" to them directly? Come to have a workshop together. You and your community are connected by Talent & Exchange.
                   </p>
                   <p class='button-more'>
                     <Button bsStyle="primary">Browse workshop</Button>
                   </p>
             </Col>
             <Col md={5}>
-              <img class='img' src={require('../images/workshop-1.jpg')}/>   
+              <img class='img' src={require('../images/involve.jpeg')}/>   
             </Col>
 
 
@@ -72,12 +72,12 @@ class Home extends React.Component {
 
         <Row>
             <Col md={5}>
-              <img class='img' src={require('../images/workshop-1.jpg')}/> 
+              <img class='img' src={require('../images/enjoy.jpeg')}/> 
             </Col>
             <Col md={7}>
-                  <h1 className='title'>Study</h1>
+                  <h1 className='title'>Enjoy</h1>
                   <p className='subtitle'>
-                  Register a workshop to learn something that you do not know before, it has never been easy like this.
+                  Enjoy making a new friend, enjoy learning a new skill, enjoy embracing a bigger world. At Talent & Exchagne, alwasy export more, and enjoy more!
                   </p>
                   <p class='button-more'>
                     <Button bsStyle="primary">Browse workshop</Button>
@@ -87,23 +87,6 @@ class Home extends React.Component {
 
         <hr class="line-break" />   
 
-         <Row>
-                 <Col md={7}>
-                      <h1 className='title'>Community</h1>
-                      <p className='subtitle'>
-                      Host a study group on Talent & Exchange and help each other to learn knolwedge from different subjects or prepare for final together.
-                      </p>
-                      <p class='button-more'>
-                        <Button bsStyle="primary">Browse workshop</Button>
-                      </p>
-
-                </Col>
-                <Col md={5}>
-                  <img class='img' src={require('../images/workshop-1.jpg')}/>   
-                </Col>
-
-
-        </Row>
 
     </Grid>
 

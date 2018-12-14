@@ -136,7 +136,7 @@ class MyWorkshopList extends React.Component {
           <Row gutter={16}>
           <Col span={16} offset={4}>
             <List
-              grid={{ gutter: 8, column: 1 }}
+              grid={{ gutter: 8, column: 4 }}
               dataSource={this.state.enrolledWorkshops}
               renderItem={item => (
                 //if(isRegistered ) {
