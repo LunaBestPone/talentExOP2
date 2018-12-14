@@ -118,6 +118,7 @@ class Registration extends React.Component {
         console.log("2.", success);
         if(success) {
           this.props.history.push('/workshop/');
+          window.location.reload()
         }
       }
     });

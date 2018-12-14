@@ -3,8 +3,13 @@ import { Form, Input, Icon, Button } from 'antd';
 import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import * as actions from '../store/actions/auth';
+import axios from 'axios';
 
 const FormItem = Form.Item;
+var recipientName;
+var recipientEmail;
+var msg;
+var subject;
 
 class RegistrationForm extends React.Component {
   state = {
@@ -15,6 +20,8 @@ class RegistrationForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        recipientName = values.userName
+        recipientEmail = values.email
         this.props.onAuth(
             values.userName,
             values.email,
@@ -59,11 +66,13 @@ class RegistrationForm extends React.Component {
   }
 
   render() {
-    /*
     if (this.props.token !== null) {
+      subject = "New Account Creation Confirmation"
+      msg = "Hi " + recipientName + ", this confirms you created a new account with Talent Exchange & Meet-Up"
+      axios.post('/api/email', {recipientName, recipientEmail, subject, msg})
+      window.alert("Account creation confirmation is sent to you via Email. Logging you in...")
       this.props.history.push("/workshop/");
     }
-    */
     const { getFieldDecorator } = this.props.form;
     let EM = null;
     if (this.props.error !== null) {
