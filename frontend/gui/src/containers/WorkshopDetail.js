@@ -289,11 +289,11 @@ class WorkshopDetail extends React.Component{
                   this.setState({enrolled: res.data})
                   console.log(res.data);
                   for(let i = 0; i < res.data.length; i++){
-                    if(this.state.enrolled[i].enrolled_user == this.props.user){
-                      // this.setState({
-                      //   isRegistered: true
-                      // })
-                    }
+                    // if(this.state.enrolled[i].enrolled_user == this.props.user){
+                    //   this.setState({
+                    //     isRegistered: true
+                    //   })
+                    // }
                   }
                   console.log(this.state.enrolled_users);
                   axios.get('http://127.0.0.1:8000/api/enrollment/?ws_id=' + workshop_id + '&enrolled_user=' + this.props.user).then(res => {
@@ -301,6 +301,13 @@ class WorkshopDetail extends React.Component{
                       this.setState({
                         rated: res.data[0].is_rated
                       })
+                    }
+                    for(let i = 0; i < res.data.length; i++){
+                      if(this.state.enrolled[i].enrolled_user == this.props.user){
+                        this.setState({
+                          isRegistered: true
+                        })
+                      }
                     }
                   })
                 })
