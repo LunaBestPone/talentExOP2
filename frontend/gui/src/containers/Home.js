@@ -4,6 +4,7 @@ import {Layout} from 'antd';
 import { Carousel, Grid,Jumbotron, Button, Row, Col} from 'react-bootstrap';
 import './stylesheet.css';
 
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -42,8 +43,11 @@ class Home extends React.Component {
                   <p className='subtitle'>
                   At talent & Exchange, you can learn anything you want from all the workshops near you for free. It's never too late to learn a new skill, no matter it's piano or spanish!
                   </p>
+
                   <p class='button-more'>
+                  <NavLink to="/workshop/">
                     <Button bsStyle="primary">Browse workshop</Button>
+                   </NavLink>
                   </p>
             </Col>
         </Row>
@@ -57,7 +61,9 @@ class Home extends React.Component {
                   By registering workshops, you get the opportunities to involve in the community and make more friends. Too shy to say "Hi" to them directly? Come to have a workshop together. You and your community are connected by Talent & Exchange.
                   </p>
                   <p class='button-more'>
+                   <NavLink to="/workshop/">
                     <Button bsStyle="primary">Browse workshop</Button>
+                   </NavLink>
                   </p>
             </Col>
             <Col md={5}>
@@ -80,7 +86,9 @@ class Home extends React.Component {
                   Enjoy making a new friend, enjoy learning a new skill, enjoy embracing a bigger world. At Talent & Exchagne, alwasy export more, and enjoy more!
                   </p>
                   <p class='button-more'>
+                   <NavLink to="/workshop/">
                     <Button bsStyle="primary">Browse workshop</Button>
+                   </NavLink>
                   </p>
             </Col>
         </Row>
