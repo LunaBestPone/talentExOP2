@@ -60,7 +60,7 @@ class RegistrationForm extends React.Component {
 
   render() {
     if (this.props.token !== null) {
-      window.alert("Loging you in...")
+      window.alert("Logging you in...")
       this.props.history.push("/workshop/");
     }
     const { getFieldDecorator } = this.props.form;
