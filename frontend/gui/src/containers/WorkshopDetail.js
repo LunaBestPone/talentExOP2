@@ -378,7 +378,7 @@ if(isRegistered && (user_id != this.state.workshop.host_user ) && !active){
                        </Button>
     }
     //has to be !is_active but is_active is not changed yet. (active = workshop's not in the past, is_active = db)
-    if((user_id == this.state.workshop.host_user || enrolled_users.includes(parseInt(user_id))) && active){
+    if((user_id != this.state.workshop.host_user || enrolled_users.includes(parseInt(user_id))) && active){
       console.log(this.state.enrolled_users, this.state.enrolled_users_name)
       if(this.state.workshop.is_active && !this.state.rated){ //if rated = false -> haven't rated
         rateButton = <Button><Link to = {rating} >Rate</Link></Button>
